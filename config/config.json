@@ -1,0 +1,14 @@
+{
+  "product": {
+    "_ProductName": "Digidir - Sales CRM",
+    "_ProductLogo": "../project-assets/images/logo.png",
+    "_ProductIcon": "../project-assets/images/icon.png",
+    "_MailName": "Digidir - Sales CRM",
+    "_WebsiteLink": "https://sales.digidir.com",
+    "_MailLogo": "https://sales.digidir.com/project-assets/images/logo.png",
+    "_MailSignature": "Team Digidir - Sales CRM",
+    "_DomainName": "sales.digidir.com",
+    "_LeadName": "PR-L-",
+    "_Telecaller_LeadName": "PR-TL-"
+  }
+}

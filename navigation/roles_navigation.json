@@ -1,0 +1,16 @@
+{
+  "System Admin": [
+    "_Nav_Dashboard_Lead",
+    "_Nav_Dashboard",
+    "_Nav_Users",
+    "_Nav_Company",
+    "_Nav_Company_details",
+    "_Nav_Branch",
+    "_Nav_ManageLead",
+    "_Nav_Configurations",
+    "_Nav_Company",
+    "_Nav_Lead_Analytics"
+  ],
+  "Center Manager": [
+  ]
+}
