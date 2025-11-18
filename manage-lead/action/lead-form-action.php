@@ -11,16 +11,16 @@ ini_set('display_errors', 1);
 	$conn = $dbh->_connectodb();
 	$authentication = new Authentication($conn);
     $authenticated = $authentication->SessionCheck();
-	if(isset($_POST['Name']))
+	if(isset($_POST['CompanyName']))
 	{
 		$ManageLead = new ManageLead($conn);
 		$form_action = $_POST['form_action'];
 		$data = $_POST;
 		if($form_action == 'Add')
 		{
-			$data['CreatedBy'] = $_SESSION['pp_email'];	
+			$data['CreatedBy'] = $_SESSION['pp_email'];
 			$admission_details = $ManageLead->getLeadsDetails($data);
-			
+
 			if($admission_details['exist'] == false)
 			{
 				   $response = $ManageLead->InsertLeadForm($data);
@@ -29,7 +29,7 @@ ini_set('display_errors', 1);
 			}
 			else
 			{
-				 
+
 				$response['error'] = true;
 				$response['message'] = "Lead Already Exist.";
 			}
@@ -40,7 +40,7 @@ ini_set('display_errors', 1);
 			$response['error'] = false;
 		    $response['message'] = "Lead Details Updated !";
 		}
-		
+
 	}
 	else
 	{

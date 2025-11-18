@@ -48,7 +48,7 @@ function UpdateLeadStatus()
   }
   $.post({
       url: 'action/add_update_lead_status.php', // Replace with your server-side script URL
-      data: 
+      data:
       {
         "LeadStatus":LeadStatus,
         "LeadColor":LeadColor,
@@ -107,7 +107,7 @@ function UpdateTelecallerLeadStatus()
   }
   $.post({
       url: 'action/add_update_telecaller_lead_status.php', // Replace with your server-side script URL
-      data: 
+      data:
       {
         "LeadStatus":LeadStatus,
         "LeadColor":LeadColor,
@@ -218,7 +218,7 @@ function UpdateLeadSource()
   var lead_source_form_id = $("#lead_source_form_id").val();
   $.post({
       url: 'action/add_update_lead_source.php', // Replace with your server-side script URL
-      data: 
+      data:
       {
         "SourceName":SourceName,
         "form_action":form_action,
@@ -248,4 +248,90 @@ function EditLeadSource(SourceID,Source_name)
 }
 
 
+function AddService() {
+  $("#service_form_action").val("add");
+  $("#modal_service").modal("show");
+  $("#ServiceName").val("");
+}
 
+function UpdateService() {
+  var ServiceName = $("#ServiceName").val();
+  if (ServiceName == "") {
+    Alert("Please Enter Service Name");
+    return false;
+  }
+
+  var form_action = $("#service_form_action").val();
+  var service_form_id = $("#service_form_id").val();
+
+  $.post({
+    url: 'action/add_update_service.php', // Replace with your server-side script URL
+    data: {
+      "ServiceName": ServiceName,
+      "form_action": form_action,
+      "service_form_id": service_form_id,
+    },
+    success: function(response) {
+      var data_response = JSON.parse(response);
+      if (data_response.error == false) {
+        ProductAlert(data_response.message);
+        setInterval(function() {
+          location.reload();
+        }, 1500);
+      } else {
+        ProductAlert(data_response.message);
+      }
+    }
+  });
+}
+
+function EditService(ServiceID, ServiceName) {
+  $("#service_form_action").val("update");
+  $("#service_form_id").val(ServiceID);
+  $("#ServiceName").val(ServiceName);
+  $("#modal_service").modal("show");
+}
+
+
+function AddBusinessType() {
+    $("#business_type_form_action").val("add");
+    $("#modal_business_type").modal("show");
+    $("#BusinessName").val(""); // clear input
+}
+
+function EditBusinessType(BusinessTypeID, BusinessName) {
+    $("#business_type_form_action").val("update");
+    $("#business_type_form_id").val(BusinessTypeID);
+    $("#BusinessName").val(BusinessName);
+    $("#modal_business_type").modal("show");
+}
+
+function UpdateBusinessType() {
+    var BusinessName = $("#BusinessName").val();
+    if (BusinessName === "") {
+        Alert("Please enter Business Type Name");
+        return false;
+    }
+    var form_action = $("#business_type_form_action").val();
+    var business_type_form_id = $("#business_type_form_id").val();
+
+    $.post({
+        url: 'action/add_update_type_of_business.php',
+        data: {
+            "BusinessName": BusinessName,
+            "form_action": form_action,
+            "business_type_form_id": business_type_form_id
+        },
+        success: function(response) {
+            var data_response = JSON.parse(response);
+            if (!data_response.error) {
+                ProductAlert(data_response.message);
+                setInterval(function() {
+                    location.reload(); // reload after success
+                }, 1500);
+            } else {
+                ProductAlert(data_response.message);
+            }
+        }
+    });
+}

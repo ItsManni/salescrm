@@ -46,8 +46,8 @@ class ManageLead extends Core
 	{
 		$response = array();
 		// $Email = $data['Email'];
-		$PhoneNumber = $data['PhoneNumber'];
-		$where = " where PhoneNumber = '$PhoneNumber' and IsActive = 1";
+		$CompanyName = $data['CompanyName'];
+		$where = " where CompanyName = '$CompanyName' and IsActive = 1";
 		$response['data'] = $this->_getTableDetails($this->conn,'all_lead',$where);
 		if(isset($response['data']['Name']))
 		{
@@ -81,102 +81,66 @@ class ManageLead extends Core
 
 	function InsertLeadForm($data)
 	{
-		$Center = $data['Center'];
-		if(isset($data['Center'])){
-			$Center = $data['Center'];
+		$Branch = isset($data['Branch']) ? $data['Branch'] : '';
+		$CompanyName = isset($data['CompanyName']) ? $data['CompanyName'] : '';
+		$BusinessType = isset($data['BusinessName']) ? $data['BusinessName'] : '';
+		$Services = isset($data['Services']) ? $data['Services'] : '';
+		$ServiceCost = isset($data['ServiceCost']) ? $data['ServiceCost'] : '';
+		$ContactPersonName = isset($data['ContactPersonName']) ? $data['ContactPersonName'] : '';
+		$ContactPersonEmail = isset($data['ContactPersonEmail']) ? $data['ContactPersonEmail'] : '';
+		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? $data['ContactPersonPhoneNumber'] : '';
+		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? $data['ContactPersonAlternativeNo'] : '';
+		$Website = isset($data['Website']) ? $data['Website'] : '';
+		$City = isset($data['City']) ? $data['City'] : '';
+		$HighestQualification = isset($data['HighestQualification']) ? $data['HighestQualification'] : '';
+		$AssignedTo = isset($data['AssignedTo']) ? $data['AssignedTo'] : '';
+		$Status = isset($data['LeadStatus']) ? $data['LeadStatus'] : '';
+		$Remark = isset($data['Remark']) ? $data['Remark'] : '';
+		$LeadSource = isset($data['LeadSource']) ? $data['LeadSource'] : '';
+		$TelecallerLeadID = isset($data['TelecallerLeadID']) ? $data['TelecallerLeadID'] : -1;
+		$CreatedBy = isset($data['CreatedBy']) ? $data['CreatedBy'] : '';
+
+		$CreatedDate = date('Y-m-d');
+		$CreatedTime = date('H:i:s');
+
+		// Default Status if not provided
+		if (empty($Status)) {
+			$Status = isset($data['DefaultStatus']) ? $data['DefaultStatus'] : 'New';
 		}
 
-		$Name = $data['Name'];
-		if(isset($data['Name'])){
-			$Name = $data['Name'];
-		}
-		$CompanyName = '';
-		if(isset($data['CompanyName'])){
-			$CompanyName = $data['CompanyName'];
-		}
+		$ActionType = isset($data['ActionType']) ? $data['ActionType'] : 'default';
 
-		$Services = '';
-		if(isset($data['Services'])){
-			$Services = $data['Services'];
-		}
+		if ($ActionType == 'default') {
 
-		$Price = '';
-		if(isset($data['Price'])){
-			$Price = $data['Price'];
-		}
+			$sql = "INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('$Branch', '$CompanyName', '$BusinessType', '$Services', '$ServiceCost',
+                    '$ContactPersonName', '$ContactPersonEmail', '$ContactPersonPhoneNumber',
+                    '$ContactPersonAlternativeNo', '$Website', '$City', '$HighestQualification',
+                    '$AssignedTo', '$Status', '$Remark', '$LeadSource', '$TelecallerLeadID',
+                    '$CreatedTime', '$CreatedDate', '$CreatedBy', 1)";
 
-		$Email = "";
-		if(isset($data['Email'])){
-			$Email = $data['Email'];
-		}
-		$PhoneNumber = "";
-		if(isset($data['PhoneNumber'])){
-			$PhoneNumber = $data['PhoneNumber'];
-		}
 
-		$City = '';
-		if(isset($data['City'])){
-			$City = $data['City'];
-		}
-
-		$Remark = "";
-		if(isset($data['Remark'])){
-		  $Remark = $data['Remark'];
-		}
-
-		$AssignedTo = $data['AssignedTo'];
-		$CreatedDate = $data['CreatedDate'] = date('Y-m-d');
-		$CreatedBy ="";
-		if(isset($data['CreatedBy'])){
-			$CreatedBy = $data['CreatedBy'];
-		  }
-		$CreatedTime = $data['CreatedTime'] = date('H:i:s');
-
-		$LeadSource = "";
-		if(isset($data['LeadSource'])){
-		  $LeadSource = $data['LeadSource'];
-		}
-
-		$Status = "";
-		if(isset($data['Status'])){
-		  $Status = $data['Status'];
-		}
-		if($Status == "")
-		{
-			if(isset($data['DefaultStatus'])){
-			  $Status = $data['DefaultStatus'];
-			}
-		}
-
-		$ActionType = "default";
-		if(isset($data['ActionType']))
-		{
-			$ActionType = $data['ActionType'];
-		}
-
-		if($ActionType == "default")
-		{
-			$sql = "INSERT INTO all_lead(BranchID,Name,CompanyName,Services,ServiceCost,Email,PhoneNumber,City,AssignedTo,CreatedDate,CreatedTime,CreatedBy,LeadSource,Status) VALUES ('$Center','$Name','$CompanyName','$Services','$ServiceCost','$Email','$PhoneNumber','$State','$City','$Address','$Mode','$course','$AssignedTo','$CreatedDate','$CreatedTime','$CreatedBy','$DOB','$HighQualification','$Remark','$LeadSource','$Status')";
-			$response_insert_lead_details = $this->_InsertTableRecords($this->conn,$sql);
-			$this->WriteLog(" -------------- New Leads  ------------------");
+			$response_insert_lead_details = $this->_InsertTableRecords($this->conn, $sql);
+			$this->WriteLog(" -------------- New Lead  ------------------");
 			$this->WriteLog($sql);
 
-			if($response_insert_lead_details['error'] == false)
-			{
-	          $last_insert_id = $response_insert_lead_details['last_insert_id'];
+			if ($response_insert_lead_details['error'] == false) {
+				$last_insert_id = $response_insert_lead_details['last_insert_id'];
 
-				$sql = "INSERT INTO lead_assignment(LeadID,AssignedTo,Status,Remark,CreatedDate,CreatedTime,CreatedBy) VALUES ('$last_insert_id','$AssignedTo','$Status','Raised','$CreatedDate','$CreatedTime','$CreatedBy')";
-				$response = $this->_InsertTableRecords($this->conn,$sql);
+				$sql_assignment = "INSERT INTO lead_assignment (LeadID, AssignedTo, Status, Remark, CreatedDate, CreatedTime, CreatedBy)
+								VALUES ('$last_insert_id', '$AssignedTo', '$Status', 'Lead Created', '$CreatedDate', '$CreatedTime', '$CreatedBy')";
+				$response_assignment = $this->_InsertTableRecords($this->conn, $sql_assignment);
 
-				$sql = "INSERT INTO lead_assignment_history(LeadID,AssignedTo,Status,Remark,CreatedDate,CreatedTime,CreatedBy) VALUES ('$last_insert_id','$AssignedTo','$Status','Lead Created','$CreatedDate','$CreatedTime','$CreatedBy')";
-				$response_insert_remark_details = $this->_InsertTableRecords($this->conn,$sql);
-
-	        }
-	        else
-	        {
-	        	$this->WriteLog($response_insert_lead_details['message']);
-	        }
-	    }
+				$sql_history = "INSERT INTO lead_assignment_history (LeadID, AssignedTo, Status, Remark, CreatedDate, CreatedTime, CreatedBy)
+								VALUES ('$last_insert_id', '$AssignedTo', '$Status', 'Lead Created', '$CreatedDate', '$CreatedTime', '$CreatedBy')";
+				$response_history = $this->_InsertTableRecords($this->conn, $sql_history);
+			} else {
+				$this->WriteLog($response_insert_lead_details['message']);
+			}
+		}
 	    else
 	    {
 	    	$TelecallerLeadID = $data['TelecallerLeadID'];

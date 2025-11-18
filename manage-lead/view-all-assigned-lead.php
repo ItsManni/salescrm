@@ -60,6 +60,8 @@ $_ProductLogo = $conf->_ProductLogo;
     $all_counsellor_details = $user->getAllCounsellorByBranchID($BranchID);
     $lead_status = $IMSSetting->GetAllLeadStatus($conn);
     $FinalStatus = $IMSSetting->GetFinalLeadStatus($conn);
+    $All_Services = $IMSSetting->GetAllServices();
+    $All_Business_Types  = $IMSSetting->GetAllBusinessTypes();
     ?>
 </head>
 
@@ -382,15 +384,45 @@ $_ProductLogo = $conf->_ProductLogo;
 
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Services <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Enter Services" name="Services"
-                                                id="Services">
+                                            <label class="form-label">Type of Business <span class="text-danger">*</span></label>
+                                            <select class="form-control select2-show-search" name="BusinessName" id="BusinessName">
+                                                    <option value="">Select User</option>
+                                                    <?php
+                                                    foreach($All_Business_Types as $All_Business_Types_value)
+                                                    {
+
+                                                    ?>
+                                                    <option value="<?php echo  $All_Business_Types_value['ID']?>">
+                                                        <?php echo  $All_Business_Types_value['BusinessName']?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Service Cost <span class="text-danger">*</span></label>
+                                            <label class="form-label">Services <span class="text-danger">*</span></label>
+                                            <select class="form-control select2-show-search" name="Services" id="Services">
+                                                    <option value="">Select User</option>
+                                                    <?php
+                                                    foreach($All_Services as $All_Services_value)
+                                                    {
+
+                                                    ?>
+                                                    <option value="<?php echo  $All_Services_value['ID']?>">
+                                                        <?php echo  $All_Services_value['ServiceName']?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3 col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Service Cost </label>
                                             <input type="text" class="form-control" placeholder="Enter ServiceCost" name="ServiceCost"
                                                 id="ServiceCost">
                                         </div>
@@ -399,8 +431,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Contact Person Name <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Enter Name" name="Name"
-                                                id="Name">
+                                            <input type="text" class="form-control" placeholder="Enter Name" name="ContactPersonName"
+                                                id="ContactPersonName">
                                         </div>
                                     </div>
 
@@ -424,7 +456,7 @@ $_ProductLogo = $conf->_ProductLogo;
                                         <div class="form-group">
                                             <label class="form-label">Contact Person Email </label>
                                             <input type="text" class="form-control" placeholder="Enter Email"
-                                                name="Email" id="Email">
+                                                name="ContactPersonEmail" id="ContactPersonEmail">
                                         </div>
                                     </div>
 
@@ -433,8 +465,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                             <label class="form-label">Contact Person Phone Number <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" maxlength="10" onkeyup="validISNumber()"
-                                                class="form-control" placeholder="Enter Phone Number" name="PhoneNumber"
-                                                id="PhoneNumber">
+                                                class="form-control" placeholder="Enter Phone Number" name="ContactPersonPhoneNumber"
+                                                id="ContactPersonPhoneNumber">
                                         </div>
                                     </div>
 
@@ -488,8 +520,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Contact Person Alternative No</label>
-                                            <input type="text" class="form-control" placeholder="Enter AlternativeNo" name="AlternativeNo"
-                                                id="AlternativeNo">
+                                            <input type="text" class="form-control" placeholder="Enter AlternativeNo" name="ContactPersonAlternativeNo"
+                                                id="ContactPersonAlternativeNo">
                                         </div>
                                     </div>
 
@@ -555,8 +587,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                     <div class="mb-3 col-6 col-sm-3" id="">
                                         <label for="recipient-name" class="col-form-label">Lead Status <span
                                                 class="text-danger">*<span></label>
-                                        <select class="form-control" name="Status"
-                                            id="status" style='width:100%;'>
+                                        <select class="form-control" name="LeadStatus"
+                                            id="LeadStatus" style='width:100%;'>
                                             <option value="">Select Status </option>
                                             <?php
 

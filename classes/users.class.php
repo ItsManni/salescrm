@@ -182,6 +182,17 @@ class Users extends Core
 		return $center_users;
 	}
 
+	public function getAllBDEByBranchID($BranchID)
+	{
+		if($BranchID == -1){
+			$filter = " where IsActive = 1 and (UserType = 'BDE' OR UserType='Telecaller' or UserType = 'Center Manager') ORDER BY ID DESC";
+		}else{
+			$filter = " where IsActive = 1 and BranchID = $BranchID and (UserType = 'BDE' OR UserType='Telecaller' or UserType = 'Center Manager') ORDER BY ID DESC";
+		}
+		$center_users = $this->_getTableRecords($this->conn,'user_details',$filter);
+		return $center_users;
+	}
+
 	public function getAllCounsellorByBranchID($BranchID)
 	{
 		if($BranchID == -1){

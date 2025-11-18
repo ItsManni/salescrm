@@ -23,6 +23,8 @@ $_ProductLogo = $conf->_ProductLogo;
         $all_lead_status = $IMSSetting->GetAllLeadStatus();
         $All_Lead_Sources = $IMSSetting->GetAllLeadSources();
         $all_telecaller_lead_status = $IMSSetting->GetAllTelecallerLeadStatus();
+        $All_Services = $IMSSetting->GetAllServices();
+        $All_Business_Types  = $IMSSetting->GetAllBusinessTypes();
         $authentication = new Authentication($conn);
         $UserType = $authentication->SessionCheck();
     ?>
@@ -72,6 +74,78 @@ $_ProductLogo = $conf->_ProductLogo;
                             </div>
                         </div>
                         <div class="row">
+
+
+                            <!-- Services  -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h3 class="card-title">Services</h3>
+                                        <a class="btn btn-info" onclick="AddService()">Add</a>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered text-nowrap border-bottom" id="all_services">
+                                                <tbody>
+                                                    <?php
+                                                        foreach($All_Services as $Service_value)
+                                                        {
+                                                    ?>
+                                                    <tr>
+                                                        <td class="wd-15p border-bottom-0">
+                                                            <?= $Service_value['ServiceName']; ?></td>
+                                                        <td class="wd-15p border-bottom-0">
+                                                            <a class="btn text-danger btn-sm"
+                                                                onclick="EditService(<?=$Service_value['ID'];?>,'<?=$Service_value['ServiceName'];?>')">
+                                                                <span class="fa fa-pencil-square-o fs-14"></span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Type Of business  -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h3 class="card-title">Business Types</h3>
+                                        <a class="btn btn-info" onclick="AddBusinessType()">Add</a>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered text-nowrap border-bottom" id="all_business_types">
+                                                <tbody>
+                                                    <?php
+                                                        foreach($All_Business_Types as $Business_Type_value)
+                                                        {
+                                                    ?>
+                                                    <tr>
+                                                        <td class="wd-15p border-bottom-0">
+                                                            <?= $Business_Type_value['BusinessName']; ?></td>
+                                                        <td class="wd-15p border-bottom-0">
+                                                            <a class="btn text-danger btn-sm"
+                                                            onclick="EditBusinessType(<?=$Business_Type_value['ID'];?>,'<?=$Business_Type_value['BusinessName'];?>')">
+                                                                <span class="fa fa-pencil-square-o fs-14"></span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Lead Status -->
                             <div class="col-md-6">
                                 <div class="card ">
@@ -165,7 +239,7 @@ $_ProductLogo = $conf->_ProductLogo;
                             </div>
 
                             <!-- Telecaller Lead Status -->
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <div class="card ">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <h3 class="card-title">Telecaller Lead Status</h3>
@@ -216,8 +290,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                           
+                            </div> -->
+
 
                         </div>
 
@@ -385,4 +459,56 @@ $_ProductLogo = $conf->_ProductLogo;
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" id="modal_service">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h3 class="modal-title">Service</h3>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="service_form_action" id="service_form_action" value="add" />
+                <input type="hidden" name="service_form_id" id="service_form_id" value="-1" />
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="service-name" class="col-form-label">Service Name</label>
+                        <input type="text" class="form-control" name="ServiceName" id="ServiceName" value="">
+                    </div>
+                </div>
 
+                <div class="mt-5 text-center">
+                    <button class="btn btn-success text-white" id="saveServiceBtn" onclick="UpdateService()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal_business_type">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h3 class="modal-title">Business Type</h3>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="business_type_form_action" id="business_type_form_action" value="add" />
+                <input type="hidden" name="business_type_form_id" id="business_type_form_id" value="-1" />
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="business-type-name" class="col-form-label">Business Type Name</label>
+                        <input type="text" class="form-control" name="BusinessName" id="BusinessName" value="">
+                    </div>
+                </div>
+
+                <div class="mt-5 text-center">
+                    <button class="btn btn-success text-white" id="saveBusinessTypeBtn" onclick="UpdateBusinessType()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

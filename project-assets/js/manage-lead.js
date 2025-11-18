@@ -205,29 +205,29 @@ function validaphone(phone) {
 function OpenModal_AddLead() {
   $('#lead_form')[0].reset();
   $("#assinged_to_div").css("display", "none");
-  $("#Center_name").select2({
+  $("#Branch").select2({
     placeholder: "Select Center"
   });
-  $("#Center_name").select2("val", "");
-  $("#Center_name").select2({
+  $("#Branch").select2("val", "");
+  $("#Branch").select2({
     dropdownParent: $("#add_lead_form_modal")
   });
 
 
-  $("#State").select2({
+  $("#BusinessName").select2({
     placeholder: "Select State"
   });
-  $("#State").select2("val", "");
-  $("#State").select2({
+  $("#BusinessName").select2("val", "");
+  $("#BusinessName").select2({
     dropdownParent: $("#add_lead_form_modal")
   });
 
 
-  $("#courses").select2({
+  $("#Services").select2({
     placeholder: "Select Course"
   });
-  $("#courses").select2("val", "");
-  $("#courses").select2({
+  $("#Services").select2("val", "");
+  $("#Services").select2({
     dropdownParent: $("#add_lead_form_modal")
   });
 
@@ -239,11 +239,11 @@ function OpenModal_AddLead() {
     dropdownParent: $("#add_lead_form_modal")
   });
 
-  $("#status").select2({
+  $("#LeadStatus").select2({
     placeholder: "Select Lead Status"
   });
-  $("#status").select2("val", "");
-  $("#status").select2({
+  $("#LeadStatus").select2("val", "");
+  $("#LeadStatus").select2({
     dropdownParent: $("#add_lead_form_modal")
   });
 
@@ -252,52 +252,52 @@ function OpenModal_AddLead() {
   $("#AddLeadHeading").html("Add Lead");
   $("#form_action").val("Add");
   $("#form_id").val(-1);
-  let center_id = $("#Center_name").val();
+  let center_id = $("#Branch").val();
   if(center_id != ''){
     GetCenterUserDropDown(center_id);
   }
 }
 
-function OpenModal_AddTelecallerLead() {
-  $('#lead_form')[0].reset();
-  $("#assinged_to_div").css("display", "none");
-  $("#Center_name").select2({
-    placeholder: "Select Center"
-  });
-  $("#Center_name").select2("val", "");
-  $("#Center_name").select2({
-    dropdownParent: $("#add_telecaller_lead_form_modal")
-  });
+// function OpenModal_AddTelecallerLead() {
+//   $('#lead_form')[0].reset();
+//   $("#assinged_to_div").css("display", "none");
+//   $("#Center_name").select2({
+//     placeholder: "Select Center"
+//   });
+//   $("#Center_name").select2("val", "");
+//   $("#Center_name").select2({
+//     dropdownParent: $("#add_telecaller_lead_form_modal")
+//   });
 
 
-  $("#State").select2({
-    placeholder: "Select State"
-  });
-  $("#State").select2("val", "");
-  $("#State").select2({
-    dropdownParent: $("#add_telecaller_lead_form_modal")
-  });
+//   $("#State").select2({
+//     placeholder: "Select State"
+//   });
+//   $("#State").select2("val", "");
+//   $("#State").select2({
+//     dropdownParent: $("#add_telecaller_lead_form_modal")
+//   });
 
 
-  $("#courses").select2({
-    placeholder: "Select Course"
-  });
-  $("#courses").select2("val", "");
-  $("#courses").select2({
-    dropdownParent: $("#add_telecaller_lead_form_modal")
-  });
+//   $("#courses").select2({
+//     placeholder: "Select Course"
+//   });
+//   $("#courses").select2("val", "");
+//   $("#courses").select2({
+//     dropdownParent: $("#add_telecaller_lead_form_modal")
+//   });
 
 
-  $("#add_telecaller_lead_form_modal").modal("show");
-  $("#lead_form_btn").html("Add");
-  $("#AddLeadHeading").html("Add Lead");
-  $("#form_action").val("Add");
-  $("#form_id").val(-1);
-  let center_id = $("#Center_name").val();
-  if(center_id != ''){
-    GetCenterUserDropDown(center_id);
-  }
-}
+//   $("#add_telecaller_lead_form_modal").modal("show");
+//   $("#lead_form_btn").html("Add");
+//   $("#AddLeadHeading").html("Add Lead");
+//   $("#form_action").val("Add");
+//   $("#form_id").val(-1);
+//   let center_id = $("#Center_name").val();
+//   if(center_id != ''){
+//     GetCenterUserDropDown(center_id);
+//   }
+// }
 
 function GetCenterUserDropDown(BranchID) {
   $.post("ajax/get_center_user_dropdown.php",
@@ -333,6 +333,13 @@ function AddLead() {
     return false;
   }
 
+  var BusinessName = $("#BusinessName").val();
+
+  if (BusinessName == "") {
+    ProductAlert("Please Select Type of Business.");
+    return false;
+  }
+
   var Services = $("#Services").val();
 
   if (Services == "") {
@@ -347,34 +354,28 @@ function AddLead() {
     return false;
   }
 
-  var Name = $("#Name").val();
+  var ContactPersonName = $("#ContactPersonName").val();
 
-  if (Name == "") {
+  if (ContactPersonName == "") {
     ProductAlert("Please Enter Contact Person Name.");
     return false;
   }
 
 
-  // var email = $("#email").val();
+  // var ContactPersonEmail = $("#ContactPersonEmail").val();
 
-  // if (email_check(email) == "") {
+  // if (email_check(ContactPersonEmail) == "") {
   //   ProductAlert("Please Enter Valid Email.");
   //   return false;
   // }
 
-  var phone = $("#phone").val();
+  var ContactPersonPhoneNumber = $("#ContactPersonPhoneNumber").val();
 
-  if (validaphone(phone) == "") {
+  if (validaphone(ContactPersonPhoneNumber) == "") {
     ProductAlert("Please Enter Valid Phone Number.");
     return false;
   }
 
-  var courses = $("#courses").val();
-
-  if (courses == "") {
-    ProductAlert("Please Select Course.");
-    return false;
-  }
 
   var AssignedTo = $("#AssignedTo").val();
 

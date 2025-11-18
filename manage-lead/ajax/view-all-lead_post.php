@@ -179,17 +179,11 @@ foreach ($all_lead_details as $all_lead_details_value)
   extract($all_lead_details_value);
 
 
-  if($Course != -1){
-    if(isset($courses_array[$Course]))
-    {
-        $Course = $courses_array[$Course];
-    }
-    else
-    {
-        $Course = "N/A";
-    }
+  if($CompanyName == "")
+  {
+    $CompanyName = $CompanyName;
   }else{
-    $Course = "N/A";
+    $CompanyName = "N/A";
   }
 
   if($BranchID != -1){
@@ -212,13 +206,13 @@ foreach ($all_lead_details as $all_lead_details_value)
     $AssignedTo = 'N/A';
   }
 
-  if($Email == "")
+  if($ContactPersonPhoneNumber == "")
   {
-    $Mobile_Email = $PhoneNumber;
+    $Mobile_Email = $ContactPersonPhoneNumber;
   }
   else
   {
-    $Mobile_Email = $Email."<br>".$PhoneNumber;
+    $Mobile_Email = $ContactPersonEmail."<br>".$ContactPersonPhoneNumber;
   }
 
 
@@ -227,8 +221,8 @@ foreach ($all_lead_details as $all_lead_details_value)
   $data[] = array(
     "id"=>$ID,
     "BranchID"=>$BranchID,
-    "Name"=>$Name,
-    "Course_Mode"=>$Course."<br>".$Mode,
+    "Name"=>$Services,
+    "Course_Mode"=>$CompanyName."<br>".$TypeofBusiness,
     "Mobile_Email"=>$Mobile_Email,
     "Status"=>"<span class='badge' style='background-color:$lead_status_array[$Status]'>$Status</span>",
     "AssignedTo"=>$AssignedTo,

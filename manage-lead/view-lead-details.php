@@ -14,7 +14,7 @@ $_LeadName = $conf->_LeadName;
     <meta name="keywords" content="">
     <!-- TITLE -->
     <title>View Lead Details - <?= $_ProductName ?> Portal </title>
-    <?php 
+    <?php
     include("../include/common-head.php");
     $dbh = new Dbh();
     $conn = $dbh->_connectodb();
@@ -25,7 +25,7 @@ $_LeadName = $conf->_LeadName;
     $ManageLead = new ManageLead($conn);
 
     $LeadID = -1;
-    
+
     if(isset($_GET['LeadID'])){
         $Encrypt_LeadID= $_GET['LeadID'];
         $LeadID = $encrypt->decrypt_message($Encrypt_LeadID);
@@ -66,6 +66,15 @@ $_LeadName = $conf->_LeadName;
     }
 
     $where = " where 1";
+    $type_of_business_array_temp = $core->_getTableRecords($conn,'type_of_business',$where);
+    $type_of_business_array = array();
+    foreach($type_of_business_array_temp as $type_of_business)
+    {
+        $StatusID = $type_of_business['ID'];
+        $type_of_business_array[$StatusID] = $type_of_business['Status'];
+    }
+
+    $where = " where 1";
     $branch_array_temp = $core->_getTableRecords($conn,'branch',$where);
     $branch_array = array();
     foreach($branch_array_temp as $user)
@@ -84,7 +93,7 @@ $_LeadName = $conf->_LeadName;
 <body class="app sidebar-mini ltr light-mode">
     <div class="page">
         <div class="page-main">
-            <?php 
+            <?php
                 include("../navigation/top-header.php");
                 include("../navigation/side-navigation.php");
             ?>
@@ -134,7 +143,7 @@ $_LeadName = $conf->_LeadName;
                                                         <?php
                                                         }
                                                         ?>
-                                                        
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -147,23 +156,23 @@ $_LeadName = $conf->_LeadName;
                                                         <div class="tab-pane active" id="lead_details">
                                                             <?php include("include/lead-details.php"); ?>
                                                         </div>
-                                                       
+
                                                         <div class="tab-pane" id="change_assignment">
                                                             <?php include("include/change-assignment.php"); ?>
                                                         </div>
-                                                        
+
                                                         <div class="tab-pane" id="leadremark">
                                                             <?php include("include/lead_remark.php"); ?>
                                                         </div>
-                                                       
+
                                                         <div class="tab-pane" id="leadhistory">
                                                             <?php include("include/lead_history.php"); ?>
                                                         </div>
-                                                    <?php 
-                                                    } 
+                                                    <?php
+                                                    }
                                                     ?>
 
-                                                    
+
 
 
 
@@ -185,7 +194,7 @@ $_LeadName = $conf->_LeadName;
 
 
 
-            
+
 
             <?php
        include("../navigation/right-side-navigation.php");
@@ -212,7 +221,7 @@ $_LeadName = $conf->_LeadName;
             });
         </script>
 
-        
+
 </body>
 
 </html>

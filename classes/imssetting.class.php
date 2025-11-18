@@ -1,4 +1,4 @@
-<?php 
+<?php
 class IMSSetting extends Core
 {
 	private $conn;
@@ -7,7 +7,7 @@ class IMSSetting extends Core
 		$this->conn = $conn;
 		$this->setTimeZone();
 	}
-	
+
 	public function CheckDuplicateLeadStatus($data)
 	{
 		$LeadStatus = $data['LeadStatus'];
@@ -90,8 +90,8 @@ class IMSSetting extends Core
 		$response = $this->_UpdateTableRecords($this->conn,'telecaller_lead_status',$update_sql);
 		return $response;
 	}
-	
-	
+
+
 	public function GetAllLeadStatus()
 	{
 		$where = " where IsActive = 1";
@@ -179,6 +179,69 @@ class IMSSetting extends Core
 		return $DefaultStatus;
 	}
 
-	
+	public function GetAllServices()
+	{
+		$where = " WHERE IsActive = 1 ORDER BY ID DESC";
+		$service_details = $this->_getTableRecords($this->conn, "services", $where);
+		return $service_details;
+	}
+
+	public function CheckDuplicateServiceName($data)
+	{
+		$ServiceName = $data['ServiceName'];
+		$filter = " WHERE ServiceName = '$ServiceName'";
+		$response = $this->check_unique_identity_filter($this->conn, 'services', $filter);
+		return $response;
+	}
+
+	public function InsertServiceName($data)
+	{
+		$ServiceName = $data['ServiceName'];
+
+		$sql = "INSERT INTO services (ServiceName) VALUES ('$ServiceName')";
+		$response_insert_service_details = $this->_InsertTableRecords($this->conn, $sql);
+		return $response_insert_service_details;
+	}
+
+	public function UpdateServiceName($data)
+	{
+		extract($data);
+		$update_sql = " ServiceName = '$ServiceName' WHERE ID = $service_form_id";
+		$response = $this->_UpdateTableRecords($this->conn, 'services', $update_sql);
+		return $response;
+	}
+
+	public function GetAllBusinessTypes()
+	{
+		$where = " WHERE IsActive = 1 ORDER BY ID DESC";
+		$business_type_details = $this->_getTableRecords($this->conn, "type_of_business", $where);
+		return $business_type_details;
+	}
+
+	public function CheckDuplicateBusinessName($data)
+	{
+		$BusinessName = $data['BusinessName'];
+		$filter = " WHERE BusinessName = '$BusinessName'";
+		$response = $this->check_unique_identity_filter($this->conn, 'type_of_business', $filter);
+		return $response;
+	}
+
+	public function InsertBusinessName($data)
+	{
+		$BusinessName = $data['BusinessName'];
+
+		$sql = "INSERT INTO type_of_business (BusinessName) VALUES ('$BusinessName')";
+		$response_insert_business_details = $this->_InsertTableRecords($this->conn, $sql);
+		return $response_insert_business_details;
+	}
+
+	public function UpdateBusinessName($data)
+	{
+		extract($data);
+		$update_sql = " BusinessName = '$BusinessName' WHERE ID = $business_type_form_id";
+		$response = $this->_UpdateTableRecords($this->conn, 'type_of_business', $update_sql);
+		return $response;
+	}
+
 
 }

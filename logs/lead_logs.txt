@@ -1,0 +1,44 @@
+
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '1', '3000',
+                    'Manish Sharma', '', '8433098391',
+                    '', '', '', '',
+                    '3', 'New', '', 'Google Ads', '',
+                    '18:47:37', '2025-11-18', 'admin@digidir.com', 1)
+Incorrect integer value: '' for column 'TelecallerLeadID' at row 1
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '1', '3000',
+                    'Manish Sharma', '', '8433098391',
+                    '', '', '', '',
+                    '3', 'New', '', 'Google Ads', '',
+                    '18:48:33', '2025-11-18', 'admin@digidir.com', 1)
+Incorrect integer value: '' for column 'TelecallerLeadID' at row 1
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '1', '3000',
+                    'Manish Sharma', '', '8433098391',
+                    '', '', '', '',
+                    '3', 'New', '', 'Google Ads', '',
+                    '18:49:24', '2025-11-18', 'admin@digidir.com', 1)
+Incorrect integer value: '' for column 'TelecallerLeadID' at row 1
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '1', '3000',
+                    'Manish Sharma', '', '8433098391',
+                    '', '', '', '',
+                    '3', 'New', '', 'Google Ads', '-1',
+                    '18:50:36', '2025-11-18', 'admin@digidir.com', 1)
