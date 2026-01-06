@@ -84,7 +84,10 @@ class ManageLead extends Core
 		$Branch = isset($data['Branch']) ? $data['Branch'] : '';
 		$CompanyName = isset($data['CompanyName']) ? $data['CompanyName'] : '';
 		$BusinessType = isset($data['BusinessName']) ? $data['BusinessName'] : '';
-		$Services = isset($data['Services']) ? $data['Services'] : '';
+		$Services = '';
+		if (isset($data['Services']) && is_array($data['Services'])) {
+			$Services = implode(',', $data['Services']); // array → "1,3,4"
+		}
 		$ServiceCost = isset($data['ServiceCost']) ? $data['ServiceCost'] : '';
 		$ContactPersonName = isset($data['ContactPersonName']) ? $data['ContactPersonName'] : '';
 		$ContactPersonEmail = isset($data['ContactPersonEmail']) ? $data['ContactPersonEmail'] : '';
@@ -285,95 +288,81 @@ class ManageLead extends Core
 	// 	return $response_insert_lead_details;
 	// }
 
-	function UpdateLeadsDetails($data){
+	function UpdateLeadsDetails($data)
+	{
+		$LeadID = isset($data['form_id']) ? $data['form_id'] : 0;
 
-		$LeadID = $data['form_id'];
-		$Center = $data['Center'];
-		if(isset($data['Center'])){
-			$Center = $data['Center'];
-		}
+		$Branch = isset($data['Branch']) ? $data['Branch'] : '';
+		$CompanyName = isset($data['CompanyName']) ? $data['CompanyName'] : '';
+		$BusinessType = isset($data['BusinessName']) ? $data['BusinessName'] : '';
+		$Services = isset($data['Services']) && is_array($data['Services']) ? implode(',', $data['Services']) : '';
+		$ServiceCost = isset($data['ServiceCost']) ? $data['ServiceCost'] : '';
 
-		$Name = $data['Name'];
-		if(isset($data['Name'])){
-			$Name = $data['Name'];
-		}
-		$Gender = '';
-		if(isset($data['Gender'])){
-			$Gender = $data['Gender'];
-		}
+		$ContactPersonName = isset($data['ContactPersonName']) ? $data['ContactPersonName'] : '';
+		$ContactPersonEmail = isset($data['ContactPersonEmail']) ? $data['ContactPersonEmail'] : '';
+		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? $data['ContactPersonPhoneNumber'] : '';
+		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? $data['ContactPersonAlternativeNo'] : '';
 
-		$Email = "";
-		if(isset($data['Email'])){
-			$Email = $data['Email'];
-		}
-		$PhoneNumber = "";
-		if(isset($data['PhoneNumber'])){
-			$PhoneNumber = $data['PhoneNumber'];
-		}
+		$Website = isset($data['Website']) ? $data['Website'] : '';
+		$City = isset($data['City']) ? $data['City'] : '';
+		$HighestQualification = isset($data['HighestQualification']) ? $data['HighestQualification'] : '';
 
-		$State = '';
-		if(isset($data['State'])){
-			$State = $data['State'];
-		}
+		$AssignedTo = isset($data['AssignedTo']) ? $data['AssignedTo'] : '';
+		$Status = isset($data['LeadStatus']) ? $data['LeadStatus'] : '';
+		$Remark = isset($data['Remark']) ? $data['Remark'] : '';
+		$LeadSource = isset($data['LeadSource']) ? $data['LeadSource'] : '';
+		$UpdatedBy = isset($data['CreatedBy']) ? $data['CreatedBy'] : '';
 
-		$City = '';
-		if(isset($data['City'])){
-			$City = $data['City'];
+		$UpdatedDate = date('Y-m-d');
+		$UpdatedTime = date('H:i:s');
+
+		// Default Status fallback
+		if (empty($Status)) {
+			$Status = isset($data['DefaultStatus']) ? $data['DefaultStatus'] : 'New';
 		}
 
-		$Address = '';
-		if(isset($data['Address'])){
-		$Address = $data['Address'];
-		}
-		$Remark = "";
-		if(isset($data['Remark'])){
-		  $Remark = $data['Remark'];
-		}
-		$HighQualification = "";
-		if(isset($data['HighQualification'])){
-		  $HighQualification = $data['HighQualification'];
-		}
-		$DOB = "";
-		if(isset($data['DOB'])){
-		  $DOB = $data['DOB'];
-		}
-
-		$Mode = "";
-		if(isset($data['Mode'])){
-		  $Mode = $data['Mode'];
-		}
-		$course_arr = $data['Courses'];
-		if(is_array($course_arr))
-		{
-			$course = implode(",",$course_arr);
-		}
-		else
-		{
-			$course = $course_arr;
-		}
-		$AssignedTo = $data['AssignedTo'];
-		$CreatedDate = $data['CreatedDate'] = date('Y-m-d');
-		$CreatedBy ="";
-		if(isset($data['CreatedBy'])){
-			$CreatedBy = $data['CreatedBy'];
-		  }
-		$CreatedTime = $data['CreatedTime'] = date('H:i:s');
-
-		$LeadSource = "";
-		if(isset($data['LeadSource'])){
-		  $LeadSource = $data['LeadSource'];
-		}
-
-		$Status = "";
-		if(isset($data['Status'])){
-		  $Status = $data['Status'];
-		}
+		// -------- Update all_lead table --------
+		$query = "
+			BranchID = '$Branch',
+			CompanyName = '$CompanyName',
+			TypeofBusiness = '$BusinessType',
+			Services = '$Services',
+			ServiceCost = '$ServiceCost',
+			ContactPersonName = '$ContactPersonName',
+			ContactPersonEmail = '$ContactPersonEmail',
+			ContactPersonPhoneNumber = '$ContactPersonPhoneNumber',
+			ContactPersonAlternativeNo = '$ContactPersonAlternativeNo',
+			Website = '$Website',
+			City = '$City',
+			HighestQualification = '$HighestQualification',
+			AssignedTo = '$AssignedTo',
+			Status = '$Status',
+			Remark = '$Remark',
+			LeadSource = '$LeadSource'
+			WHERE ID = $LeadID
+		";
 
 
-		$query = " BranchID = '$Center',Name = '$Name',Email = '$Email',PhoneNumber = '$PhoneNumber',State = '$State',City = '$City',Address = '$Address',Remark = '$Remark',HighestQualification = '$HighQualification',DOB = '$DOB',Mode = '$Mode',Course = '$course',AssignedTo = '$AssignedTo',LeadSource = '$LeadSource',Status = '$Status',CreatedDate = '$CreatedDate',CreatedBy = '$CreatedBy',CreatedTime = '$CreatedTime' where ID = $LeadID";
-        $response = $this->_UpdateTableRecords($this->conn,'all_lead', $query);
-        return $response;
+		$response = $this->_UpdateTableRecords($this->conn, 'all_lead', $query);
+		$this->WriteLog("-------------- Update Lead ------------------");
+		$this->WriteLog($query);
+
+		// -------- Insert assignment history on update --------
+		if ($response['error'] == false) {
+
+			$sql_history = "
+				INSERT INTO lead_assignment_history
+				(LeadID, AssignedTo, Status, Remark, CreatedDate, CreatedTime, CreatedBy)
+				VALUES
+				('$LeadID', '$AssignedTo', '$Status', 'Lead Updated', '$UpdatedDate', '$UpdatedTime', '$UpdatedBy')
+			";
+
+			$this->_InsertTableRecords($this->conn, $sql_history);
+		}
+
+		return $response;
 	}
+
 
 	function UpdateTelecallerLeadsDetails($data){
 

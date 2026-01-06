@@ -19,9 +19,9 @@ class Dbh
 		else
 		{
 			$this->servername = "localhost";
-		    $this->dbusername = "root";
-		    $this->password = "Gary@123";
-		    $this->dbname = "ims_digitalworkdesk";
+		    $this->dbusername = "u220483846_salescrm";
+		    $this->password = "fT~#G5*0cc0";
+		    $this->dbname = "u220483846_salescrm";
 		}
 	}
 

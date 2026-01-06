@@ -31,10 +31,8 @@ $_ProductLogo = $conf->_ProductLogo;
         $User_ID = $_SESSION['UserID'];
         }
 
-
         $navigation = new Navigation();
         $navigation->setNavigation($_SESSION['pp_UserType']);
-
     ?>
 
 </head>
@@ -49,7 +47,17 @@ $_ProductLogo = $conf->_ProductLogo;
 
         if($UserType == "System Admin")
         {
-            $stats_array = $dashboard->GetAdminDashboardStats($center_filter);
+            $stats_array = $dashboard->GetAdminDashboardStats($BranchID);
+        }
+
+        if($UserType == "Center Manager")
+        {
+            $stats_array = $dashboard->GetAdminDashboardStats($BranchID);
+        }
+
+        if($UserType == "BDE")
+        {
+            $stats_array = $dashboard->GetBDEDashboardStats($User_ID);
         }
 
         include("../navigation/side-navigation.php");
@@ -90,7 +98,7 @@ $_ProductLogo = $conf->_ProductLogo;
                                             <div class="card-body">
                                                 <div class="d-flex">
                                                     <div class="mt-2">
-                                                        <h6 class="">All Open Leads</h6>
+                                                        <h6 class="">All Leads</h6>
                                                         <h2 class="mb-0 number-font">
                                                             <?php echo $stats_array['AllLead']; ?></h2>
                                                     </div>

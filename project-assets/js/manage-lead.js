@@ -45,10 +45,10 @@ function SearchFillterLead(UserType) {
       }
     },
     {
-      data: 'Name'
+      data: 'Services'
     },
     {
-      data: 'Course_Mode'
+      data: 'CompanyName_TypeofBusiness'
     },
     {
       data: 'Mobile_Email'
@@ -126,10 +126,10 @@ function SearchFillterTelecallerLead(UserType) {
       }
     },
     {
-      data: 'Name'
+      data: 'Services'
     },
     {
-      data: 'Course_Mode'
+      data: 'CompanyName_TypeofBusiness'
     },
     {
       data: 'Mobile_Email'
@@ -215,7 +215,7 @@ function OpenModal_AddLead() {
 
 
   $("#BusinessName").select2({
-    placeholder: "Select State"
+    placeholder: "Select Business Name"
   });
   $("#BusinessName").select2("val", "");
   $("#BusinessName").select2({
@@ -412,6 +412,9 @@ function AddLead() {
         $("#add_telecaller_lead_form_modal").modal("hide");
         $("#lead_form_btn").html("Submit");
         $('#lead_form')[0].reset();
+        // setInterval(function () {
+        //   location.reload();
+        // }, 500);
       }
       else {
         $("#lead_form_btn").html("Submit");
@@ -483,6 +486,8 @@ function AddTelecallerLead() {
 }
 
 function OpenModal_QuickChangeAssignment(Lead_ID) {
+
+
   $("#Assignment_lead_id").val(Lead_ID);
   $("#quick_change_assignment_modal").modal("show");
   $("#QuickAssignmentBtn").html("Update");
@@ -660,6 +665,7 @@ function AddTelecallerLeadRemark() {
 function EditManageLead_modal(LeadID) {
 
   $("#AddLeadHeading").html("Update Lead Detaiils");
+  $("#lead_form_btn").html("Update");
 
   $.post("ajax/get-lead-details.php", {
     LeadID: LeadID
@@ -669,65 +675,52 @@ function EditManageLead_modal(LeadID) {
       console.log(response.data.LeadSource);
       if (response.error == false) {
         $("#assinged_to_div").css("display", "block");
-        $("#Center_name").select2({
+        $("#Branch").select2({
           placeholder: "Select Center/Branch"
         });
-        $("#Center_name").select2("val", response.data.BranchID);
-        $("#Center_name").select2({
+        $("#Branch").select2("val", response.data.BranchID);
+        $("#Branch").select2({
           dropdownParent: $("#add_lead_form_modal")
         });
 
-        $("#name").val(response.data.Name);
-        $("#email").val(response.data.Email);
-        $("#phone").val(response.data.PhoneNumber);
+        $("#CompanyName").val(response.data.CompanyName);
+        $("#BusinessName").select2({
+          placeholder: "Select Business"
+        });
+        $("#BusinessName").select2("val", response.data.TypeofBusiness);
+        $("#BusinessName").select2({
+          dropdownParent: $("#add_lead_form_modal")
+        });
 
-        // $("#State").select2({
-        //   placeholder: "Select State"
-        // });
-        // $("#State").select2("val", response.data.State);
-        // $("#State").select2({
-        //   dropdownParent: $("#add_lead_form_modal")
-        // });
+       $("#Services").select2({
+            placeholder: "Select Business",
+            dropdownParent: $("#add_lead_form_modal"),
+            width: "100%"
+        });
 
-        $("#State").val(response.data.State).trigger('change');
+        let services = response.data.Services; // "4,3,1"
 
-        $("#student_city").val(response.data.City);
-        $("#address").val(response.data.Address);
+        services = services.split(",").map(String);
 
-        var mode = response.data.Mode.toLowerCase();
-        var mode_id = "mode_"+mode;
-        document.getElementById(mode_id).checked = true;
+        $("#Services").val(services).trigger("change");
 
 
-          // $("#courses").select2({
-          //   placeholder: "Select Courses"
-          // });
-          // $("#courses").select2("val", response.data.Course);
-          // $("#courses").select2({
-          //   dropdownParent: $("#add_lead_form_modal")
-          // });
+        $("#ServiceCost").val(response.data.ServiceCost);
+        $("#ContactPersonName").val(response.data.ContactPersonName);
+        $("#ContactPersonEmail").val(response.data.ContactPersonEmail);
+        $("#ContactPersonPhoneNumber").val(response.data.ContactPersonPhoneNumber);
+        $("#ContactPersonAlternativeNo").val(response.data.ContactPersonAlternativeNo);
+        $("#Website").val(response.data.Website);
+        $("#AssignedTo").val(response.data.AssignedTo);
 
-          $("#courses").val(response.data.Course).trigger('change');
-
-          // $("#AssignedTo").select2({
-          //   placeholder: "Select Assigned To"
-          // });
-          // $("#AssignedTo").select2("val", response.data.AssignedTo);
-          // $("#AssignedTo").select2({
-          //   dropdownParent: $("#add_lead_form_modal")
-          // });
 
           setTimeout(function () {
             $("#AssignedTo").val(response.data.AssignedTo).trigger('change');
           }, 500);
 
-
-
           $("#LeadSource").val(response.data.LeadSource);
-          $("#status").val(response.data.Status);
+          $("#LeadStatus").val(response.data.Status);
 
-
-        $("#form_action").val("Update");
         $("#form_id").val(LeadID);
         $("#lead_form_btn").html("Update Lead");
       }

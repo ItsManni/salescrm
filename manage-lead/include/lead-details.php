@@ -45,13 +45,27 @@
 
                     <tr>
                         <th class="wd-15p border-bottom-0">Services</th>
-                        <td class="wd-15p border-bottom-0"><?php
-                         if($lead_details['Services'] != ""){
-                             echo $lead_details['Services'];
-                         }else{
-                             echo "N/A";
-                         }
-                        ?></td>
+                        <td class="wd-15p border-bottom-0">
+                            <?php
+                            if (!empty($lead_details['Services'])) {
+
+                                $serviceNames = [];
+                                $serviceIDs = explode(',', $lead_details['Services']); // "4,3,1" → [4,3,1]
+
+                                foreach ($serviceIDs as $sid) {
+                                    if (isset($services_array[$sid])) {
+                                        $serviceNames[] = $services_array[$sid];
+                                    }
+                                }
+
+                                echo implode(', ', $serviceNames);
+
+                            } else {
+                                echo "N/A";
+                            }
+                            ?>
+                        </td>
+
                     </tr>
 
                     <tr>

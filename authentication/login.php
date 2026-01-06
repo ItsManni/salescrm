@@ -31,7 +31,7 @@ $_ProductLogo = $conf->_ProductLogo;
             {
                 header("Location:../dashboard/admin-dashboard");
             }
-            if($UserType == "Counsellor")
+            if($UserType == "BDE")
             {
                 header("Location:../dashboard/admin-dashboard");
             }

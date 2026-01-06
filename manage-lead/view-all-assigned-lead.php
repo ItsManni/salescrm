@@ -97,7 +97,7 @@ $_ProductLogo = $conf->_ProductLogo;
 
                         <div class="row pb-5 justify-content-end">
                             <div class="col-md-6 text-end">
-                                <?php if($UserType == "System Admin" || $UserType == "Counsellor" || $UserType == "Center Manager"){?>
+                                <?php if($UserType == "System Admin" || $UserType == "BDE" || $UserType == "Center Manager"){?>
                                 <a onclick="OpenModal_AddLead()" class="btn btn-success text-white">Add Lead</a>
                                 <?php
                                  }
@@ -224,8 +224,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                                         <?php
                                                         }
                                                         ?>
-                                                            <th class="wd-15p border-bottom-0">Name</th>
-                                                            <th class="wd-15p border-bottom-0">Course / Mode</th>
+                                                            <th class="wd-15p border-bottom-0">Services</th>
+                                                            <th class="wd-15p border-bottom-0">Company / Business </th>
                                                             <th class="wd-15p border-bottom-0">Email / Mobile Number</th>
                                                             <th class="wd-15p border-bottom-0">Status</th>
                                                             <th class="wd-15p border-bottom-0">Assigned To</th>
@@ -374,7 +374,7 @@ $_ProductLogo = $conf->_ProductLogo;
                                         </select>
                                     </div>
 
-                                    <div class="col-sm-3 col-md-3">
+                                    <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">Company Name <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" placeholder="Enter Company Name" name="CompanyName"
@@ -385,8 +385,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Type of Business <span class="text-danger">*</span></label>
-                                            <select class="form-control select2-show-search" name="BusinessName" id="BusinessName">
-                                                    <option value="">Select User</option>
+                                            <select class="select2 form-control select2-show-search" name="BusinessName" id="BusinessName" style='width:100%;'>
+                                                    <option value="">Select Business</option>
                                                     <?php
                                                     foreach($All_Business_Types as $All_Business_Types_value)
                                                     {
@@ -404,8 +404,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Services <span class="text-danger">*</span></label>
-                                            <select class="form-control select2-show-search" name="Services" id="Services">
-                                                    <option value="">Select User</option>
+                                            <select class="select2 form-control select2-show-search" name="Services[]" id="Services" multiple style='width:100%;'>
+                                                    <option value="">Select Services</option>
                                                     <?php
                                                     foreach($All_Services as $All_Services_value)
                                                     {
@@ -675,10 +675,10 @@ $_ProductLogo = $conf->_ProductLogo;
                     }
                     ?>
                     {
-                        data: 'Name'
+                        data: 'Services'
                     },
                     {
-                        data: 'Course_Mode'
+                        data: 'CompanyName_TypeofBusiness'
                     },
                     {
                         data: 'Mobile_Email'

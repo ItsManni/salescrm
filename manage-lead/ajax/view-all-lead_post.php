@@ -115,7 +115,7 @@ $User_ID = '';
 if(isset($_SESSION['UserID'])){
   $User_ID = $_SESSION['UserID'];
 }
-if($UserType == "Counsellor")
+if($UserType == "BDE")
 {
   $filter_assignto = " and AssignedTo = $User_ID";
 }
@@ -138,14 +138,6 @@ $filter = $filter." limit ".$row.",".$rowperpage;
 $all_lead_details = $core->_getTableRecords($conn,'all_lead', $filter);
 $encryption = new Encryption();
 
-$where = " where 1";
-$courses_array_temp = $core->_getTableRecords($conn,'courses_for_display',$where);
-$courses_array = array();
-foreach($courses_array_temp as $course)
-{
-    $CourseID = $course['ID'];
-    $courses_array[$CourseID] = $course['CourseName'];
-}
 
 $where = " where 1";
 $user_array_temp = $core->_getTableRecords($conn,'user_details',$where);
@@ -174,12 +166,29 @@ foreach($lead_status_temp as $leadstatus)
     $lead_status_array[$Lead_Status] = $leadstatus['LeadColor'];
 }
 
+$where = " where 1";
+$type_of_business_array_temp = $core->_getTableRecords($conn,'type_of_business',$where);
+$type_of_business_array = array();
+foreach($type_of_business_array_temp as $type_of_business)
+{
+    $BusinessID = $type_of_business['ID'];
+    $type_of_business_array[$BusinessID] = $type_of_business['BusinessName'];
+}
+
+$where = " where 1";
+$services_array_temp = $core->_getTableRecords($conn,'services',$where);
+$services_array = array();
+foreach($services_array_temp as $services)
+{
+    $ServiceID = $services['ID'];
+    $services_array[$ServiceID] = $services['ServiceName'];
+}
+
 foreach ($all_lead_details as $all_lead_details_value)
 {
   extract($all_lead_details_value);
 
-
-  if($CompanyName == "")
+  if($CompanyName != "")
   {
     $CompanyName = $CompanyName;
   }else{
@@ -215,14 +224,26 @@ foreach ($all_lead_details as $all_lead_details_value)
     $Mobile_Email = $ContactPersonEmail."<br>".$ContactPersonPhoneNumber;
   }
 
+  $serviceNames = [];
 
+  if (!empty($Services)) {
+      $serviceIDs = explode(',', $Services); // convert string to array
+
+      foreach ($serviceIDs as $sid) {
+          if (isset($services_array[$sid])) {
+              $serviceNames[] = $services_array[$sid];
+          }
+      }
+  }
+
+  $services_list = implode(', ', $serviceNames);
 
 
   $data[] = array(
     "id"=>$ID,
     "BranchID"=>$BranchID,
-    "Name"=>$Services,
-    "Course_Mode"=>$CompanyName."<br>".$TypeofBusiness,
+    "Services"=>$services_list,
+    "CompanyName_TypeofBusiness"=>$CompanyName."<br>".$type_of_business_array[$TypeofBusiness],
     "Mobile_Email"=>$Mobile_Email,
     "Status"=>"<span class='badge' style='background-color:$lead_status_array[$Status]'>$Status</span>",
     "AssignedTo"=>$AssignedTo,

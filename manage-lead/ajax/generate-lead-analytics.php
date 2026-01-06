@@ -88,7 +88,7 @@ $filter_assignto = "";
 if(isset($_SESSION['UserID'])){
   $User_ID = $_SESSION['UserID'];
 }
-if($UserType == "Counsellor")
+if($UserType == "BDE")
 {
   $filter_assignto = " and AssignedTo = $User_ID";
 }

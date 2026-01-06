@@ -31,7 +31,7 @@ function login() {
                 if (response.UserType == "System Admin") {
                     window.location = "../dashboard/admin-dashboard";
                 }
-                if (response.UserType == "Counsellor") {
+                if (response.UserType == "BDE") {
                     window.location = "../dashboard/admin-dashboard";
                 }
                 if (response.UserType == "ContentTeam") {

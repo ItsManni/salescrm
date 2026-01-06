@@ -42,3 +42,355 @@ INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, 
                     '', '', '', '',
                     '3', 'New', '', 'Google Ads', '-1',
                     '18:50:36', '2025-11-18', 'admin@digidir.com', 1)
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDir',
+			TypeofBusiness = '1',
+			Services = '3,1',
+			ServiceCost = '3000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = '',
+			ContactPersonPhoneNumber = '8433098391',
+			ContactPersonAlternativeNo = '',
+			Website = '',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '2',
+			Status = 'Not Action Taken',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 0
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDir',
+			TypeofBusiness = '1',
+			Services = '3,1',
+			ServiceCost = '3000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = '',
+			ContactPersonPhoneNumber = '8433098391',
+			ContactPersonAlternativeNo = '',
+			Website = '',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '2',
+			Status = 'Not Action Taken',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 0
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDir',
+			TypeofBusiness = '1',
+			Services = '1',
+			ServiceCost = '3000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = '',
+			ContactPersonPhoneNumber = '8433098391',
+			ContactPersonAlternativeNo = '8433098392',
+			Website = 'digidir.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '2',
+			Status = 'Not Action Taken',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 0
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDir',
+			TypeofBusiness = '1',
+			Services = '1',
+			ServiceCost = '3000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = '',
+			ContactPersonPhoneNumber = '8433098391',
+			ContactPersonAlternativeNo = 'Manish Sharma',
+			Website = '',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '2',
+			Status = 'Not Action Taken',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 1
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDir',
+			TypeofBusiness = '1',
+			Services = '4,3,1',
+			ServiceCost = '3000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = '',
+			ContactPersonPhoneNumber = '8433098391',
+			ContactPersonAlternativeNo = '8433098393',
+			Website = 'digidir.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '2',
+			Status = 'Not Action Taken',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 1
+		
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'TCS', '1', 'Array', '4000',
+                    'Deepak ', 'deepak@tcs.com', '7373737373',
+                    '9282929929', 'tcs.com', '', '',
+                    '3', 'In Progress', '', 'Google Ads', '-1',
+                    '17:40:46', '2026-01-05', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'TCS', '1', 'Array', '4000',
+                    'Deepak ', 'deepak@tcs.com', '7373737373',
+                    '9282929929', 'tcs.com', '', '',
+                    '3', 'In Progress', '', 'Google Ads', '-1',
+                    '17:40:56', '2026-01-05', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'TCS', '1', Array, '4000',
+                    'Deepak ', 'deepak@tcs.com', '7373737373',
+                    '9282929929', 'tcs.com', '', '',
+                    '3', 'In Progress', '', 'Google Ads', '-1',
+                    '17:42:12', '2026-01-05', 'admin@digidir.com', 1)
+Unknown column 'Array' in 'field list'
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'TCS', '1', 4,2, '4000',
+                    'Deepak ', 'deepak@tcs.com', '7373737373',
+                    '9282929929', 'tcs.com', '', '',
+                    '3', 'In Progress', '', 'Google Ads', '-1',
+                    '17:55:21', '2026-01-05', 'admin@digidir.com', 1)
+Column count doesn't match value count at row 1
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'TCS', '1', '4,2', '4000',
+                    'Deepak ', 'deepak@tcs.com', '7373737373',
+                    '9282929929', 'tcs.com', '', '',
+                    '3', 'In Progress', '', 'Google Ads', '-1',
+                    '17:58:25', '2026-01-05', 'admin@digidir.com', 1)
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS',
+			TypeofBusiness = '1',
+			Services = '4,2',
+			ServiceCost = '40000',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'In Progress',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 4
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS 2',
+			TypeofBusiness = '1',
+			Services = '4,2',
+			ServiceCost = '40000',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'In Progress',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 4
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS',
+			TypeofBusiness = '1',
+			Services = '4,2',
+			ServiceCost = '40000',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'In Progress',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 4
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS 2',
+			TypeofBusiness = '1',
+			Services = '4,2',
+			ServiceCost = '40000',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'In Progress',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 4
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS 3',
+			TypeofBusiness = '1',
+			Services = '4,2',
+			ServiceCost = '40000',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'In Progress',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 4
+		
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'TCS 3', '1', '4,2,1', '40000',
+                    'Deepak Kumar', 'deepak@tcs.com', '7373737373',
+                    '9282929929', 'tcs.com', '', '',
+                    '3', 'In Progress', '', 'Google Ads', '-1',
+                    '18:39:52', '2026-01-05', 'it@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'TCS 3', '1', '4,3,2,1', '40000',
+                    'Deepak Kumar', 'deepak@tcs.com', '7373737373',
+                    '9282929929', 'tcs.com', '', '',
+                    '3', 'In Progress', '', 'Google Ads', '-1',
+                    '18:40:10', '2026-01-05', 'it@digidir.com', 1)
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS 3',
+			TypeofBusiness = '1',
+			Services = '4,3,2',
+			ServiceCost = '40000',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'In Progress',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 4
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS 3',
+			TypeofBusiness = '1',
+			Services = '4,3,2',
+			ServiceCost = '400008',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'In Progress',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 4
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS 3',
+			TypeofBusiness = '1',
+			Services = '4,2,1',
+			ServiceCost = '40000',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'Not Interested',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 5
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'TCS 3',
+			TypeofBusiness = '1',
+			Services = '4,3,2,1',
+			ServiceCost = '40000',
+			ContactPersonName = 'Deepak Kumar',
+			ContactPersonEmail = 'deepak@tcs.com',
+			ContactPersonPhoneNumber = '7373737373',
+			ContactPersonAlternativeNo = '9282929929',
+			Website = 'tcs.com',
+			City = '',
+			HighestQualification = '',
+			AssignedTo = '3',
+			Status = 'Contract Sent',
+			Remark = '',
+			LeadSource = 'Google Ads'
+			WHERE ID = 6
+		

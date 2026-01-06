@@ -70,8 +70,17 @@ $_LeadName = $conf->_LeadName;
     $type_of_business_array = array();
     foreach($type_of_business_array_temp as $type_of_business)
     {
-        $StatusID = $type_of_business['ID'];
-        $type_of_business_array[$StatusID] = $type_of_business['Status'];
+        $BusinessID = $type_of_business['ID'];
+        $type_of_business_array[$BusinessID] = $type_of_business['BusinessName'];
+    }
+
+    $where = " where 1";
+    $services_array_temp = $core->_getTableRecords($conn,'services',$where);
+    $services_array = array();
+    foreach($services_array_temp as $services)
+    {
+        $ServiceID = $services['ID'];
+        $services_array[$ServiceID] = $services['ServiceName'];
     }
 
     $where = " where 1";
@@ -83,7 +92,7 @@ $_LeadName = $conf->_LeadName;
         $branch_array[$Branch_ID] = $user['BranchName'];
     }
     $access = false;
-    if($UserType == "System Admin" || $UserType == "Lead Counsellor" || $UserType == "Counsellor" || $UserType == "Admin" || $UserType == "Center Manager")
+    if($UserType == "System Admin" || $UserType == "Lead Counsellor" || $UserType == "BDE" || $UserType == "Admin" || $UserType == "Center Manager")
     {
         $access = true;
     }
