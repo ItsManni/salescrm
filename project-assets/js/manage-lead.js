@@ -326,12 +326,12 @@ function AddLead() {
     return false;
   }
 
-  var CompanyName = $("#CompanyName").val();
+  // var CompanyName = $("#CompanyName").val();
 
-  if (CompanyName == "") {
-    ProductAlert("Please Enter Company Name.");
-    return false;
-  }
+  // if (CompanyName == "") {
+  //   ProductAlert("Please Enter Company Name.");
+  //   return false;
+  // }
 
   var BusinessName = $("#BusinessName").val();
 
@@ -347,12 +347,12 @@ function AddLead() {
     return false;
   }
 
-   var ServiceCost = $("#ServiceCost").val();
+  //  var ServiceCost = $("#ServiceCost").val();
 
-  if (ServiceCost == "") {
-    ProductAlert("Please Select Service Cost.");
-    return false;
-  }
+  // if (ServiceCost == "") {
+  //   ProductAlert("Please Select Service Cost.");
+  //   return false;
+  // }
 
   var ContactPersonName = $("#ContactPersonName").val();
 
@@ -369,12 +369,12 @@ function AddLead() {
   //   return false;
   // }
 
-  var ContactPersonPhoneNumber = $("#ContactPersonPhoneNumber").val();
+  // var ContactPersonPhoneNumber = $("#ContactPersonPhoneNumber").val();
 
-  if (validaphone(ContactPersonPhoneNumber) == "") {
-    ProductAlert("Please Enter Valid Phone Number.");
-    return false;
-  }
+  // if (validaphone(ContactPersonPhoneNumber) == "") {
+  //   ProductAlert("Please Enter Valid Phone Number.");
+  //   return false;
+  // }
 
 
   var AssignedTo = $("#AssignedTo").val();

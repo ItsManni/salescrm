@@ -394,3 +394,63 @@ INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, 
 			LeadSource = 'Google Ads'
 			WHERE ID = 6
 		
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '4,3', '3000',
+                    '8433098391', 'manish.sharma@digidir.com', '8433098391',
+                    'Manish Sharma', 'test', '', '',
+                    '3', 'Not Action Taken', '', 'Web', '-1',
+                    '17:50:32', '2026-01-12', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '4', '3000',
+                    'Manish Sharma', 'test@digidir.com', '+918433098391',
+                    '+918433098391', 'test.com', '', '',
+                    '3', 'Follow-up', '', 'reference', '-1',
+                    '18:28:04', '2026-01-12', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '4', '3000',
+                    'Manish Sharma', 'test@digidir.com', '+918433098391',
+                    '+918433098391', 'test.com', '', '',
+                    '3', 'Follow-up', '', 'reference', '-1',
+                    '18:28:56', '2026-01-12', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '4', '3000',
+                    'Manish Sharma', 'test@digidir.com', '+918433098391',
+                    '+918433098391', 'test.com', '', '',
+                    '3', 'Follow-up', '', 'reference', '-1',
+                    '18:29:22', '2026-01-12', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '4', '3000',
+                    'Manish Sharma', 'test', '+918433098391',
+                    '+918433098391', 'tes', '', '',
+                    '3', 'In Progress', '', 'reference', '-1',
+                    '18:30:15', '2026-01-12', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
+                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
+                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
+                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '1', '4', '3000',
+                    'Manish Sharma', 'test@digidir.com', '+3548433098391',
+                    '+625555555555', '', '', '',
+                    '3', 'In Progress', '', 'facebook', '-1',
+                    '18:37:08', '2026-01-12', 'admin@digidir.com', 1)

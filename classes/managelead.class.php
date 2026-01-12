@@ -91,8 +91,19 @@ class ManageLead extends Core
 		$ServiceCost = isset($data['ServiceCost']) ? $data['ServiceCost'] : '';
 		$ContactPersonName = isset($data['ContactPersonName']) ? $data['ContactPersonName'] : '';
 		$ContactPersonEmail = isset($data['ContactPersonEmail']) ? $data['ContactPersonEmail'] : '';
-		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? $data['ContactPersonPhoneNumber'] : '';
-		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? $data['ContactPersonAlternativeNo'] : '';
+		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? trim($data['ContactPersonPhoneNumber']) : '';
+		$primary_country_code = isset($data['primary_country_code']) ? trim($data['primary_country_code']) : '';
+
+		if ($ContactPersonPhoneNumber !== '' && $primary_country_code !== '') {
+			$ContactPersonPhoneNumber = $primary_country_code . $ContactPersonPhoneNumber;
+		}
+
+		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? trim($data['ContactPersonAlternativeNo']) : '';
+		$secondary_country_code = isset($data['secondary_country_code']) ? trim($data['secondary_country_code']) : '';
+
+		if ($ContactPersonAlternativeNo !== '' && $secondary_country_code !== '') {
+			$ContactPersonAlternativeNo = $secondary_country_code . $ContactPersonAlternativeNo;
+		}
 		$Website = isset($data['Website']) ? $data['Website'] : '';
 		$City = isset($data['City']) ? $data['City'] : '';
 		$HighestQualification = isset($data['HighestQualification']) ? $data['HighestQualification'] : '';
@@ -300,8 +311,19 @@ class ManageLead extends Core
 
 		$ContactPersonName = isset($data['ContactPersonName']) ? $data['ContactPersonName'] : '';
 		$ContactPersonEmail = isset($data['ContactPersonEmail']) ? $data['ContactPersonEmail'] : '';
-		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? $data['ContactPersonPhoneNumber'] : '';
-		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? $data['ContactPersonAlternativeNo'] : '';
+		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? trim($data['ContactPersonPhoneNumber']) : '';
+		$primary_country_code = isset($data['primary_country_code']) ? trim($data['primary_country_code']) : '';
+
+		if ($ContactPersonPhoneNumber !== '' && $primary_country_code !== '') {
+			$ContactPersonPhoneNumber = $primary_country_code . $ContactPersonPhoneNumber;
+		}
+
+		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? trim($data['ContactPersonAlternativeNo']) : '';
+		$secondary_country_code = isset($data['secondary_country_code']) ? trim($data['secondary_country_code']) : '';
+
+		if ($ContactPersonAlternativeNo !== '' && $secondary_country_code !== '') {
+			$ContactPersonAlternativeNo = $secondary_country_code . $ContactPersonAlternativeNo;
+		}
 
 		$Website = isset($data['Website']) ? $data['Website'] : '';
 		$City = isset($data['City']) ? $data['City'] : '';

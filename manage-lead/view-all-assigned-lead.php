@@ -376,7 +376,7 @@ $_ProductLogo = $conf->_ProductLogo;
 
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Company Name <span class="text-danger">*</span></label>
+                                            <label class="form-label">Company Name </label>
                                             <input type="text" class="form-control" placeholder="Enter Company Name" name="CompanyName"
                                                 id="CompanyName">
                                         </div>
@@ -422,8 +422,8 @@ $_ProductLogo = $conf->_ProductLogo;
 
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Service Cost </label>
-                                            <input type="text" class="form-control" placeholder="Enter ServiceCost" name="ServiceCost"
+                                            <label class="form-label">Budget </label>
+                                            <input type="text" class="form-control" placeholder="Enter Service Cost" name="ServiceCost"
                                                 id="ServiceCost">
                                         </div>
                                     </div>
@@ -431,26 +431,11 @@ $_ProductLogo = $conf->_ProductLogo;
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Contact Person Name <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Enter Name" name="ContactPersonName"
+                                            <input type="tel" class="form-control" placeholder="Enter Name" name="ContactPersonName"
                                                 id="ContactPersonName">
                                         </div>
                                     </div>
 
-                                    <!-- <div class="col-sm-3 col-md-3">
-                                        <div class="form-label">Gender </div>
-                                        <div class="custom-controls-stacked">
-                                            <label class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="Gender"
-                                                    value="Male" checked>
-                                                <span class="custom-control-label">Male</span>
-                                            </label>
-                                            <label class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="Gender"
-                                                    value="Female">
-                                                <span class="custom-control-label">Female</span>
-                                            </label>
-                                        </div>
-                                    </div> -->
 
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
@@ -464,9 +449,20 @@ $_ProductLogo = $conf->_ProductLogo;
                                         <div class="form-group">
                                             <label class="form-label">Contact Person Phone Number <span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" maxlength="10" onkeyup="validISNumber()"
+                                            <input type="tel" maxlength="10" onkeyup="validISNumber()"
                                                 class="form-control" placeholder="Enter Phone Number" name="ContactPersonPhoneNumber"
                                                 id="ContactPersonPhoneNumber">
+                                            <input type="hidden" id="primary_country_code" name="primary_country_code">
+                                                <!-- <input maxlength="10" onkeyup="validISNumber()"
+                                                class="form-control" placeholder="Enter Phone Number" name="ContactPersonPhoneNumber" id="phone1" type="tel"> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">City or Address </label>
+                                            <input type="text" class="form-control" placeholder="Enter City or Address"
+                                                name="City" id="City">
                                         </div>
                                     </div>
 
@@ -520,8 +516,9 @@ $_ProductLogo = $conf->_ProductLogo;
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
                                             <label class="form-label">Contact Person Alternative No</label>
-                                            <input type="text" class="form-control" placeholder="Enter AlternativeNo" name="ContactPersonAlternativeNo"
+                                            <input type="tel"  maxlength="10" class="form-control" placeholder="Enter AlternativeNo" name="ContactPersonAlternativeNo"
                                                 id="ContactPersonAlternativeNo">
+                                            <input type="hidden" id="secondary_country_code" name="secondary_country_code">
                                         </div>
                                     </div>
 
@@ -606,6 +603,14 @@ $_ProductLogo = $conf->_ProductLogo;
                                         ?>
                                         </select>
                                     </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Lead Date</label>
+                                            <input type="date" class="form-control" placeholder="Select Lead Date" name="LeadDate"
+                                                id="LeadDate">
+                                        </div>
+                                    </div>
+
 
                                     <input type="hidden" name='form_action' id='form_action' value='add'>
                                     <input type="hidden" name='form_id' id='form_id' value='-1'>
@@ -637,6 +642,12 @@ $_ProductLogo = $conf->_ProductLogo;
         <?php
        include("../include/common-script.php");
         ?>
+
+         <!-- INTERNAL intlTelInput js-->
+        <script src="../theme-assets/plugins/intl-tel-input-master/intlTelInput.js"></script>
+        <script src="../theme-assets/plugins/intl-tel-input-master/country-select.js"></script>
+        <script src="../theme-assets/plugins/intl-tel-input-master/utils.js"></script>
+
         <script src="../project-assets/js/manage-lead.js"></script>
         <script type="text/javascript">
         var param = "?BranchID=<?php echo $BranchID;?>"
@@ -716,6 +727,43 @@ $_ProductLogo = $conf->_ProductLogo;
         //         format: 'YYYY-MM-DD'
         //     }
         // });
+         // Get today's date in YYYY-MM-DD format
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const dd = String(today.getDate()).padStart(2, '0');
+
+            const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+            // Set max attribute to disable future dates
+            const leadDateInput = document.getElementById('LeadDate');
+            leadDateInput.max = formattedDate;
+
+            // Optional: set default value to today
+            leadDateInput.value = formattedDate;
+
+
+        function initPhone(inputId, hiddenId) {
+            var input = document.querySelector(inputId);
+            var iti = window.intlTelInput(input, {
+                initialCountry: "in",
+                separateDialCode: true,
+                utilsScript: "../assets/plugins/intl-tel-input-master/utils.js",
+            });
+
+            input.addEventListener("countrychange", function () {
+                document.querySelector(hiddenId).value =
+                    "+" + iti.getSelectedCountryData().dialCode;
+            });
+
+            document.querySelector(hiddenId).value =
+                "+" + iti.getSelectedCountryData().dialCode;
+        }
+
+        initPhone("#ContactPersonPhoneNumber", "#primary_country_code");
+        initPhone("#ContactPersonAlternativeNo", "#secondary_country_code");
+
+
         </script>
 </body>
 
