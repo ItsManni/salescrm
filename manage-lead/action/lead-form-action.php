@@ -15,21 +15,20 @@
 		$data['CreatedBy'] = $_SESSION['pp_email'];
 		if($form_action == 'Add')
 		{
-			// $data['CreatedBy'] = $_SESSION['pp_email'];
-			$admission_details = $ManageLead->getLeadsDetails($data);
+			// $admission_details = $ManageLead->getLeadsDetails($data);
 
-			if($admission_details['exist'] == false)
-			{
+			// if($admission_details['exist'] == false)
+			// {
 				   $response = $ManageLead->InsertLeadForm($data);
-					   $response['error'] = false;
+					$response['error'] = false;
 					$response['message'] = "Lead Added and Assigned !";
-			}
-			else
-			{
+			// }
+			// else
+			// {
 
-				$response['error'] = true;
-				$response['message'] = "Lead Already Exist.";
-			}
+			// 	$response['error'] = true;
+			// 	$response['message'] = "Lead Already Exist.";
+			// }
 		}
 		else
 		{

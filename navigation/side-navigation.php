@@ -1,8 +1,8 @@
   <!--APP-SIDEBAR-->
-  <?php 
+  <?php
   $navigation = new Navigation();
   $navigation->setNavigation($_SESSION['pp_UserType']);
-  
+
 
   ?>
   <div class="sticky">
@@ -24,7 +24,7 @@
                             <li class="sub-category">
                                 <h3>Main</h3>
                             </li>
-                            <?php 
+                            <?php
                             if($navigation->_Nav_Dashboard)
                             {
                             ?>
@@ -41,7 +41,7 @@
                             ?>
 
                            <?php
-                            } 
+                            }
                             if($navigation->_Nav_ManageLead)
                             {
                             ?>
@@ -49,7 +49,7 @@
                                 <h3>Lead Management</h3>
                             </li>
 
-                            <?php 
+                            <?php
                             }
                             ?>
 
@@ -58,12 +58,37 @@
                             {
                             ?>
 
-                                <li class="slide">
+                                <!-- <li class="slide">
                                     <a class="side-menu__item" id="nav_manage_lead" data-bs-toggle="slide" href="../manage-lead/view-all-assigned-lead"><i class="side-menu__icon fa fa-money"></i><span class="side-menu__label">Manage Leads</span></a>
-                                </li> 
+                                </li>  -->
+
+                                <li class="slide">
+
+                                    <a class="side-menu__item" id="nav_manage_lead" data-bs-toggle="slide" href="javascript:void(0)"><i
+                                            class="side-menu__icon fe fe-slack"></i><span
+                                            class="side-menu__label">Manage Leads</span><i
+                                            class="angle fe fe-chevron-right"></i>
+                                    </a>
+                                    <ul class="slide-menu" id="nav_manage_lead_li">
+                                        <li class="panel sidetab-menu">
+                                            <div class="panel-body tabs-menu-body p-0 border-0">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="side1">
+                                                        <ul class="sidemenu-list">
+                                                            <li class="side-menu-label1"><a href="javascript:void(0)"></a></li>
+                                                            <li><a href="../manage-lead/view-all-assigned-lead" class="slide-item" id="nav_all_lead">All Leads</a></li>
+                                                            <li><a href="../manage-lead/view-all-assigned-lead" class="slide-item" id="nav_monthly_affairs">All Not Action </a></li>
+                                                            <li><a href="../manage-lead/view-all-convert-lead" class="slide-item" id="nav_convert">All Converted</a></li>
+                                                        </ul>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
 
                             <?php
-                            } 
+                            }
                             ?>
                             <?php
                             if($navigation->_Nav_Telecaller_Leads)
@@ -72,10 +97,10 @@
 
                                 <li class="slide">
                                     <a class="side-menu__item" id="nav_telecaller_leads" data-bs-toggle="slide" href="../manage-lead/view-all-telecaller-leads"><i class="side-menu__icon fa fa-money"></i><span class="side-menu__label">Telecaller Leads</span></a>
-                                </li> 
+                                </li>
 
                             <?php
-                            } 
+                            }
                             ?>
                             <?php
                             if($navigation->_Nav_Lead_Analytics)
@@ -84,10 +109,10 @@
 
                                 <li class="slide">
                                     <a class="side-menu__item" id="nav_manage_lead" data-bs-toggle="slide" href="../manage-lead/view_lead_analytics"><i class="side-menu__icon fa fa-money"></i><span class="side-menu__label">Lead Analytics</span></a>
-                                </li> 
+                                </li>
 
                             <?php
-                            } 
+                            }
                             ?>
 
                             <?php
@@ -274,19 +299,19 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </li> 
-                            
+                                </li>
+
                             <?php
                             }
                             if($navigation->_Nav_Admissions_Manage)
                             {
-                            ?>    
+                            ?>
 
                             <li class="sub-category">
                                 <h3>Admission Management</h3>
                             </li>
-     
-                            
+
+
                             <?php
                             }
                             if($navigation->_Nav_Company)
@@ -295,7 +320,7 @@
                                 <!--li class="slide">
                                     <a class="side-menu__item" data-bs-toggle="slide" href="../company/view-company.php"><i class="side-menu__icon fa fa-building"></i><span class="side-menu__label">Company</span></a>
                                 </li-->
-                            
+
 
                              <?php
                             }
@@ -304,7 +329,7 @@
                             ?>
                                 <!-- <li class="slide">
                                     <a class="side-menu__item" data-bs-toggle="slide" href="../admission/view-all-admission.php"><i class="side-menu__icon fa fa-money"></i><span class="side-menu__label">All Admission</span></a>
-                                </li>  --> 
+                                </li>  -->
 
                             <?php
                             }
@@ -331,15 +356,15 @@
                                                             {
                                                             ?>
                                                             <li><a href="../admission/add-admission-form" class="slide-item" id="nav_add_admission">Add Admission Form</a></li>
-                                                            <?php 
-                                                            } 
+                                                            <?php
+                                                            }
                                                             if($navigation->_Nav_Pending_Admissions)
                                                             {
                                                             ?>
                                                             <li><a href="../admission/view-all-pending-admission" class="slide-item" id="nav_all_pending_admission">View All Pending Admission</a></li>
                                                             <?php } ?>
                                                             <li><a href="../admission/view-all-admission" class="slide-item" id="nav_all_admission">View All Admission</a></li>
-                                                            <?php 
+                                                            <?php
                                                             if($navigation->_Nav_All_Enrollment)
                                                             {
                                                             ?>
@@ -353,7 +378,7 @@
                                                             <li><a href="../admission/view-all-refund" class="slide-item" id="nav_all_refund">View All Refunded</a></li>
                                                             <li><a href="../admission/view-all-drop" class="slide-item" id="nav_all_droped">View All Dropped</a></li>
                                                             <li><a href="../admission/view-all-admission-pending-payments" class="slide-item" id="nav_all_pending_payment">View Pending Payments</a></li>
-                                                            <?php 
+                                                            <?php
                                                             }
                                                             if($navigation->_Nav_Admissions_Fee_Reminders)
                                                             {
@@ -366,9 +391,9 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </li>    
+                                </li>
 
-                            
+
 
                              <?php
                             }
@@ -387,10 +412,10 @@
                             ?>
                                 <li class="slide">
                                     <a class="side-menu__item" id="nav_all_transaction" data-bs-toggle="slide" href="../payment/view-all-payment.php"><i class="side-menu__icon fa fa-money"></i><span class="side-menu__label">Generate Link Transactions</span></a>
-                                </li>       
+                                </li>
 
 
-                            <?php 
+                            <?php
                             }
                             ?>
 
@@ -415,20 +440,20 @@
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="../file-manager/file-manager"><i class="side-menu__icon fe fe-folder"></i><span class="side-menu__label">File Manager</span></a>
                             </li> -->
-                                  
+
 
                             <?php
                             if($navigation->_Nav_Resources)
                             {
-                            ?>    
+                            ?>
 
                             <li class="sub-category">
                                 <h3>Internal Management</h3>
-                            </li> 
-                            
+                            </li>
+
                             <?php
                             }
-                            
+
                              if($navigation->_Nav_courses)
                             {
                             ?>
@@ -459,12 +484,12 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </li> 
+                                </li>
 
-                             
+
                             <?php
                             }
-                            
+
                              if($navigation->_Nav_Resources)
                             {
                             ?>
@@ -492,7 +517,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                           
+
 
                              <?php
                             }
@@ -512,9 +537,9 @@
                             ?>
                                 <!-- <li class="slide">
                                     <a class="side-menu__item" data-bs-toggle="slide" href="../company-details/view-company"><i class="side-menu__icon fa fa-building"></i><span class="side-menu__label">Company Info</span></a>
-                                </li>  -->  
+                                </li>  -->
 
-                            
+
 
                             <?php
                             }
@@ -523,7 +548,7 @@
                             ?>
                                 <li class="slide">
                                     <a class="side-menu__item" id="nav_educator" data-bs-toggle="slide" href="../educator/view-all-educators"><i class="side-menu__icon fa fa-users"></i><span class="side-menu__label">Educators</span></a>
-                                </li>  
+                                </li>
 
                             <?php
                             }
@@ -532,7 +557,7 @@
                             ?>
                                 <li class="slide">
                                     <a class="side-menu__item" id="nav_educator_essay" data-bs-toggle="slide" href="../educator-essay/view-all-educator-essay"><i class="side-menu__icon fa fa-users"></i><span class="side-menu__label">Educators Essay</span></a>
-                                </li> 
+                                </li>
 
                             <?php
                             }
@@ -550,7 +575,7 @@
                             ?>
                                 <li class="slide">
                                     <a class="side-menu__item" id="nav_scholarship_result" data-bs-toggle="slide" href="../scholarship-test/coming-soon"><i class="side-menu__icon fa fa-file-text"></i><span class="side-menu__label">Scholarship Result</span></a>
-                                </li> 
+                                </li>
 
                             <?php
                             }
@@ -586,11 +611,11 @@
                             }
                             if($navigation->_Nav_Configurations)
                             {
-                            ?>    
+                            ?>
 
                             <li class="sub-category">
                                 <h3>Setting</h3>
-                            </li> 
+                            </li>
 
                             <?php
                             }
@@ -608,7 +633,7 @@
                             ?>
                                 <li class="slide">
                                     <a class="side-menu__item" id="nav_user" data-bs-toggle="slide" href="../users/view-users.php"><i class="side-menu__icon fa fa-users"></i><span class="side-menu__label">Users</span></a>
-                                </li>  
+                                </li>
 
                             <?php
                             }
@@ -626,8 +651,8 @@
                             ?>
                                 <li class="slide">
                                     <a class="side-menu__item" id="nav_configuration" data-bs-toggle="slide" href="../configuration/view-configuration"><i class="side-menu__icon fa fa-gear"></i><span class="side-menu__label">Configuration</span></a>
-                                </li>     
-                             
+                                </li>
+
                             <?php
                             }
                             ?>

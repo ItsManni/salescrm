@@ -105,25 +105,33 @@
 
                     <tr>
                         <th class="wd-15p border-bottom-0">Contact Person Phone Number</th>
-                        <td class="wd-15p border-bottom-0"><?php
-                         if($lead_details['ContactPersonPhoneNumber'] != ""){
-                             echo $lead_details['ContactPersonPhoneNumber'];
-                         }else{
-                             echo "N/A";
-                         }
-                        ?></td>
+                        <td class="wd-15p border-bottom-0">
+                            <?php
+                            if (!empty($lead_details['ContactPersonPhoneNumber'])) {
+                                $dialCode = !empty($lead_details['PrimaryDialCode']) ? $lead_details['PrimaryDialCode'] : '';
+                                echo $dialCode . '-' . $lead_details['ContactPersonPhoneNumber'];
+                            } else {
+                                echo "N/A";
+                            }
+                            ?>
+                        </td>
                     </tr>
+
 
                     <tr>
                         <th class="wd-15p border-bottom-0">Contact Person Alternative No</th>
-                        <td class="wd-15p border-bottom-0"><?php
-                         if($lead_details['ContactPersonAlternativeNo'] != ""){
-                             echo $lead_details['ContactPersonAlternativeNo'];
-                         }else{
-                             echo "N/A";
-                         }
-                        ?></td>
+                        <td class="wd-15p border-bottom-0">
+                            <?php
+                            if (!empty($lead_details['ContactPersonAlternativeNo'])) {
+                                $secondaryDial = !empty($lead_details['SecondaryDialCode']) ? $lead_details['SecondaryDialCode'] : '';
+                                echo $secondaryDial . '-' . $lead_details['ContactPersonAlternativeNo'];
+                            } else {
+                                echo "N/A";
+                            }
+                            ?>
+                        </td>
                     </tr>
+
                     <tr>
                         <th class="wd-15p border-bottom-0">Website</th>
                         <td class="wd-15p border-bottom-0"><?php
@@ -190,10 +198,10 @@
                     </tr>
 
                     <tr>
-                        <th class="wd-15p border-bottom-0">Created Date</th>
+                        <th class="wd-15p border-bottom-0">Lead Date</th>
                         <td class="wd-15p border-bottom-0"><?php
-                         if($lead_details['CreatedDate'] != ""){
-                             echo $lead_details['CreatedDate'];
+                         if($lead_details['LeadSource'] != ""){
+                             echo $lead_details['LeadSource'];
                          }else{
                              echo "N/A";
                          }
@@ -201,15 +209,20 @@
                     </tr>
 
                     <tr>
-                        <th class="wd-15p border-bottom-0">Created Time</th>
-                        <td class="wd-15p border-bottom-0"><?php
-                         if($lead_details['CreatedTime'] != ""){
-                             echo $lead_details['CreatedTime'];
-                         }else{
-                             echo "N/A";
-                         }
-                        ?></td>
+                        <th class="wd-15p border-bottom-0">Lead Update Date & Time</th>
+                        <td class="wd-15p border-bottom-0">
+                            <?php
+                            if (!empty($lead_details['CreatedDate']) && !empty($lead_details['CreatedTime'])) {
+                                echo $lead_details['CreatedDate'] . ' ' . $lead_details['CreatedTime'];
+                            } elseif (!empty($lead_details['CreatedDate'])) {
+                                echo $lead_details['CreatedDate'];
+                            } else {
+                                echo "N/A";
+                            }
+                            ?>
+                        </td>
                     </tr>
+
 
 
 

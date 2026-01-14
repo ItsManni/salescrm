@@ -91,19 +91,12 @@ class ManageLead extends Core
 		$ServiceCost = isset($data['ServiceCost']) ? $data['ServiceCost'] : '';
 		$ContactPersonName = isset($data['ContactPersonName']) ? $data['ContactPersonName'] : '';
 		$ContactPersonEmail = isset($data['ContactPersonEmail']) ? $data['ContactPersonEmail'] : '';
-		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? trim($data['ContactPersonPhoneNumber']) : '';
-		$primary_country_code = isset($data['primary_country_code']) ? trim($data['primary_country_code']) : '';
+		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? $data['ContactPersonPhoneNumber'] : '';
+		$PrimaryDialCode = isset($data['primary_country_code']) ? $data['primary_country_code'] : '';
 
-		if ($ContactPersonPhoneNumber !== '' && $primary_country_code !== '') {
-			$ContactPersonPhoneNumber = $primary_country_code . $ContactPersonPhoneNumber;
-		}
+		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? $data['ContactPersonAlternativeNo'] : '';
+		$SecondaryDialCode = isset($data['secondary_country_code']) ? $data['secondary_country_code'] : '';
 
-		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? trim($data['ContactPersonAlternativeNo']) : '';
-		$secondary_country_code = isset($data['secondary_country_code']) ? trim($data['secondary_country_code']) : '';
-
-		if ($ContactPersonAlternativeNo !== '' && $secondary_country_code !== '') {
-			$ContactPersonAlternativeNo = $secondary_country_code . $ContactPersonAlternativeNo;
-		}
 		$Website = isset($data['Website']) ? $data['Website'] : '';
 		$City = isset($data['City']) ? $data['City'] : '';
 		$HighestQualification = isset($data['HighestQualification']) ? $data['HighestQualification'] : '';
@@ -112,6 +105,7 @@ class ManageLead extends Core
 		$Remark = isset($data['Remark']) ? $data['Remark'] : '';
 		$LeadSource = isset($data['LeadSource']) ? $data['LeadSource'] : '';
 		$TelecallerLeadID = isset($data['TelecallerLeadID']) ? $data['TelecallerLeadID'] : -1;
+		$LeadDate = isset($data['LeadDate']) ? $data['LeadDate'] : '';
 		$CreatedBy = isset($data['CreatedBy']) ? $data['CreatedBy'] : '';
 
 		$CreatedDate = date('Y-m-d');
@@ -126,14 +120,11 @@ class ManageLead extends Core
 
 		if ($ActionType == 'default') {
 
-			$sql = "INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `ContactPersonPhoneNumber`,
-                                   `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`,
-                                   `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`,
-                                   `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+			$sql = "INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `PrimaryDialCode` ,`ContactPersonPhoneNumber`, `SecondaryDialCode`, `ContactPersonAlternativeNo`, `Website`, `City`, `HighestQualification`, `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`, `LeadDate` , `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
             VALUES ('$Branch', '$CompanyName', '$BusinessType', '$Services', '$ServiceCost',
-                    '$ContactPersonName', '$ContactPersonEmail', '$ContactPersonPhoneNumber',
+                    '$ContactPersonName', '$ContactPersonEmail', '$PrimaryDialCode' ,'$ContactPersonPhoneNumber', '$SecondaryDialCode',
                     '$ContactPersonAlternativeNo', '$Website', '$City', '$HighestQualification',
-                    '$AssignedTo', '$Status', '$Remark', '$LeadSource', '$TelecallerLeadID',
+                    '$AssignedTo', '$Status', '$Remark', '$LeadSource', '$TelecallerLeadID', '$LeadDate',
                     '$CreatedTime', '$CreatedDate', '$CreatedBy', 1)";
 
 
@@ -186,119 +177,6 @@ class ManageLead extends Core
 		return $response_insert_lead_details;
 	}
 
-	// function InsertTelecallerLeadForm($data)
-	// {
-	// 	$Center = $data['Center'];
-	// 	if(isset($data['Center'])){
-	// 		$Center = $data['Center'];
-	// 	}
-
-	// 	$Name = $data['Name'];
-	// 	if(isset($data['Name'])){
-	// 		$Name = $data['Name'];
-	// 	}
-	// 	$Gender = '';
-	// 	if(isset($data['Gender'])){
-	// 		$Gender = $data['Gender'];
-	// 	}
-
-	// 	$Email = "";
-	// 	if(isset($data['Email'])){
-	// 		$Email = $data['Email'];
-	// 	}
-	// 	$PhoneNumber = "";
-	// 	if(isset($data['PhoneNumber'])){
-	// 		$PhoneNumber = $data['PhoneNumber'];
-	// 	}
-
-	// 	$State = '';
-	// 	if(isset($data['State'])){
-	// 		$State = $data['State'];
-	// 	}
-
-	// 	$City = '';
-	// 	if(isset($data['City'])){
-	// 		$City = $data['City'];
-	// 	}
-
-	// 	$Address = '';
-	// 	if(isset($data['Address'])){
-	// 	$Address = $data['Address'];
-	// 	}
-	// 	$Remark = "";
-	// 	if(isset($data['Remark'])){
-	// 	  $Remark = $data['Remark'];
-	// 	}
-	// 	$HighQualification = "";
-	// 	if(isset($data['HighQualification'])){
-	// 	  $HighQualification = $data['HighQualification'];
-	// 	}
-	// 	$DOB = "";
-	// 	if(isset($data['DOB'])){
-	// 	  $DOB = $data['DOB'];
-	// 	}
-
-	// 	$Mode = "";
-	// 	if(isset($data['Mode'])){
-	// 	  $Mode = $data['Mode'];
-	// 	}
-	// 	$course_arr = $data['Courses'];
-	// 	if(is_array($course_arr))
-	// 	{
-	// 		$course = implode(",",$course_arr);
-	// 	}
-	// 	else
-	// 	{
-	// 		$course = $course_arr;
-	// 	}
-
-	// 	$CreatedDate = $data['CreatedDate'] = date('Y-m-d');
-	// 	$CreatedBy ="";
-	// 	if(isset($data['CreatedBy'])){
-	// 		$CreatedBy = $data['CreatedBy'];
-	// 	  }
-	// 	$CreatedTime = $data['CreatedTime'] = date('H:i:s');
-
-	// 	$LeadSource = "";
-	// 	if(isset($data['LeadSource'])){
-	// 	  $LeadSource = $data['LeadSource'];
-	// 	}
-
-	// 	$Status = "";
-	// 	if(isset($data['Status'])){
-	// 	  $Status = $data['Status'];
-	// 	}
-	// 	if($Status == "")
-	// 	{
-	// 		if(isset($data['DefaultStatus'])){
-	// 		  $Status = $data['DefaultStatus'];
-	// 		}
-	// 	}
-
-	// 	$AssignedTo = $data['AssignedTo'];
-	// 	$sql = "INSERT INTO telecaller_leads(BranchID,Name,Gender,Email,PhoneNumber,State,City,Address,Mode,Course,AssignedTo,CreatedDate,CreatedTime,CreatedBy,DOB,Remark,LeadSource,Status) VALUES ('$Center','$Name','$Gender','$Email','$PhoneNumber','$State','$City','$Address','$Mode','$course','$AssignedTo','$CreatedDate','$CreatedTime','$CreatedBy','$DOB','$Remark','$LeadSource','$Status')";
-	// 	$response_insert_lead_details = $this->_InsertTableRecords($this->conn,$sql);
-	// 	$this->WriteLog(" -------------- New Telecaller Leads  ------------------");
-	// 	$this->WriteLog($sql);
-
-	// 	if($response_insert_lead_details['error'] == false)
-	// 	{
-    //       $last_insert_id = $response_insert_lead_details['last_insert_id'];
-
-	// 		//$sql = "INSERT INTO lead_assignment(LeadID,AssignedTo,Status,Remark,CreatedDate,CreatedTime,CreatedBy) VALUES ('$last_insert_id','$AssignedTo','$Status','Raised','$CreatedDate','$CreatedTime','$CreatedBy')";
-	// 		//$response = $this->_InsertTableRecords($this->conn,$sql);
-
-	// 		$sql = "INSERT INTO telecaller_lead_assignment_history(LeadID,AssignedTo,Status,Remark,CreatedDate,CreatedTime,CreatedBy) VALUES ('$last_insert_id','$AssignedTo','$Status','Telecaller Lead Created','$CreatedDate','$CreatedTime','$CreatedBy')";
-	// 		$response_insert_remark_details = $this->_InsertTableRecords($this->conn,$sql);
-
-    //     }
-    //     else
-    //     {
-    //     	$this->WriteLog($response_insert_lead_details['message']);
-    //     }
-	// 	return $response_insert_lead_details;
-	// }
-
 	function UpdateLeadsDetails($data)
 	{
 		$LeadID = isset($data['form_id']) ? $data['form_id'] : 0;
@@ -311,19 +189,11 @@ class ManageLead extends Core
 
 		$ContactPersonName = isset($data['ContactPersonName']) ? $data['ContactPersonName'] : '';
 		$ContactPersonEmail = isset($data['ContactPersonEmail']) ? $data['ContactPersonEmail'] : '';
-		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? trim($data['ContactPersonPhoneNumber']) : '';
-		$primary_country_code = isset($data['primary_country_code']) ? trim($data['primary_country_code']) : '';
+		$ContactPersonPhoneNumber = isset($data['ContactPersonPhoneNumber']) ? $data['ContactPersonPhoneNumber'] : '';
+		$PrimaryDialCode = isset($data['primary_country_code']) ? $data['primary_country_code'] : '';
 
-		if ($ContactPersonPhoneNumber !== '' && $primary_country_code !== '') {
-			$ContactPersonPhoneNumber = $primary_country_code . $ContactPersonPhoneNumber;
-		}
-
-		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? trim($data['ContactPersonAlternativeNo']) : '';
-		$secondary_country_code = isset($data['secondary_country_code']) ? trim($data['secondary_country_code']) : '';
-
-		if ($ContactPersonAlternativeNo !== '' && $secondary_country_code !== '') {
-			$ContactPersonAlternativeNo = $secondary_country_code . $ContactPersonAlternativeNo;
-		}
+		$ContactPersonAlternativeNo = isset($data['ContactPersonAlternativeNo']) ? $data['ContactPersonAlternativeNo'] : '';
+		$SecondaryDialCode = isset($data['secondary_country_code']) ? $data['secondary_country_code'] : '';
 
 		$Website = isset($data['Website']) ? $data['Website'] : '';
 		$City = isset($data['City']) ? $data['City'] : '';
@@ -333,6 +203,7 @@ class ManageLead extends Core
 		$Status = isset($data['LeadStatus']) ? $data['LeadStatus'] : '';
 		$Remark = isset($data['Remark']) ? $data['Remark'] : '';
 		$LeadSource = isset($data['LeadSource']) ? $data['LeadSource'] : '';
+		$LeadDate = isset($data['LeadDate']) ? $data['LeadDate'] : '';
 		$UpdatedBy = isset($data['CreatedBy']) ? $data['CreatedBy'] : '';
 
 		$UpdatedDate = date('Y-m-d');
@@ -352,14 +223,19 @@ class ManageLead extends Core
 			ServiceCost = '$ServiceCost',
 			ContactPersonName = '$ContactPersonName',
 			ContactPersonEmail = '$ContactPersonEmail',
+			PrimaryDialCode = '$PrimaryDialCode',
 			ContactPersonPhoneNumber = '$ContactPersonPhoneNumber',
+			SecondaryDialCode = '$SecondaryDialCode',
 			ContactPersonAlternativeNo = '$ContactPersonAlternativeNo',
 			Website = '$Website',
 			City = '$City',
 			HighestQualification = '$HighestQualification',
 			AssignedTo = '$AssignedTo',
+			LeadDate = '$LeadDate',
 			Status = '$Status',
 			Remark = '$Remark',
+			CreatedDate = '$UpdatedDate',
+			CreatedTime = '$UpdatedTime',
 			LeadSource = '$LeadSource'
 			WHERE ID = $LeadID
 		";
@@ -380,6 +256,24 @@ class ManageLead extends Core
 			";
 
 			$this->_InsertTableRecords($this->conn, $sql_history);
+		}
+
+		$where = " where ID = $LeadID";
+        $lead_details = $this->_getTableDetails($this->conn, "all_lead", $where);
+
+		$oldAssignedTo = $lead_details['AssignedTo'];
+
+		// Insert into lead_assignment ONLY if AssignedTo changed
+		if ($oldAssignedTo !== $AssignedTo) {
+
+			$sql_assignment = "
+				INSERT INTO lead_assignment
+				(LeadID, AssignedTo, Status, Remark, CreatedDate, CreatedTime, CreatedBy)
+				VALUES
+				('$LeadID', '$AssignedTo', '$Status', 'Lead Assigned', '$UpdatedDate', '$UpdatedTime', '$UpdatedBy')
+			";
+
+			$this->_InsertTableRecords($this->conn, $sql_assignment);
 		}
 
 		return $response;

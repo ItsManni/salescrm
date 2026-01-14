@@ -7,6 +7,46 @@ function ClearLeadFillter() {
   }, 1500);
 }
 
+function initPhone(inputId, hiddenId, storedNumber = "", storedCountryCode = "") {
+    var input = document.querySelector(inputId);
+
+    // Determine initial country from storedCountryCode
+    var initialCountry = "in"; // default
+    if (storedCountryCode) {
+        var dialCode = storedCountryCode.replace("+", "");
+        initialCountry = window.intlTelInputGlobals.getCountryData().find(function (c) {
+            return c.dialCode === dialCode;
+        })?.iso2 || "in";
+    }
+
+    // Destroy previous instance if exists
+    if (input.intlTelInputInstance) {
+        input.intlTelInputInstance.destroy();
+    }
+
+    // Initialize intl-tel-input
+    var iti = window.intlTelInput(input, {
+        initialCountry: initialCountry,
+        separateDialCode: true,
+        utilsScript: "../assets/plugins/intl-tel-input-master/utils.js",
+    });
+
+    // If stored number exists, set it
+    if (storedNumber) {
+        input.value = storedNumber;
+    }
+
+    // Set hidden field with selected dial code
+    document.querySelector(hiddenId).value = "+" + iti.getSelectedCountryData().dialCode;
+
+    // Update hidden field on country change
+    input.addEventListener("countrychange", function () {
+        document.querySelector(hiddenId).value =
+            "+" + iti.getSelectedCountryData().dialCode;
+    });
+}
+
+
 function SearchFillterLead(UserType) {
   var table = $('#all_leads').DataTable();
   table.destroy();
@@ -54,13 +94,13 @@ function SearchFillterLead(UserType) {
       data: 'Mobile_Email'
     },
     {
+      data: 'ViewDetails'
+    },
+    {
       data: 'Status'
     },
     {
       data: 'AssignedTo'
-    },
-    {
-      data: 'ViewDetails'
     },
     {
       data: 'Action'
@@ -203,6 +243,7 @@ function validaphone(phone) {
 
 
 function OpenModal_AddLead() {
+
   $('#lead_form')[0].reset();
   $("#assinged_to_div").css("display", "none");
   $("#Branch").select2({
@@ -423,6 +464,77 @@ function AddLead() {
   });
   return false;
 
+}
+
+function EditManageLead_modal(LeadID) {
+
+  $("#AddLeadHeading").html("Update Lead Detaiils");
+  $("#lead_form_btn").html("Update");
+
+  $.post("ajax/get-lead-details.php", {
+    LeadID: LeadID
+  },
+    function (data, status) {
+      var response = JSON.parse(data);
+      console.log(response.data.LeadSource);
+      if (response.error == false) {
+        $("#assinged_to_div").css("display", "block");
+        $("#Branch").select2({
+          placeholder: "Select Center/Branch"
+        });
+        $("#Branch").select2("val", response.data.BranchID);
+        $("#Branch").select2({
+          dropdownParent: $("#add_lead_form_modal")
+        });
+
+        $("#CompanyName").val(response.data.CompanyName);
+        $("#BusinessName").select2({
+          placeholder: "Select Business"
+        });
+        $("#BusinessName").select2("val", response.data.TypeofBusiness);
+        $("#BusinessName").select2({
+          dropdownParent: $("#add_lead_form_modal")
+        });
+
+       $("#Services").select2({
+            placeholder: "Select Business",
+            dropdownParent: $("#add_lead_form_modal"),
+            width: "100%"
+        });
+
+        let services = response.data.Services; // "4,3,1"
+
+        services = services.split(",").map(String);
+
+        $("#Services").val(services).trigger("change");
+
+
+        $("#ServiceCost").val(response.data.ServiceCost);
+        $("#ContactPersonName").val(response.data.ContactPersonName);
+        $("#ContactPersonEmail").val(response.data.ContactPersonEmail);
+        // $("#ContactPersonPhoneNumber").val(response.data.ContactPersonPhoneNumber);
+        // $("#ContactPersonAlternativeNo").val(response.data.ContactPersonAlternativeNo);
+        initPhone("#ContactPersonPhoneNumber", "#primary_country_code", response.data.ContactPersonPhoneNumber, response.data.PrimaryDialCode);
+        initPhone("#ContactPersonAlternativeNo", "#secondary_country_code", response.data.ContactPersonAlternativeNo, response.data.SecondaryDialCode);
+        $("#Website").val(response.data.Website);
+        $("#City").val(response.data.City);
+        $("#AssignedTo").val(response.data.AssignedTo);
+
+
+          setTimeout(function () {
+            $("#AssignedTo").val(response.data.AssignedTo).trigger('change');
+          }, 500);
+
+          $("#LeadDate").val(response.data.LeadDate);
+          $("#LeadSource").val(response.data.LeadSource);
+          $("#LeadStatus").val(response.data.Status);
+
+        $("#form_id").val(LeadID);
+        $("#form_action").val("Update");
+        $("#lead_form_btn").html("Update Lead");
+      }
+    });
+  $("#add_lead_form_modal").modal("show");
 }
 
 function AddTelecallerLead() {
@@ -662,71 +774,6 @@ function AddTelecallerLeadRemark() {
   return false;
 }
 
-function EditManageLead_modal(LeadID) {
-
-  $("#AddLeadHeading").html("Update Lead Detaiils");
-  $("#lead_form_btn").html("Update");
-
-  $.post("ajax/get-lead-details.php", {
-    LeadID: LeadID
-  },
-    function (data, status) {
-      var response = JSON.parse(data);
-      console.log(response.data.LeadSource);
-      if (response.error == false) {
-        $("#assinged_to_div").css("display", "block");
-        $("#Branch").select2({
-          placeholder: "Select Center/Branch"
-        });
-        $("#Branch").select2("val", response.data.BranchID);
-        $("#Branch").select2({
-          dropdownParent: $("#add_lead_form_modal")
-        });
-
-        $("#CompanyName").val(response.data.CompanyName);
-        $("#BusinessName").select2({
-          placeholder: "Select Business"
-        });
-        $("#BusinessName").select2("val", response.data.TypeofBusiness);
-        $("#BusinessName").select2({
-          dropdownParent: $("#add_lead_form_modal")
-        });
-
-       $("#Services").select2({
-            placeholder: "Select Business",
-            dropdownParent: $("#add_lead_form_modal"),
-            width: "100%"
-        });
-
-        let services = response.data.Services; // "4,3,1"
-
-        services = services.split(",").map(String);
-
-        $("#Services").val(services).trigger("change");
-
-
-        $("#ServiceCost").val(response.data.ServiceCost);
-        $("#ContactPersonName").val(response.data.ContactPersonName);
-        $("#ContactPersonEmail").val(response.data.ContactPersonEmail);
-        $("#ContactPersonPhoneNumber").val(response.data.ContactPersonPhoneNumber);
-        $("#ContactPersonAlternativeNo").val(response.data.ContactPersonAlternativeNo);
-        $("#Website").val(response.data.Website);
-        $("#AssignedTo").val(response.data.AssignedTo);
-
-
-          setTimeout(function () {
-            $("#AssignedTo").val(response.data.AssignedTo).trigger('change');
-          }, 500);
-
-          $("#LeadSource").val(response.data.LeadSource);
-          $("#LeadStatus").val(response.data.Status);
-
-        $("#form_id").val(LeadID);
-        $("#lead_form_btn").html("Update Lead");
-      }
-    });
-  $("#add_lead_form_modal").modal("show");
-}
 function EditTelecallerLead_modal(LeadID) {
 
   $("#AddLeadHeading").html("Update Telecaller Lead Detaiils");

@@ -220,16 +220,16 @@ $_ProductLogo = $conf->_ProductLogo;
                                                         if($UserType == "System Admin")
                                                         {
                                                         ?>
-                                                            <th class="wd-15p border-bottom-0">Center / Branch</th>
+                                                            <th class="wd-15p border-bottom-0">Branch</th>
                                                         <?php
                                                         }
                                                         ?>
                                                             <th class="wd-15p border-bottom-0">Services</th>
                                                             <th class="wd-15p border-bottom-0">Company / Business </th>
                                                             <th class="wd-15p border-bottom-0">Email / Mobile Number</th>
+                                                            <th class="wd-15p border-bottom-0">Details</th>
                                                             <th class="wd-15p border-bottom-0">Status</th>
                                                             <th class="wd-15p border-bottom-0">Assigned To</th>
-                                                            <th class="wd-15p border-bottom-0">Details</th>
                                                             <th class="wd-15p border-bottom-0">Action</th>
 
                                                     </tr>
@@ -457,15 +457,6 @@ $_ProductLogo = $conf->_ProductLogo;
                                                 class="form-control" placeholder="Enter Phone Number" name="ContactPersonPhoneNumber" id="phone1" type="tel"> -->
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">City or Address </label>
-                                            <input type="text" class="form-control" placeholder="Enter City or Address"
-                                                name="City" id="City">
-                                        </div>
-                                    </div>
-
                                     <!-- <div class="col-sm-6 col-md-6 mb-3">
                                         <label for="recipient-name" class="col-form-label">State</label>
 
@@ -527,6 +518,14 @@ $_ProductLogo = $conf->_ProductLogo;
                                             <label class="form-label">Website</label>
                                             <input type="text" class="form-control" placeholder="Enter Website" name="Website"
                                                 id="Website">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">City or Address </label>
+                                            <input type="text" class="form-control" placeholder="Enter City or Address"
+                                                name="City" id="City">
                                         </div>
                                     </div>
 
@@ -605,7 +604,7 @@ $_ProductLogo = $conf->_ProductLogo;
                                     </div>
                                     <div class="col-sm-3 col-md-3">
                                         <div class="form-group">
-                                            <label class="form-label">Lead Date</label>
+                                            <label class="form-label">Lead Date </label>
                                             <input type="date" class="form-control" placeholder="Select Lead Date" name="LeadDate"
                                                 id="LeadDate">
                                         </div>
@@ -646,7 +645,7 @@ $_ProductLogo = $conf->_ProductLogo;
          <!-- INTERNAL intlTelInput js-->
         <script src="../theme-assets/plugins/intl-tel-input-master/intlTelInput.js"></script>
         <script src="../theme-assets/plugins/intl-tel-input-master/country-select.js"></script>
-        <script src="../theme-assets/plugins/intl-tel-input-master/utils.js"></script>
+        <!-- <script src="../theme-assets/plugins/intl-tel-input-master/utils.js"></script> -->
 
         <script src="../project-assets/js/manage-lead.js"></script>
         <script type="text/javascript">
@@ -695,13 +694,13 @@ $_ProductLogo = $conf->_ProductLogo;
                         data: 'Mobile_Email'
                     },
                     {
+                        data: 'ViewDetails'
+                    },
+                    {
                         data: 'Status'
                     },
                     {
                         data: 'AssignedTo'
-                    },
-                    {
-                        data: 'ViewDetails'
                     },
                     {
                         data: 'Action'
@@ -714,7 +713,10 @@ $_ProductLogo = $conf->_ProductLogo;
         });
 
         $(document).ready(function() {
+            $("#nav_manage_lead_li").css("display", "block");
+            $("#nav_manage_lead_li").addClass("open");
             $("#nav_manage_lead").addClass("active");
+            $("#nav_all_lead").addClass("active");
         });
 
         // $('.fc-datepicker').datepicker({
@@ -742,26 +744,9 @@ $_ProductLogo = $conf->_ProductLogo;
             // Optional: set default value to today
             leadDateInput.value = formattedDate;
 
+            initPhone("#ContactPersonPhoneNumber", "#primary_country_code");
+            initPhone("#ContactPersonAlternativeNo", "#secondary_country_code");
 
-        function initPhone(inputId, hiddenId) {
-            var input = document.querySelector(inputId);
-            var iti = window.intlTelInput(input, {
-                initialCountry: "in",
-                separateDialCode: true,
-                utilsScript: "../assets/plugins/intl-tel-input-master/utils.js",
-            });
-
-            input.addEventListener("countrychange", function () {
-                document.querySelector(hiddenId).value =
-                    "+" + iti.getSelectedCountryData().dialCode;
-            });
-
-            document.querySelector(hiddenId).value =
-                "+" + iti.getSelectedCountryData().dialCode;
-        }
-
-        initPhone("#ContactPersonPhoneNumber", "#primary_country_code");
-        initPhone("#ContactPersonAlternativeNo", "#secondary_country_code");
 
 
         </script>

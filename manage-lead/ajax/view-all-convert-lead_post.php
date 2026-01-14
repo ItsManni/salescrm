@@ -126,7 +126,7 @@ if($UserType == "Center Manager" || $UserType == "Lead Counsellor")
   $filter_center_manager = " AND BranchID = $BranchID";
 }
 
-$filter = " where IsActive = 1";
+$filter = " where IsActive = 1 and Status = 'Converted'";
 
 $filter = $filter.$searchQuery.$fillter_center.$filter_start_date.$filter_end_date.$fillter_date.$fillter_status.$fillter_lead_source.$filter_assignto.$fillter_assign.$filter_center_manager;
 // echo $filter;

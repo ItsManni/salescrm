@@ -129,7 +129,7 @@ $_LeadName = $conf->_LeadName;
                         <!-- Row -->
                         <div class="row pb-5 justify-content-end">
                             <div class="col-md-4 text-end">
-                                <a href="../admission/add-admission-form?LeadID=<?php echo $LeadID;?>" class="btn btn-success">Convert Into Admission</a>
+                                <a href="#" class="btn btn-success">Onboard To Client</a>
                             </div>
                         </div>
                         <div class="row row-sm">

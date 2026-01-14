@@ -5,21 +5,20 @@
         $i = 1;
         foreach($Lead_histroy_arr as $lead_history)
         {
-            if($lead_history['CreatedDate'] != ""){
-                $date = new DateTime($lead_history['CreatedDate']);
-                $formattedDate = $date->format('j M'); 
-            }else{
+            if (!empty($lead_history['CreatedDate'])) {
+                $formattedDate = date('j M', strtotime($lead_history['CreatedDate']));
+            } else {
                 $formattedDate = "N/A";
             }
 
-            if($lead_history['CreatedTime'] != ""){
-                $time = new DateTime($lead_history['CreatedTime']);
-                $time->sub(new DateInterval('PT3H15M'));
-                $formattedTime = $time->format('h:i');
-            }else{
+            if (!empty($lead_history['CreatedTime'])) {
+                $formattedTime = date('h:i A', strtotime($lead_history['CreatedTime']));
+            } else {
                 $formattedTime = "N/A";
             }
-            
+
+
+
         ?>
         <li>
             <div class="notification-time">
@@ -67,4 +66,4 @@
     <div style="width:50%;">
         <img src="../project-assets/images/lead-history.png" alt="" style="width:100%">
     </div>
-<?php } ?>    
+<?php } ?>
