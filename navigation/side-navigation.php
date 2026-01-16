@@ -77,7 +77,7 @@
                                                         <ul class="sidemenu-list">
                                                             <li class="side-menu-label1"><a href="javascript:void(0)"></a></li>
                                                             <li><a href="../manage-lead/view-all-assigned-lead" class="slide-item" id="nav_all_lead">All Leads</a></li>
-                                                            <li><a href="../manage-lead/view-all-assigned-lead" class="slide-item" id="nav_monthly_affairs">All Not Action </a></li>
+                                                            <li><a href="../manage-lead/view-all-not-action-taken-lead.php" class="slide-item" id="nav_not_action_taken">All Not Action Taken</a></li>
                                                             <li><a href="../manage-lead/view-all-convert-lead" class="slide-item" id="nav_convert">All Converted</a></li>
                                                         </ul>
                                                 </div>

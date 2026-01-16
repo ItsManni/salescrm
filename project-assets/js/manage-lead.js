@@ -46,7 +46,6 @@ function initPhone(inputId, hiddenId, storedNumber = "", storedCountryCode = "")
     });
 }
 
-
 function SearchFillterLead(UserType) {
   var table = $('#all_leads').DataTable();
   table.destroy();
@@ -476,7 +475,6 @@ function EditManageLead_modal(LeadID) {
   },
     function (data, status) {
       var response = JSON.parse(data);
-      console.log(response.data.LeadSource);
       if (response.error == false) {
         $("#assinged_to_div").css("display", "block");
         $("#Branch").select2({
@@ -517,12 +515,18 @@ function EditManageLead_modal(LeadID) {
         initPhone("#ContactPersonPhoneNumber", "#primary_country_code", response.data.ContactPersonPhoneNumber, response.data.PrimaryDialCode);
         initPhone("#ContactPersonAlternativeNo", "#secondary_country_code", response.data.ContactPersonAlternativeNo, response.data.SecondaryDialCode);
         $("#Website").val(response.data.Website);
+        $("#Country").val(response.data.Country);
+        $("#State").val(response.data.State);
         $("#City").val(response.data.City);
+        $("#Address").val(response.data.Address);
         $("#AssignedTo").val(response.data.AssignedTo);
 
-
+        // console.log(response.data.Address);
           setTimeout(function () {
             $("#AssignedTo").val(response.data.AssignedTo).trigger('change');
+            $("#Country").val(response.data.Country).trigger('change');
+            $("#State").val(response.data.State).trigger('change');
+
           }, 500);
 
           $("#LeadDate").val(response.data.LeadDate);
@@ -535,6 +539,13 @@ function EditManageLead_modal(LeadID) {
       }
     });
   $("#add_lead_form_modal").modal("show");
+}
+
+function OpenModal_QuickChangeAssignment(Lead_ID) {
+  $("#Assignment_lead_id").val(Lead_ID);
+  $("#quick_change_assignment_modal").modal("show");
+  $("#QuickAssignmentBtn").html("Update");
+  $("#QuickAssignmentHeading").html("Change Assignment & Status");
 }
 
 function AddTelecallerLead() {
@@ -597,14 +608,6 @@ function AddTelecallerLead() {
 
 }
 
-function OpenModal_QuickChangeAssignment(Lead_ID) {
-
-
-  $("#Assignment_lead_id").val(Lead_ID);
-  $("#quick_change_assignment_modal").modal("show");
-  $("#QuickAssignmentBtn").html("Update");
-  $("#QuickAssignmentHeading").html("Change Assignment & Status");
-}
 function OpenModal_QuickChangeTelecallerLeadStatus(Lead_ID,Status) {
   $("#Assignment_lead_id").val(Lead_ID);
   $("#lead_status").val(Status);

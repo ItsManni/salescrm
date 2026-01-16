@@ -11,7 +11,6 @@ $_ProductLogo = $conf->_ProductLogo;
 <head>
      <style type="text/css">
 
-
         .lead-card {
             background-color: white;
             border-radius: 10px;
@@ -20,6 +19,7 @@ $_ProductLogo = $conf->_ProductLogo;
             min-width: 300px;
             transition: transform 0.3s, background-color 0.3s;
         }
+
         .lead-card:hover {
             transform: translateY(-10px);
         }
@@ -29,7 +29,7 @@ $_ProductLogo = $conf->_ProductLogo;
     <meta name="author" content="">
     <meta name="keywords" content="">
     <!-- TITLE -->
-    <title>View All Leads - <?= $_ProductName ?> Portal</title>
+    <title>View All Not Action Taken Leads - <?= $_ProductName ?> Portal</title>
     <?php
     include("../include/common-head.php");
     $dbh = new Dbh();
@@ -82,34 +82,14 @@ $_ProductLogo = $conf->_ProductLogo;
 
                         <!-- PAGE-HEADER -->
                         <div class="page-header mb-3">
-                            <h1 class="page-title">All Leads</h1>
+                            <h1 class="page-title">All Not Action Taken Leads</h1>
                             <div>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="../dashboard/admin-dashboard">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">All Lead</li>
+                                    <li class="breadcrumb-item active" aria-current="page">All Not Action Taken Lead</li>
                                 </ol>
                             </div>
                         </div>
-                        <!-- PAGE-HEADER END -->
-                        <div class="row" id="lead_analytics">
-
-                        </div>
-
-                        <div class="row pb-5 justify-content-end">
-                            <div class="col-md-6 text-end">
-                                <?php if($UserType == "System Admin" || $UserType == "BDE" || $UserType == "Center Manager"){?>
-                                <a onclick="OpenModal_AddLead()" class="btn btn-success text-white">Add Lead</a>
-                                <?php
-                                 }
-                                 if($UserType == "System Admin"){
-                                 ?>
-                                <!-- <span onclick="OpenStudentImporter_modal()" class="btn btn-primary">Import Lead</a> -->
-                                <?php
-                                 }
-                                 ?>
-                            </div>
-                        </div>
-
 
 
                         <!-- Filters -->
@@ -250,27 +230,21 @@ $_ProductLogo = $conf->_ProductLogo;
             <!--app-content close-->
 
 
+            <?php include("form/assignment-form.php"); ?>
+            <?php include("form/lead-form.php"); ?>
 
-        <?php include("form/assignment-form.php"); ?>
-        <?php include("form/lead-form.php"); ?>
-
-
-            <?php
-         include("../navigation/right-side-navigation.php");
-        ?>
+            <?php include("../navigation/right-side-navigation.php"); ?>
 
         </div>
 
         <?php
        include("../include/common-script.php");
         ?>
-
-         <!-- INTERNAL intlTelInput js-->
+        <!-- INTERNAL intlTelInput js-->
         <script src="../theme-assets/plugins/intl-tel-input-master/intlTelInput.js"></script>
         <script src="../theme-assets/plugins/intl-tel-input-master/country-select.js"></script>
-        <!-- <script src="../theme-assets/plugins/intl-tel-input-master/utils.js"></script> -->
 
-        <script src="../project-assets/js/manage-lead.js"></script>
+        <script src="../project-assets/js/not-action-taken-lead.js"></script>
         <script type="text/javascript">
         var param = "?BranchID=<?php echo $BranchID;?>"
         $(document).ready(function() {
@@ -282,7 +256,7 @@ $_ProductLogo = $conf->_ProductLogo;
                 'ordering': false,
                 'serverMethod': 'post',
                 'ajax': {
-                    'url': 'ajax/view-all-lead_post.php'+param
+                    'url': 'ajax/view-all-not-action-taken-lead_post.php'+param
                 },
                 'columnDefs': [{
                     "targets": [0],
@@ -328,6 +302,8 @@ $_ProductLogo = $conf->_ProductLogo;
                     {
                         data: 'Action'
                     }
+
+
                 ]
             });
             GenerateLeadAnalytics();
@@ -337,36 +313,25 @@ $_ProductLogo = $conf->_ProductLogo;
             $("#nav_manage_lead_li").css("display", "block");
             $("#nav_manage_lead_li").addClass("open");
             $("#nav_manage_lead").addClass("active");
-            $("#nav_all_lead").addClass("active");
+            $("#nav_not_action_taken").addClass("active");
         });
 
-        // $('.fc-datepicker').datepicker({
-        //     locale: {
-        //         format: 'YYYY-MM-DD'
-        //     }
-        // });
-        // $('#filter_start_date').daterangepicker({
-        //     locale: {
-        //         format: 'YYYY-MM-DD'
-        //     }
-        // });
-         // Get today's date in YYYY-MM-DD format
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-            const dd = String(today.getDate()).padStart(2, '0');
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const dd = String(today.getDate()).padStart(2, '0');
 
-            const formattedDate = `${yyyy}-${mm}-${dd}`;
+        const formattedDate = `${yyyy}-${mm}-${dd}`;
 
-            // Set max attribute to disable future dates
-            const leadDateInput = document.getElementById('LeadDate');
-            leadDateInput.max = formattedDate;
+        // Set max attribute to disable future dates
+        const leadDateInput = document.getElementById('LeadDate');
+        leadDateInput.max = formattedDate;
 
-            // Optional: set default value to today
-            leadDateInput.value = formattedDate;
+        // Optional: set default value to today
+        leadDateInput.value = formattedDate;
 
-            initPhone("#ContactPersonPhoneNumber", "#primary_country_code");
-            initPhone("#ContactPersonAlternativeNo", "#secondary_country_code");
+        initPhone("#ContactPersonPhoneNumber", "#primary_country_code");
+        initPhone("#ContactPersonAlternativeNo", "#secondary_country_code");
 
         </script>
 </body>

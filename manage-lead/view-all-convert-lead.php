@@ -29,7 +29,7 @@ $_ProductLogo = $conf->_ProductLogo;
     <meta name="author" content="">
     <meta name="keywords" content="">
     <!-- TITLE -->
-    <title>View All Leads - <?= $_ProductName ?> Portal</title>
+    <title>View All Converted Leads - <?= $_ProductName ?> Portal</title>
     <?php
     include("../include/common-head.php");
     $dbh = new Dbh();
@@ -82,18 +82,15 @@ $_ProductLogo = $conf->_ProductLogo;
 
                         <!-- PAGE-HEADER -->
                         <div class="page-header mb-3">
-                            <h1 class="page-title">All Leads</h1>
+                            <h1 class="page-title">All Converted Leads</h1>
                             <div>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="../dashboard/admin-dashboard">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">All Lead</li>
+                                    <li class="breadcrumb-item active" aria-current="page">All Converted Lead</li>
                                 </ol>
                             </div>
                         </div>
-                        <!-- PAGE-HEADER END -->
-                        <div class="row" id="lead_analytics">
 
-                        </div>
 
 
                         <!-- Filters -->
@@ -234,15 +231,18 @@ $_ProductLogo = $conf->_ProductLogo;
             <!--app-content close-->
 
 
-            <?php
-         include("../navigation/right-side-navigation.php");
-        ?>
+            <?php include("form/assignment-form.php"); ?>
+            <?php include("form/lead-form.php"); ?>
+
+            <?php include("../navigation/right-side-navigation.php"); ?>
 
         </div>
 
-        <?php
-       include("../include/common-script.php");
-        ?>
+        <?php include("../include/common-script.php");  ?>
+
+        <!-- INTERNAL intlTelInput js-->
+        <script src="../theme-assets/plugins/intl-tel-input-master/intlTelInput.js"></script>
+        <script src="../theme-assets/plugins/intl-tel-input-master/country-select.js"></script>
 
         <script src="../project-assets/js/convert-lead.js"></script>
         <script type="text/javascript">
@@ -316,7 +316,22 @@ $_ProductLogo = $conf->_ProductLogo;
             $("#nav_convert").addClass("active");
         });
 
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const dd = String(today.getDate()).padStart(2, '0');
 
+        const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+        // Set max attribute to disable future dates
+        const leadDateInput = document.getElementById('LeadDate');
+        leadDateInput.max = formattedDate;
+
+        // Optional: set default value to today
+        leadDateInput.value = formattedDate;
+
+        initPhone("#ContactPersonPhoneNumber", "#primary_country_code");
+        initPhone("#ContactPersonAlternativeNo", "#secondary_country_code");
 
 
         </script>

@@ -657,3 +657,194 @@ INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, 
 			LeadSource = 'youtube'
 			WHERE ID = 14
 		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDir',
+			TypeofBusiness = '1',
+			Services = '4,3',
+			ServiceCost = '3000',
+			ContactPersonName = '8433098391',
+			ContactPersonEmail = 'manish.sharma@digidir.com',
+			PrimaryDialCode = '+91',
+			ContactPersonPhoneNumber = '8433098391',
+			SecondaryDialCode = '+91',
+			ContactPersonAlternativeNo = 'Manish Sharma',
+			Website = 'test',
+			City = 'Delhi',
+			HighestQualification = '',
+			AssignedTo = '3',
+			LeadDate = '2026-01-13',
+			Status = 'Not Action Taken',
+			Remark = '',
+			CreatedDate = '2026-01-15',
+			CreatedTime = '16:32:49',
+			LeadSource = 'Web'
+			WHERE ID = 7
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDir',
+			TypeofBusiness = '1',
+			Services = '4,3',
+			ServiceCost = '3000',
+			ContactPersonName = '8433098391',
+			ContactPersonEmail = 'manish.sharma@digidir.com',
+			PrimaryDialCode = '+91',
+			ContactPersonPhoneNumber = '8433098391',
+			SecondaryDialCode = '+91',
+			ContactPersonAlternativeNo = 'Manish Sharma',
+			Website = 'test',
+			City = 'Delhi2',
+			HighestQualification = '',
+			AssignedTo = '3',
+			LeadDate = '2026-01-13',
+			Status = 'Not Action Taken',
+			Remark = '',
+			CreatedDate = '2026-01-15',
+			CreatedTime = '16:33:51',
+			LeadSource = 'Web'
+			WHERE ID = 7
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDirr',
+			TypeofBusiness = '1',
+			Services = '4,3',
+			ServiceCost = '30000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = 'test',
+			PrimaryDialCode = '+353',
+			ContactPersonPhoneNumber = '8433098391',
+			SecondaryDialCode = '+98',
+			ContactPersonAlternativeNo = '8433098391',
+			Website = 'test.com',
+			Country = 'India',
+			State = 'Delhi',
+			City = 'Noida',
+			Address = 'Noida
+Noida',
+			HighestQualification = '',
+			AssignedTo = '2',
+			LeadDate = '2026-01-14',
+			Status = 'Proposal Sent',
+			Remark = '',
+			CreatedDate = '2026-01-16',
+			CreatedTime = '13:39:26',
+			LeadSource = 'youtube'
+			WHERE ID = 14
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDirr',
+			TypeofBusiness = '1',
+			Services = '4,3',
+			ServiceCost = '30000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = 'test',
+			PrimaryDialCode = '+353',
+			ContactPersonPhoneNumber = '8433098391',
+			SecondaryDialCode = '+98',
+			ContactPersonAlternativeNo = '8433098391',
+			Website = 'test.com',
+			Country = 'India',
+			State = 'Delhi',
+			City = 'Noida',
+			Address = '',
+			HighestQualification = '',
+			AssignedTo = '2',
+			LeadDate = '2026-01-14',
+			Status = 'Proposal Sent',
+			Remark = '',
+			CreatedDate = '2026-01-16',
+			CreatedTime = '13:43:46',
+			LeadSource = 'youtube'
+			WHERE ID = 14
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDirr',
+			TypeofBusiness = '1',
+			Services = '4,3',
+			ServiceCost = '30000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = 'test',
+			PrimaryDialCode = '+353',
+			ContactPersonPhoneNumber = '8433098391',
+			SecondaryDialCode = '+98',
+			ContactPersonAlternativeNo = '8433098391',
+			Website = 'test.com',
+			Country = 'India',
+			State = 'Select State',
+			City = 'Noida',
+			Address = '',
+			HighestQualification = '',
+			AssignedTo = '2',
+			LeadDate = '2026-01-14',
+			Status = 'Proposal Sent',
+			Remark = '',
+			CreatedDate = '2026-01-16',
+			CreatedTime = '13:44:22',
+			LeadSource = 'youtube'
+			WHERE ID = 14
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDirr',
+			TypeofBusiness = '1',
+			Services = '4,3',
+			ServiceCost = '30000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = 'test',
+			PrimaryDialCode = '+353',
+			ContactPersonPhoneNumber = '8433098391',
+			SecondaryDialCode = '+98',
+			ContactPersonAlternativeNo = '8433098391',
+			Website = 'test.com',
+			Country = 'India',
+			State = 'Assam',
+			City = 'Noida',
+			Address = '',
+			HighestQualification = '',
+			AssignedTo = '2',
+			LeadDate = '2026-01-14',
+			Status = 'Proposal Sent',
+			Remark = '',
+			CreatedDate = '2026-01-16',
+			CreatedTime = '13:44:52',
+			LeadSource = 'youtube'
+			WHERE ID = 14
+		
+-------------- Update Lead ------------------
+
+			BranchID = '1',
+			CompanyName = 'DigiDirr',
+			TypeofBusiness = '1',
+			Services = '4,3',
+			ServiceCost = '30000',
+			ContactPersonName = 'Manish Sharma',
+			ContactPersonEmail = 'test',
+			PrimaryDialCode = '+353',
+			ContactPersonPhoneNumber = '8433098391',
+			SecondaryDialCode = '+98',
+			ContactPersonAlternativeNo = '8433098391',
+			Website = 'test.com',
+			Country = 'India',
+			State = 'Assam',
+			City = 'Noida',
+			Address = 'test',
+			HighestQualification = '',
+			AssignedTo = '2',
+			LeadDate = '2026-01-14',
+			Status = 'Proposal Sent',
+			Remark = '',
+			CreatedDate = '2026-01-16',
+			CreatedTime = '15:12:40',
+			LeadSource = 'youtube'
+			WHERE ID = 14
+		

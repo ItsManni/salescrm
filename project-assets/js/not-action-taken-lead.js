@@ -79,7 +79,7 @@ function SearchFillterLead(UserType) {
         'ordering': false,
         'serverMethod': 'post',
         'ajax': {
-            'url': 'ajax/view-all-convert-lead_post.php' + param
+            'url': 'ajax/view-all-not-action-taken-lead_post.php' + param
         },
         'columnDefs': [{
             "targets": [0],
