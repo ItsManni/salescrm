@@ -102,7 +102,6 @@ class ManageLead extends Core
 		$State = isset($data['State']) ? $data['State'] : '';
 		$City = isset($data['City']) ? $data['City'] : '';
 		$Address = isset($data['Address']) ? $data['Address'] : '';
-		$HighestQualification = isset($data['HighestQualification']) ? $data['HighestQualification'] : '';
 		$AssignedTo = isset($data['AssignedTo']) ? $data['AssignedTo'] : '';
 		$Status = isset($data['LeadStatus']) ? $data['LeadStatus'] : '';
 		$Remark = isset($data['Remark']) ? $data['Remark'] : '';
@@ -123,10 +122,10 @@ class ManageLead extends Core
 
 		if ($ActionType == 'default') {
 
-			$sql = "INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `PrimaryDialCode` ,`ContactPersonPhoneNumber`, `SecondaryDialCode`, `ContactPersonAlternativeNo`, `Website`, `Country`, `State`, `City`, `Address`, `HighestQualification`, `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`, `LeadDate` , `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+			$sql = "INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `PrimaryDialCode` ,`ContactPersonPhoneNumber`, `SecondaryDialCode`, `ContactPersonAlternativeNo`, `Website`, `Country`, `State`, `City`, `Address`, `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`, `LeadDate` , `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
             VALUES ('$Branch', '$CompanyName', '$BusinessType', '$Services', '$ServiceCost',
                     '$ContactPersonName', '$ContactPersonEmail', '$PrimaryDialCode' ,'$ContactPersonPhoneNumber', '$SecondaryDialCode',
-                    '$ContactPersonAlternativeNo', '$Website', '$Country', '$State', '$City', '$Address', '$HighestQualification',
+                    '$ContactPersonAlternativeNo', '$Website', '$Country', '$State', '$City', '$Address',
                     '$AssignedTo', '$Status', '$Remark', '$LeadSource', '$TelecallerLeadID', '$LeadDate',
                     '$CreatedTime', '$CreatedDate', '$CreatedBy', 1)";
 
@@ -203,7 +202,6 @@ class ManageLead extends Core
 		$State = isset($data['State']) ? $data['State'] : '';
 		$City = isset($data['City']) ? $data['City'] : '';
 		$Address = isset($data['Address']) ? $data['Address'] : '';
-		$HighestQualification = isset($data['HighestQualification']) ? $data['HighestQualification'] : '';
 
 		$AssignedTo = isset($data['AssignedTo']) ? $data['AssignedTo'] : '';
 		$Status = isset($data['LeadStatus']) ? $data['LeadStatus'] : '';
@@ -238,7 +236,6 @@ class ManageLead extends Core
 			State = '$State',
 			City = '$City',
 			Address = '$Address',
-			HighestQualification = '$HighestQualification',
 			AssignedTo = '$AssignedTo',
 			LeadDate = '$LeadDate',
 			Status = '$Status',
