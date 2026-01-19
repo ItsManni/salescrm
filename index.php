@@ -2,7 +2,8 @@
 // List all allowed public IPs (your home Wi-Fi)
 $allowed_ips = [
     '122.161.52.24',
-    '122.161.52.54'
+    '122.161.52.54',
+    '122.161.49.95'
 ];
 
 // Get the visitor's IP
