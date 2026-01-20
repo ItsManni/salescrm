@@ -1,5 +1,44 @@
 <?php
 require_once('../include/autoloader.inc.php');
+
+// ===== IP RESTRICTION =====
+$allowed_ips = [
+    '122.161.52.24',
+    '122.161.52.54',
+    '122.161.49.95',
+    '::1'
+];
+
+// Function to get the first two octets of an IP
+function get_first_two_octets($ip) {
+    $parts = explode('.', $ip);
+    return $parts[0] . '.' . $parts[1];
+}
+
+// Get visitor IP
+$visitor_ip = $_SERVER['REMOTE_ADDR'];
+$visitor_prefix = get_first_two_octets($visitor_ip);
+
+// Check if visitor is allowed
+$allowed = false;
+foreach ($allowed_ips as $ip) {
+    if (get_first_two_octets($ip) === $visitor_prefix) {
+        $allowed = true;
+        break;
+    }
+}
+
+if (!$allowed) {
+    // Denied → show JS alert and stop page
+    echo "<script>
+        alert('Access denied. You must be connected to the home Wi-Fi to access this site.\\nYour IP: $visitor_ip');
+        window.location.href = 'about:blank';
+    </script>";
+    exit();
+}
+// ===== END IP RESTRICTION =====
+
+
 $conf = new Conf();
 $_ProductName = $conf->_ProductName;
 $_ProductLogo = $conf->_ProductLogo;
@@ -35,55 +74,10 @@ $_ProductLogo = $conf->_ProductLogo;
             {
                 header("Location:../dashboard/admin-dashboard");
             }
-			if($UserType == "Content Team")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-            if($UserType == "Book Dispatch")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-            if($UserType == "Academic Head")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-
-            if($UserType == "Acountant")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-            if($UserType == "Admission")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-            if($UserType == "Marketing")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
             if($UserType == "Center Manager")
             {
                 header("Location:../dashboard/admin-dashboard");
             }
-            if($UserType == "Center Manager")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-            if($UserType == "Lead Counsellor")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-            if($UserType == "Batch Manager")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-            if($UserType == "Telecaller")
-            {
-                header("Location:../dashboard/admin-dashboard");
-            }
-           /* else
-            {
-                header("Location:../dashboard/admin_dashboard.php");
-            } */
         }
     ?>
 
@@ -100,7 +94,6 @@ $_ProductLogo = $conf->_ProductLogo;
 
     <!-- BACKGROUND-IMAGE -->
     <div class="">
-
         <div id="global-loader">
             <div class="d-flex align-items-center w-100 h-100">
                 <div class="spinner2">
@@ -108,20 +101,17 @@ $_ProductLogo = $conf->_ProductLogo;
                     <div class="cube2"></div>
                 </div>
             </div>
-
         </div>
 
         <!-- PAGE -->
         <div class="page">
             <div class="container">
-                <!-- Theme-Layout -->
-
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-12 bg-white p-6">
                         <form class="login100-form validate-form" id="form-login">
                             <div class="text-center login_logo">
-                                <a href="index.html"><img src="<?= $_ProductLogo ?>" class="header-brand-img" alt=""
-                                        style="width:200px; margin-bottom:20px;"></a>
+                                <a href="index.html"><img src="../project-assets/images/bw2.png" class="header-brand-img" alt=""
+                                        style="width:150px; margin-bottom:20px;"></a>
                             </div>
                             <span class="login100-form-title pb-5">
                                 Login
@@ -140,31 +130,23 @@ $_ProductLogo = $conf->_ProductLogo;
                                 <input class="input100 border-start-0 form-control ms-0" type="password"
                                     placeholder="Enter Password" name="password" id="password">
                             </div>
-                            <!--  <div class="text-end pt-4">
-                                <p class="mb-0"><a href="forgot-password" class="text-primary ms-1">Forgot
-                                        Password?</a></p>
-                            </div> -->
                             <div class="container-login100-form-btn">
                                 <a onclick="login();" id="login_btn" class="login100-form-btn btn-primary cursor-pointer">
                                     Login
                                 </a>
                             </div>
-
                         </form>
                     </div>
                     <div class="col-lg-8 col-md-6 col-12 p-6" style="background:#13ad99;">
                         <div class="d-flex align-items-center">
                             <img src="../project-assets/images/login-3.png" class="w-100" alt="">
-
                         </div>
-
                     </div>
                 </div>
                 <!-- CONTAINER CLOSED -->
             </div>
         </div>
         <!-- End PAGE -->
-
     </div>
     <!-- BACKGROUND-IMAGE CLOSED -->
 
@@ -178,48 +160,18 @@ $_ProductLogo = $conf->_ProductLogo;
     <!-- SHOW PASSWORD JS -->
     <script src="../theme-assets/js/show-password.min.js"></script>
     <script>
+    // Trigger login on Enter key
     var Submit_input = document.getElementById("email");
-
-    Submit_input.addEventListener("keypress", function(event) {
-
-        if (event.key === "Enter") {
-
-            event.preventDefault();
-
-            document.getElementById("login_btn").click();
-
-        }
-
-    });
-
     var Submit_inputpassword = document.getElementById("password");
-
-    Submit_inputpassword.addEventListener("keypress", function(event) {
-
-        if (event.key === "Enter") {
-
-            event.preventDefault();
-
-            document.getElementById("login_btn").click();
-
-        }
-
-    });
-
-
-
     var Submit_btn = document.getElementById("login_btn");
 
-    Submit_btn.addEventListener("keypress", function(event) {
-
-        if (event.key === "Enter") {
-
-            event.preventDefault();
-
-            document.getElementById("login_btn").click();
-
-        }
-
+    [Submit_input, Submit_inputpassword, Submit_btn].forEach(function(elem){
+        elem.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("login_btn").click();
+            }
+        });
     });
     </script>
 </body>

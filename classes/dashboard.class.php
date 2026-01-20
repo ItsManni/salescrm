@@ -12,43 +12,163 @@ class Dashboard extends Core
 	{
 		$stats = array();
 		$filter_branch = "";
-		$filter_center = "";
 		if($center_filter != -1)
 		{
 			$filter_branch = " AND BranchID = $center_filter";
-			$filter_center = " AND BranchID = $center_filter";
 		}
-		$filter =" where FinalStatus = 1";
-		$response_final_status = $this->_getTableDetails($this->conn,'lead_status',$filter);
-		if($response_final_status != NULL)
-		{
-			$FinalStatus = $response_final_status['Status'];
-		}
-		$filter_final_status = "";
-		if($FinalStatus != "")
-		{
-			$filter_final_status = " AND Status != '$FinalStatus'";
-		}
-		$filter = " where IsActive = 1".$filter_branch.$filter_final_status;
 
+		// Get All Leads Count
+		$filter = " where IsActive = 1" . $filter_branch;
 		$stats['AllLead'] = $this->_getTotalRows($this->conn,'all_lead', $filter);
 
+		$filter = " where IsActive = 1";
+		$stats['AllUsers'] = $this->_getTotalRows($this->conn,'users', $filter);
+
+		$filter = " where IsActive = 1";
+		$stats['AllServices'] = $this->_getTotalRows($this->conn,'services', $filter);
+
+		// Get Telecaller Leads Count
 		$filter = " where FinalStatus = 1";
 		$response_final_status = $this->_getTableDetails($this->conn,'telecaller_lead_status',$filter);
+		$filter_telecaller_final_status = "";
 		if($response_final_status != NULL)
 		{
 			$FinalStatus = $response_final_status['Status'];
+			if($FinalStatus != "")
+			{
+				$filter_telecaller_final_status = " AND Status != '$FinalStatus'";
+			}
 		}
-		$filter_telecaller_final_status = "";
-		if($FinalStatus != "")
+		// $filter = " where IsActive = 1".$filter_branch.$filter_telecaller_final_status;
+		// $stats['TotalTelecallerLeads'] = $this->_getTotalRows($this->conn,'telecaller_leads', $filter);
+
+		// ----------------------------
+		// Business Type Lead Counts
+		// ----------------------------
+		$business_leads = array();
+
+		// Fetch all business types
+		$query = "SELECT ID, BusinessName FROM type_of_business";
+		$result = $this->conn->query($query);
+
+		$businesses = [];
+		if ($result && $result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$businesses[] = $row;
+			}
+		}
+
+		// Add "Not Identified Lead" manually
+		$businesses[] = ['ID' => -1, 'BusinessName' => 'Not Identified Lead'];
+
+		// Loop through each business and count leads
+		foreach($businesses as $business)
 		{
-			$filter_telecaller_final_status = " AND Status != '$FinalStatus'";
+			$business_id = $business['ID'];
+			$business_name = $business['BusinessName'];
+
+			// Filter leads by TypeofBusiness
+			$filter_business = " WHERE IsActive = 1 AND TypeofBusiness = $business_id";
+
+			$business_count = $this->_getTotalRows($this->conn, 'all_lead', $filter_business);
+
+			// Only include if leads exist
+			if($business_count > 0){
+				$business_leads[$business_name] = $business_count;
+			}
 		}
-		$filter = " where IsActive = 1".$filter_branch.$filter_telecaller_final_status;
-		$stats['TotalTelecallerLeads'] = $this->_getTotalRows($this->conn,'telecaller_leads', $filter);
+
+		$stats['BusinessWiseLead'] = $business_leads;
+
+		// ----------------------------
+		// Lead Source Wise Lead Count
+		// ----------------------------
+		$leadSourceWise = [];
+
+		$sql = "
+			SELECT
+				COALESCE(ls.SourceName, 'Not Identified Source') AS SourceName,
+				COUNT(al.ID) AS TotalLeads
+			FROM all_lead al
+			LEFT JOIN lead_source ls
+				ON TRIM(LOWER(ls.SourceName)) = TRIM(LOWER(al.LeadSource))
+			WHERE al.IsActive = 1
+		";
+
+		$sql .= "
+			GROUP BY COALESCE(ls.SourceName, 'Not Identified Source')
+		";
+
+		$result = $this->conn->query($sql);
+
+		if (!$result) {
+			die("SQL ERROR: " . $this->conn->error);
+		}
+
+		while ($row = $result->fetch_assoc()) {
+			$leadSourceWise[$row['SourceName']] = $row['TotalLeads'];
+		}
+
+		$stats['LeadSourceWiseLead'] = $leadSourceWise;
+
+		// ----------------------------
+		// Service Wise Lead Count
+		// ----------------------------
+		$serviceWise = [];
+
+		$sql = "
+			SELECT
+				s.ServiceName,
+				COUNT(al.ID) AS TotalLeads
+			FROM services s
+			LEFT JOIN all_lead al
+				ON FIND_IN_SET(s.ID, al.Services)
+				AND al.IsActive = 1
+		";
+
+		if ($center_filter != -1) {
+			$sql .= " AND al.BranchID = $center_filter";
+		}
+
+		$sql .= "
+			GROUP BY s.ID, s.ServiceName
+			HAVING TotalLeads > 0
+		";
+
+		$result = $this->conn->query($sql);
+
+		if (!$result) {
+			die('SQL ERROR: ' . $this->conn->error);
+		}
+
+		while ($row = $result->fetch_assoc()) {
+			$serviceWise[$row['ServiceName']] = $row['TotalLeads'];
+		}
+
+		// ----------------------------
+		// Not Identified Service
+		// ----------------------------
+		$sqlUnknown = "
+			SELECT COUNT(*) AS TotalLeads
+			FROM all_lead
+			WHERE IsActive = 1
+			AND (Services IS NULL OR Services = '')
+		";
+
+		$resUnknown = $this->conn->query($sqlUnknown);
+		if ($resUnknown && $row = $resUnknown->fetch_assoc()) {
+			if ($row['TotalLeads'] > 0) {
+				$serviceWise['Not Identified Service'] = $row['TotalLeads'];
+			}
+		}
+
+		$stats['ServiceWiseLead'] = $serviceWise;
+
+
 
 		return $stats;
 	}
+
 	public function GetAdmissionDashboardStats()
 	{
 		$stats = array();

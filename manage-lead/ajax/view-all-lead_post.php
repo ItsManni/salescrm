@@ -121,7 +121,7 @@ if($UserType == "BDE")
 }
 
 $filter_center_manager = "";
-if($UserType == "Center Manager" || $UserType == "Lead Counsellor")
+if($UserType == "Center Manager")
 {
   $filter_center_manager = " AND BranchID = $BranchID";
 }

@@ -7,6 +7,81 @@ class Authentication extends Core
 		$this->conn = $conn;
 		$this->setTimeZone();
 	}
+
+	// public function login($data)
+	// {
+	// 	$email = trim($data['email']);
+	// 	$password = $data['password'];
+
+	// 	$response = ['error' => true, 'message' => 'Invalid login'];
+
+	// 	// Validate email
+	// 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	// 		$response['message'] = "Please enter a valid email address";
+	// 		return $response;
+	// 	}
+
+	// 	// Fetch user from table `users`
+	// 	$stmt = $this->conn->prepare("SELECT ID, Password, UserType, DeviceID, IsActive FROM users WHERE Email=? LIMIT 1");
+	// 	$stmt->bind_param("s", $email);
+	// 	$stmt->execute();
+	// 	$user = $stmt->get_result()->fetch_assoc();
+
+	// 	if (!$user) {
+	// 		$response['message'] = "User not found";
+	// 		return $response;
+	// 	}
+
+	// 	// Check if user is active
+	// 	if ($user['IsActive'] != 1) {
+	// 		$response['message'] = "Your account is inactive. Contact admin.";
+	// 		return $response;
+	// 	}
+
+	// 	// Verify password
+	// 	if (md5($password) !== $user['Password']) {
+	// 		$response['message'] = "Incorrect password";
+	// 		return $response;
+	// 	}
+
+	// 	// Generate device ID
+	// 	$device_id = hash('sha256', $_SERVER['HTTP_USER_AGENT'] . ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? ''));
+
+	// 	// First login → save DeviceID
+	// 	if (empty($user['DeviceID'])) {
+	// 		$update = $this->conn->prepare("UPDATE users SET DeviceID=? WHERE ID=?");
+	// 		$update->bind_param("si", $device_id, $user['ID']);
+	// 		$update->execute();
+	// 	}
+	// 	// Device mismatch → deny login
+	// 	elseif ($user['DeviceID'] !== $device_id) {
+	// 		$response['message'] = "Access denied: This account is locked to another device.";
+	// 		return $response;
+	// 	}
+
+	// 	// Set session and cookies for 1 day
+	// 	ini_set('session.gc_maxlifetime', 86400); // 24 hours
+	// 	session_set_cookie_params(86400); // 24 hours
+	// 	session_start();
+
+	// 	$_SESSION['pp_user_id']    = $user['ID'];
+	// 	$_SESSION['pp_email']      = $email;
+	// 	$_SESSION['pp_UserType']   = $user['UserType'];
+	// 	$_SESSION['pp_DeviceID']   = $device_id;
+	// 	$_SESSION['BranchID']   = $user['BranchID'];
+
+	// 	setcookie("pp_user_id", $user['ID'], time() + 86400, "/");
+	// 	setcookie("pp_DeviceID", $device_id, time() + 86400, "/");
+
+	// 	$response['error'] = false;
+	// 	$response['UserType'] = $user['UserType'];
+	// 	$response['message'] = "Login successful";
+
+	// 	return $response;
+	// }
+
+
+
 	public function login($data)
 	{
 		$response = array();
@@ -34,6 +109,7 @@ class Authentication extends Core
 		}
 		return $response;
 	}
+
 	public function SessionStart($data)
 	{
 		@session_start();

@@ -89,7 +89,7 @@ $_ProductLogo = $conf->_ProductLogo;
                         ?>
 
                         <!-- ROW-1 -->
-                        <h2 class="page-title text-primary">Leads Dashboard</h2>
+                        <h2 class="page-title text-primary"> Dashboard</h2>
                         <div class="row mt-5">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
                                 <div class="row">
@@ -115,19 +115,14 @@ $_ProductLogo = $conf->_ProductLogo;
                                             </div>
                                         </div>
                                     </div>
-
-                                     <?php
-                                    if($UserType == "System Admin" || $UserType == "Center Manager")
-                                    {
-                                    ?>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
-                                        <div class="card overflow-hidden bg-warning-gradient text-light">
+                                        <div class="card overflow-hidden bg-dark-gradient text-light">
                                             <div class="card-body">
                                                 <div class="d-flex">
                                                     <div class="mt-2">
-                                                        <h6 class="">All Telecaller Leads</h6>
+                                                        <h6 class="">All Users</h6>
                                                         <h2 class="mb-0 number-font">
-                                                            <?php echo $stats_array['TotalTelecallerLeads']; ?></h2>
+                                                            <?php echo $stats_array['AllUsers']; ?></h2>
                                                     </div>
                                                     <div class="ms-auto">
                                                         <div class="chart-wrapper mt-1">
@@ -142,9 +137,25 @@ $_ProductLogo = $conf->_ProductLogo;
                                             </div>
                                         </div>
                                     </div>
-                                    <?php
-                                    }
-                                    ?>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card overflow-hidden bg-info-gradient text-light">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h6 class="">All Services</h6>
+                                                        <h2 class="mb-0 number-font">
+                                                            <?php echo $stats_array['AllServices']; ?></h2>
+                                                    </div>
+
+                                                </div>
+                                                <!--span class="text-muted fs-12"><span class="text-secondary"><i
+                                                            class="fe fe-arrow-up-circle  text-secondary"></i> 5%</span>
+                                                    Last week</span-->
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -157,28 +168,74 @@ $_ProductLogo = $conf->_ProductLogo;
 
 
                         <!-- ROW-2 -->
-                        <!--div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Sales Analytics</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex mx-auto text-center justify-content-center mb-4">
-                                            <div class="d-flex text-center justify-content-center me-3"><span
-                                                    class="dot-label bg-primary my-auto"></span>Total Admission</div>
-                                            <div class="d-flex text-center justify-content-center"><span
-                                                    class="dot-label bg-secondary my-auto"></span>Total Fees</div>
-                                        </div>
-                                        <div class="chartjs-wrapper-demo">
-                                            <canvas id="transactions" class="chart-dropshadow"></canvas>
+                         <h2 class="page-title text-primary">Business Category Analytics</h2>
+                        <div class="row mt-5">
+
+                            <?php
+                            function randomDarkColor() {
+                                $r = rand(0, 120);
+                                $g = rand(0, 120);
+                                $b = rand(0, 120);
+                                return sprintf("#%02X%02X%02X", $r, $g, $b);
+                            }
+                            ?>
+                           <?php if(!empty($stats_array['BusinessWiseLead'])): ?>
+                            <?php foreach($stats_array['BusinessWiseLead'] as $business_name => $count): ?>
+                                <?php $bgColor = randomDarkColor(); ?>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                    <div class="card overflow-hidden text-light"
+                                        style="background: <?= $bgColor ?>;">
+                                        <div class="card-body">
+                                            <div class="d-flex">
+                                                <div class="mt-2">
+                                                    <h6><?= htmlspecialchars($business_name) ?> Leads</h6>
+                                                    <h2 class="mb-0 number-font"><?= $count ?></h2>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
 
-                        </div> -->
+                        </div>
+
+                        <h2 class="page-title text-primary">Services Lead Analytics</h2>
+                         <div class="row mt-5">
+
+                            <?php if(!empty($stats_array['ServiceWiseLead'])): ?>
+                                <?php foreach($stats_array['ServiceWiseLead'] as $service => $count): ?>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card text-light"
+                                            style="background-color: <?= randomDarkColor(); ?>;">
+                                            <div class="card-body">
+                                                <h6><?= htmlspecialchars($service) ?> Leads</h6>
+                                                <h2><?= $count ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                         </div>
                         <!-- ROW-2 END -->
+                        <h2 class="page-title text-primary">Lead Source Analytics</h2>
+                        <div class="row mt-5">
+                             <?php if(!empty($stats_array['LeadSourceWiseLead'])): ?>
+                                <?php foreach($stats_array['LeadSourceWiseLead'] as $source => $count): ?>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                                        <div class="card text-light"
+                                            style="background-color: <?= randomDarkColor(); ?>;">
+                                            <div class="card-body">
+                                                <h6 style='text-transform:capitalize'><?= htmlspecialchars($source) ?> Leads</h6>
+                                                <h2><?= $count ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
 
                     </div>
                     <!-- CONTAINER END -->

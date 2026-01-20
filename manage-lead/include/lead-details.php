@@ -94,7 +94,8 @@
                         <th class="wd-15p border-bottom-0">Contact Person Email</th>
                         <td class="wd-15p border-bottom-0"><?php
                          if($lead_details['ContactPersonEmail'] != ""){
-                             echo $lead_details['ContactPersonEmail'];
+                            echo '<a href="mailto:' . $lead_details['ContactPersonEmail'] . '">'
+     . $lead_details['ContactPersonEmail'] . '</a>';
                          }else{
                              echo "N/A";
                          }
@@ -109,7 +110,15 @@
                             <?php
                             if (!empty($lead_details['ContactPersonPhoneNumber'])) {
                                 $dialCode = !empty($lead_details['PrimaryDialCode']) ? $lead_details['PrimaryDialCode'] : '';
-                                echo $dialCode . '-' . $lead_details['ContactPersonPhoneNumber'];
+                                $phoneNumber = $lead_details['ContactPersonPhoneNumber'];
+
+                                // Combine dial code and number
+                                $fullNumber = $dialCode . $phoneNumber;
+
+                                // Display as a clickable phone link
+                                echo '<a href="tel:' . htmlspecialchars($fullNumber) . '">'
+                                    . htmlspecialchars($dialCode . '-' . $phoneNumber)
+                                    . '</a>';
                             } else {
                                 echo "N/A";
                             }
@@ -124,7 +133,15 @@
                             <?php
                             if (!empty($lead_details['ContactPersonAlternativeNo'])) {
                                 $secondaryDial = !empty($lead_details['SecondaryDialCode']) ? $lead_details['SecondaryDialCode'] : '';
-                                echo $secondaryDial . '-' . $lead_details['ContactPersonAlternativeNo'];
+                                $altNumber = $lead_details['ContactPersonAlternativeNo'];
+
+                                // Combine dial code and number for the link
+                                $fullAltNumber = $secondaryDial . $altNumber;
+
+                                // Display as a clickable phone link
+                                echo '<a href="tel:' . htmlspecialchars($fullAltNumber) . '">'
+                                    . htmlspecialchars($secondaryDial . '-' . $altNumber)
+                                    . '</a>';
                             } else {
                                 echo "N/A";
                             }
@@ -136,7 +153,7 @@
                         <th class="wd-15p border-bottom-0">Website</th>
                         <td class="wd-15p border-bottom-0"><?php
                          if($lead_details['Website'] != ""){
-                             echo $lead_details['Website'];
+                             echo '<a href="' . $lead_details['Website'] . '" target="_blank">' . $lead_details['Website'] . '</a>';
                          }else{
                              echo "N/A";
                          }
@@ -200,8 +217,8 @@
                     <tr>
                         <th class="wd-15p border-bottom-0">Lead Date</th>
                         <td class="wd-15p border-bottom-0"><?php
-                         if($lead_details['LeadSource'] != ""){
-                             echo $lead_details['LeadSource'];
+                         if($lead_details['LeadDate'] != ""){
+                             echo $lead_details['LeadDate'];
                          }else{
                              echo "N/A";
                          }
