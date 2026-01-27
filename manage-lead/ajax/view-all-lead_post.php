@@ -107,7 +107,7 @@ $data = array();
 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " and (Name like '%".$searchValue."%' or Email like '%".$searchValue."%' or PhoneNumber LIKE '%".$searchValue."%' or Status like '%".$searchValue."%')";
+   $searchQuery = " and (CompanyName like '%".$searchValue."%' or ContactPersonEmail like '%".$searchValue."%' or ContactPersonPhoneNumber LIKE '%".$searchValue."%' or ContactPersonAlternativeNo like '%".$searchValue."%' or Website like '%".$searchValue."%')";
 }
 
 $filter_assignto = "";
@@ -217,11 +217,11 @@ foreach ($all_lead_details as $all_lead_details_value)
 
   if($ContactPersonPhoneNumber == "")
   {
-    $Mobile_Email = $ContactPersonPhoneNumber;
+    $Mobile_Name = $ContactPersonPhoneNumber;
   }
   else
   {
-    $Mobile_Email = $ContactPersonEmail."<br>".$ContactPersonPhoneNumber;
+    $Mobile_Name = $ContactPersonName."<br>".$ContactPersonPhoneNumber;
   }
 
   $serviceNames = [];
@@ -238,14 +238,19 @@ foreach ($all_lead_details as $all_lead_details_value)
 
   $services_list = implode(', ', $serviceNames);
 
+  if(!empty($TypeofBusiness)){
+    $Business_category = $type_of_business_array[$TypeofBusiness];
+  }else{
+    $Business_category = 'N/A';
+  }
+
 
   $data[] = array(
     "id"=>$ID,
     "BranchID"=>$BranchID,
+    "CompanyName_TypeofBusiness"=>$CompanyName."<br>" .$Business_category,
     "Services"=>$services_list,
-    "CompanyName_TypeofBusiness"=>$CompanyName."<br>".$type_of_business_array[$TypeofBusiness],
-    "Mobile_Email"=>$Mobile_Email,
-    "ViewDetails"=>"<a href='view-lead-details?LeadID=".$Lead_ID_encrypted."'><span class='badge bg-info badge-sm  me-1 mb-1 mt-1'>View Details</span></a><br><span style='cursor: pointer;' class='badge bg-primary' onclick='OpenModal_QuickChangeAssignment($ID)'>Change Assignment</span>",
+    "ViewDetails"=>"<a href='view-lead-details?LeadID=".$Lead_ID_encrypted."'><span class='badge bg-info badge-sm  me-1 mb-1 mt-1'>View Details</span></a><br><span style='cursor: pointer;' class='badge bg-primary' onclick='OpenModal_QuickChangeAssignment($ID)'>Change Assignment</span><br><span style='cursor: pointer;' class='badge bg-danger' onclick='OpenModal_LeadDetails($ID)'>Quick View</span>",
     "Status"=>"<span class='badge' style='background-color:$lead_status_array[$Status]'>$Status</span>",
     "AssignedTo"=>$AssignedTo,
     "Action"=>"<a class='btn text-danger btn-sm' data-bs-toggle='tooltip'  onclick='EditManageLead_modal($ID)' data-bs-original-title='Edit'><span class='fe fe-edit fs-14'></span></a>"

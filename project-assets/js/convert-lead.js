@@ -45,13 +45,10 @@ function SearchFillterLead(UserType) {
             }
         },
         {
-            data: 'Services'
-        },
-        {
             data: 'CompanyName_TypeofBusiness'
         },
         {
-            data: 'Mobile_Email'
+            data: 'Services'
         },
         {
             data: 'ViewDetails'
@@ -510,4 +507,16 @@ function AddUpdateAssignment() {
   });
   return false;
 
+}
+
+function OpenModal_LeadDetails(LeadID) {
+    $.ajax({
+        url: "modal/get_lead_info.php",
+        type: "POST",
+        data: { LeadID: LeadID },
+        success: function (response) {
+            $("#leadModalContainer").html(response);
+            $("#quick_lead_details_modal").modal("show");
+        }
+    });
 }

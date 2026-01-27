@@ -102,6 +102,9 @@ while ($row = $result->fetch_assoc())
 {
     $Status = $row['Status'];
     $bg_color = $status_array[$Status]['LeadColor'];
+    if($bg_color == ''){
+        $bg_color = '#000';
+    }
     $style = "background-color:".$bg_color.";color:#fff";
 	?>
     <div class="card overflow-hidden lead-card" style="width:15%;margin:2px;padding:0.5%;font-size:0.8em;<?=$style;?>" data-status="<?php echo $row['Status'];?>">

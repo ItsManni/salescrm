@@ -8,10 +8,10 @@ $dbh  = new Dbh();
 $conn = $dbh->_connectodb();
 
 /* ---------------- CONFIG ---------------- */
-$filename    = 'lead_data.csv';
+$filename    = 'ujala_lead.csv';
 $Branch      = 1;
-$AssignedTo  = 4;
-$CreatedBy   = 'saurabh@digidir.com';
+$AssignedTo  = 6;
+$CreatedBy   = 'ujala@digidir.com';
 $CreatedDate = date('Y-m-d');
 $CreatedTime = date('H:i:s');
 // $Status      = 'New';
@@ -42,21 +42,38 @@ function normalizePhone($phone)
 }
 
 /* -------- DUPLICATE CHECK -------- */
-function getExistingLeadIdByPhone($conn, $phone)
+/* -------- DUPLICATE CHECK: PHONE FIRST, THEN COMPANY -------- */
+function getExistingLeadIdByPhoneOrName($conn, $companyName, $phone)
 {
-    if ($phone === '') return false;
 
-    $phoneEsc = mysqli_real_escape_string($conn, $phone);
-    $sql = "SELECT ID FROM all_lead
-            WHERE ContactPersonPhoneNumber = '$phoneEsc'
-            LIMIT 1";
 
-    $res = mysqli_query($conn, $sql);
+    // If phone not found or blank, check company name
+    if ($companyName !== '') {
+        $companyEsc = mysqli_real_escape_string($conn, $companyName);
+        $sql = "SELECT ID FROM all_lead WHERE CompanyName = '$companyEsc' LIMIT 1";
+        $res = mysqli_query($conn, $sql);
+        if ($res && mysqli_num_rows($res) > 0) {
+            return mysqli_fetch_assoc($res)['ID'];
+        }
+    }
 
-    return ($res && mysqli_num_rows($res) > 0)
-        ? mysqli_fetch_assoc($res)['ID']
-        : false;
+    // Check phone first
+    if($companyName == ''){
+        if ($phone !== '') {
+            $phoneEsc = mysqli_real_escape_string($conn, $phone);
+            $sql = "SELECT ID FROM all_lead WHERE ContactPersonPhoneNumber = '$phoneEsc' LIMIT 1";
+            $res = mysqli_query($conn, $sql);
+            if ($res && mysqli_num_rows($res) > 0) {
+                return mysqli_fetch_assoc($res)['ID'];
+            }
+        }
+    }
+    // No duplicates found
+    return false;
 }
+
+
+
 
 /* -------- BUSINESS TYPE IDS -------- */
 function getBusinessTypeIds($conn, $csvValue)
@@ -125,6 +142,8 @@ while (($row = fgetcsv($file)) !== false) {
     $LeadDate    = formatDateYMD($row[10] ?? '');
     $City        = trim($row[11] ?? '');
     $Remark        = trim($row[12] ?? '');
+    $SecondDialCode   = trim($row[13] ?? '');
+    $SecondPhone      = trim($row[14] ?? '');
 
     if ($CompanyName === '' && $Phone === '') continue;
 
@@ -133,12 +152,29 @@ while (($row = fgetcsv($file)) !== false) {
     $Services     = getServiceIds($conn, $ServiceCsv);
 
     /* -------- CHECK DUPLICATE -------- */
-    $leadID = getExistingLeadIdByPhone($conn, $Phone);
+     $leadID = getExistingLeadIdByPhoneOrName($conn, $CompanyName, $Phone);
 
     if ($leadID === false) {
 
         /* -------- INSERT NEW LEAD -------- */
         $phoneEsc = mysqli_real_escape_string($conn, $Phone);
+
+        /* -------- ESCAPE ALL INPUTS -------- */
+        $CompanyName = mysqli_real_escape_string($conn, $CompanyName);
+        $BusinessType = mysqli_real_escape_string($conn, $BusinessType);
+        $Services = mysqli_real_escape_string($conn, $Services);
+        $ContactName = mysqli_real_escape_string($conn, $ContactName);
+        $Email = mysqli_real_escape_string($conn, $Email);
+        $DialCode = mysqli_real_escape_string($conn, $DialCode);
+        $PhoneEsc = mysqli_real_escape_string($conn, $Phone);
+        $Website = mysqli_real_escape_string($conn, $Website);
+        $City = mysqli_real_escape_string($conn, $City);
+        $Status = mysqli_real_escape_string($conn, $Status);
+        $LeadSource = mysqli_real_escape_string($conn, $LeadSource);
+        $LeadDate = mysqli_real_escape_string($conn, $LeadDate);
+        $RemarkEsc = mysqli_real_escape_string($conn, $Remark);
+        $SecondDialCode = mysqli_real_escape_string($conn, $SecondDialCode);
+        $SecondPhone = mysqli_real_escape_string($conn, $SecondPhone);
 
         $sqlLead = "
             INSERT INTO all_lead (
@@ -146,18 +182,19 @@ while (($row = fgetcsv($file)) !== false) {
                 ContactPersonName, ContactPersonEmail,
                 PrimaryDialCode, ContactPersonPhoneNumber,
                 Website, City, Status, LeadSource, LeadDate,
-                CreatedDate, CreatedTime, CreatedBy, IsActive, AssignedTo
+                CreatedDate, CreatedTime, CreatedBy, IsActive, AssignedTo, SecondaryDialCode, ContactPersonAlternativeNo
             ) VALUES (
                 '$Branch', '$CompanyName', '$BusinessType', '$Services',
                 '$ContactName', '$Email',
                 '$DialCode', '$phoneEsc',
                 '$Website', '$City', '$Status', '$LeadSource', '$LeadDate',
-                '$CreatedDate', '$CreatedTime', '$CreatedBy', 1 , '$AssignedTo'
+                '$CreatedDate', '$CreatedTime', '$CreatedBy', 1 , '$AssignedTo', '$SecondDialCode', '$SecondPhone'
             )
         ";
 
         if (!mysqli_query($conn, $sqlLead)) {
-            echo "❌ Lead insert failed at row $rowNo<br>";
+            echo "❌ Lead insert failed at row $rowNo: " . mysqli_error($conn) . "<br>";
+            echo "<pre>$sqlLead</pre><br>";
             continue;
         }
 
@@ -168,7 +205,7 @@ while (($row = fgetcsv($file)) !== false) {
             INSERT INTO lead_remarks
             (LeadID, Remark, CreatedDate, CreatedTime, CreatedBy)
             VALUES
-            ('$leadID', '$Remark',
+            ('$leadID', '$RemarkEsc',
             '$CreatedDate', '$CreatedTime', '$CreatedBy')
         ");
 
@@ -193,7 +230,8 @@ while (($row = fgetcsv($file)) !== false) {
 
         echo "✅ Imported LeadID: $leadID<br>";
     }else{
-         echo "No Lead";
+        //  echo "No Lead $CompanyName";
+         echo "⛔ Duplicate found at row $rowNo — skipping insert<br>";
     }
 
 

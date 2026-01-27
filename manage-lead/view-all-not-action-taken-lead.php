@@ -204,9 +204,8 @@ $_ProductLogo = $conf->_ProductLogo;
                                                         <?php
                                                         }
                                                         ?>
-                                                            <th class="wd-15p border-bottom-0">Services</th>
                                                             <th class="wd-15p border-bottom-0">Company / Business </th>
-                                                            <th class="wd-15p border-bottom-0">Email / Mobile Number</th>
+                                                            <th class="wd-15p border-bottom-0">Services</th>
                                                             <th class="wd-15p border-bottom-0">Details</th>
                                                             <th class="wd-15p border-bottom-0">Status</th>
                                                             <th class="wd-15p border-bottom-0">Assigned To</th>
@@ -232,7 +231,7 @@ $_ProductLogo = $conf->_ProductLogo;
 
             <?php include("form/assignment-form.php"); ?>
             <?php include("form/lead-form.php"); ?>
-
+            <?php include("modal/modal_lead_info.php"); ?>
             <?php include("../navigation/right-side-navigation.php"); ?>
 
         </div>
@@ -282,13 +281,10 @@ $_ProductLogo = $conf->_ProductLogo;
                     }
                     ?>
                     {
-                        data: 'Services'
-                    },
-                    {
                         data: 'CompanyName_TypeofBusiness'
                     },
                     {
-                        data: 'Mobile_Email'
+                        data: 'Services'
                     },
                     {
                         data: 'ViewDetails'

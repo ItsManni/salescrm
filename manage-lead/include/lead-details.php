@@ -95,7 +95,7 @@
                         <td class="wd-15p border-bottom-0"><?php
                          if($lead_details['ContactPersonEmail'] != ""){
                             echo '<a href="mailto:' . $lead_details['ContactPersonEmail'] . '">'
-     . $lead_details['ContactPersonEmail'] . '</a>';
+                            . $lead_details['ContactPersonEmail'] . '</a>';
                          }else{
                              echo "N/A";
                          }
