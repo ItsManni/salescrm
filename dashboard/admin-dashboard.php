@@ -115,6 +115,7 @@ $_ProductLogo = $conf->_ProductLogo;
                                             </div>
                                         </div>
                                     </div>
+                                    <?php if($UserType == 'Admin'){?>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
                                         <div class="card overflow-hidden bg-dark-gradient text-light">
                                             <div class="card-body">
@@ -155,7 +156,7 @@ $_ProductLogo = $conf->_ProductLogo;
                                             </div>
                                         </div>
                                     </div>
-
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -166,9 +167,9 @@ $_ProductLogo = $conf->_ProductLogo;
 
 
 
-
+                       <?php if($UserType == 'Admin'){?>
                         <!-- ROW-2 -->
-                         <h2 class="page-title text-primary">Business Category Analytics</h2>
+                        <h2 class="page-title text-primary">Business Category Analytics</h2>
                         <div class="row mt-5">
 
                             <?php
@@ -236,6 +237,7 @@ $_ProductLogo = $conf->_ProductLogo;
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
+                        <?php } ?>
 
                     </div>
                     <!-- CONTAINER END -->

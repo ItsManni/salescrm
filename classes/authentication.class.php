@@ -81,7 +81,6 @@ class Authentication extends Core
 	// }
 
 
-
 	public function login($data)
 	{
 		$response = array();
@@ -101,6 +100,19 @@ class Authentication extends Core
 			$response['error'] = false;
 			$response['message'] = "User authenticated";
 			$this->SessionStart($data);
+
+			// ✅ INSERT LOGIN HISTORY USING EXISTING HELPER
+			$LoginDate = date('Y-m-d');
+			$LoginTime = date('H:i:s');
+			$IPAddress = $_SERVER['REMOTE_ADDR'];
+			$CreatedDate = date('Y-m-d');
+			$CreatedTime = date('H:i:s');
+
+			$sql = "INSERT INTO login_history (UserID, LoginDate, LoginTime, IPAddress, CreatedDate, CreatedTime)
+					VALUES ('".$data['UserID']."','$LoginDate','$LoginTime','$IPAddress','$CreatedDate','$CreatedTime')";
+
+			$response_insert_login_history = $this->_InsertTableRecords($this->conn, $sql);
+
 		}
 		else
 		{
@@ -109,6 +121,35 @@ class Authentication extends Core
 		}
 		return $response;
 	}
+
+
+	// public function login($data)
+	// {
+	// 	$response = array();
+	// 	$email = $data['email'];
+	// 	$password = $data['password'];
+	// 	$password_hash = md5($password);
+	// 	$filter = " where Email = '$email' and Password = '$password_hash' and IsActive = 1";
+	// 	$num_rows = $this->_getTotalRows($this->conn,'users', $filter);
+	// 	if($num_rows > 0)
+	// 	{
+	// 		$row = $this->_getTableDetails($this->conn,'users',$filter);
+	// 		$response['UserType'] = $data['UserType'] = $row['UserType'];
+	// 		$data['BranchID'] = $row['BranchID'];
+	// 		$filter_user_detail = " where Email = '$email'";
+	// 		$row_user_detail = $this->_getTableDetails($this->conn,'user_details',$filter_user_detail);
+	// 		$data['UserID'] = $row_user_detail['ID'];
+	// 		$response['error'] = false;
+	// 		$response['message'] = "User authenticated";
+	// 		$this->SessionStart($data);
+	// 	}
+	// 	else
+	// 	{
+	// 		$response['error'] = true;
+	// 		$response['message'] = "Invalid Credentials, Please try again with valid credentials";
+	// 	}
+	// 	return $response;
+	// }
 
 	public function SessionStart($data)
 	{

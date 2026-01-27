@@ -13,7 +13,7 @@ $_ProductLogo = $conf->_ProductLogo;
     <meta name="author" content="">
     <meta name="keywords" content="">
     <!-- TITLE -->
-    <title>View Configuration - DWD</title>
+    <title>View Configuration - <?php echo $_ProductName; ?></title>
     <?php
         include("../include/common-head.php");
         $dbh = new Dbh();

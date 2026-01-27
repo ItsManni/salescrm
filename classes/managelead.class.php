@@ -2,19 +2,21 @@
 class ManageLead extends Core
 {
 	private $conn;
+	public $file;
 	public function __construct($conn)
-	{
-		$this->conn = $conn;
-		if(file_exists("../logs/lead_logs.txt")){
-			$this->file = "../logs/lead_logs.txt";
-		}elseif (file_exists("admin/logs/lead_logs.txt")) {
-			$this->file = "admin/logs/lead_logs.txt";
-		}
-		else{
-			$this->file = "../../logs/lead_logs.txt";
-		}
-		$this->setTimeZone();
-	}
+    {
+        $this->conn = $conn;
+
+        if (file_exists("../logs/lead_logs.txt")) {
+            $this->file = "../logs/lead_logs.txt";
+        } elseif (file_exists("admin/logs/lead_logs.txt")) {
+            $this->file = "admin/logs/lead_logs.txt";
+        } else {
+            $this->file = "../../logs/lead_logs.txt";
+        }
+
+        $this->setTimeZone();
+    }
 	public function WriteLog($txt)
 	{
 		$logFile = fopen($this->file, "a");
