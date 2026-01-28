@@ -154,15 +154,20 @@ class Authentication extends Core
 	public function SessionStart($data)
 	{
 		@session_start();
-	    $_SESSION['pp_email'] = $data['email'];
-	    $_SESSION['pp_UserType'] = $data['UserType'];
-	    $_SESSION['BranchID'] = $data['BranchID'];
-		$_SESSION['UserID'] = $data['UserID'];
-	    setcookie('pp_email',$data['email'],time() + (86400 * 30));
-		setcookie('pp_UserType',$data['UserType'],time() + (86400 * 30));
-		setcookie('BranchID',$data['BranchID'],time() + (86400 * 30));
-		setcookie('UserID',$data['UserID'],time() + (86400 * 30));
+
+		$_SESSION['pp_email']    = $data['email'];
+		$_SESSION['pp_UserType'] = $data['UserType'];
+		$_SESSION['BranchID']    = $data['BranchID'];
+		$_SESSION['UserID']      = $data['UserID'];
+
+		$expiry = time() + (15 * 60 * 60); // 15 hours
+
+		setcookie('pp_email', $data['email'], $expiry);
+		setcookie('pp_UserType', $data['UserType'], $expiry);
+		setcookie('BranchID', $data['BranchID'], $expiry);
+		setcookie('UserID', $data['UserID'], $expiry);
 	}
+
 	public function SessionCheck()
 	{
 		@session_start();
