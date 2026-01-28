@@ -1,4 +1,4 @@
-<?php 
+<?php
 class Navigation extends Core
 {
 	public $_Nav_Dashboard;
@@ -49,6 +49,7 @@ class Navigation extends Core
 	public $_Nav_Lead_Analytics;
 	public $_Nav_Telecaller_Leads;
 	public $_Nav_Mentorships;
+	public $_Nav_Login_History;
 
 	public function __construct()
 	{
@@ -100,6 +101,7 @@ class Navigation extends Core
 		$_Nav_Lead_Analytics = false;
 		$_Nav_Telecaller_Leads = false;
 		$_Nav_Mentorships = false;
+		$_Nav_Login_History = false;
 	}
 	public function setNavigation($role)
 	{
@@ -108,7 +110,7 @@ class Navigation extends Core
 		$nav_array = get_object_vars($nav_array);
 		//foreach($EmployeeRoles as $role)
 		{
-			
+
 			$temp_nav_array = $nav_array[$role];
 			// print_r($temp_nav_array);
 			if(in_array("_Nav_Dashboard",$temp_nav_array))
@@ -119,6 +121,8 @@ class Navigation extends Core
 				$this->_Nav_PaymentLink = true;
 			if(in_array("_Nav_Users",$temp_nav_array))
 				$this->_Nav_Users = true;
+			if(in_array("_Nav_Login_History",$temp_nav_array))
+				$this->_Nav_Login_History = true;
 			if(in_array("_Nav_Company",$temp_nav_array))
 				$this->_Nav_Company = true;
 			if(in_array("_Nav_Admissions",$temp_nav_array))
@@ -184,7 +188,7 @@ class Navigation extends Core
 			if(in_array("_Nav_Test",$temp_nav_array))
 				$this->_Nav_Test = true;
 			if(in_array("_Nav_Educator_Essay",$temp_nav_array))
-				$this->_Nav_Educator_Essay  = true; 
+				$this->_Nav_Educator_Essay  = true;
 			if(in_array("_Nav_Test_Result",$temp_nav_array))
 				$this->_Nav_Test_Result = true;
 			if(in_array("_Nav_Admissions_Inside",$temp_nav_array))

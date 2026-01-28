@@ -9,7 +9,8 @@
     "_Nav_ManageLead",
     "_Nav_Configurations",
     "_Nav_Company",
-    "_Nav_Lead_Analytics"
+    "_Nav_Lead_Analytics",
+    "_Nav_Login_History"
   ],
   "Center Manager": [
     "_Nav_Dashboard_Lead",
@@ -21,7 +22,8 @@
     "_Nav_ManageLead",
     "_Nav_Configurations",
     "_Nav_Company",
-    "_Nav_Lead_Analytics"
+    "_Nav_Lead_Analytics",
+    "_Nav_Login_History"
   ],
   "BDE": [
     "_Nav_Dashboard_Lead",

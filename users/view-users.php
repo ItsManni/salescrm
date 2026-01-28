@@ -13,7 +13,7 @@ $_ProductLogo = $conf->_ProductLogo;
     <meta name="author" content="">
     <meta name="keywords" content="">
     <!-- TITLE -->
-    <title>View All Users - <?= $_ProductName ?> ICS</title>
+    <title>View All Users - <?= $_ProductName ?></title>
 
     <?php
     @session_start();

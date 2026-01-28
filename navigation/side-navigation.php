@@ -655,6 +655,15 @@
 
                             <?php
                             }
+                            if($navigation->_Nav_Login_History)
+                            {
+                            ?>
+                                <li class="slide">
+                                    <a class="side-menu__item" id="nav_login_history" data-bs-toggle="slide" href="../login-histroy/view-login-history"><i class="side-menu__icon fa fa-history"></i><span class="side-menu__label">Login History</span></a>
+                                </li>
+
+                            <?php
+                            }
                             ?>
 
 

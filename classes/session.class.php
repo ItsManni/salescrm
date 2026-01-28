@@ -79,4 +79,28 @@ class Session extends Core
 			}
 		}
 	}
+
+	public function GetAllLoginHistroy($conn, $BranchID = -1)
+{
+    $BranchID = (int)$BranchID;
+
+    $where = "
+        INNER JOIN user_details u ON u.ID = login_history.UserID
+        WHERE 1
+    ";
+
+    if ($BranchID != -1) {
+        $where .= " AND u.BranchID = ".$BranchID;
+    }
+
+    // ❌ DO NOT ADD ORDER BY HERE
+    return $this->_getTableRecords($conn, "login_history", $where);
+}
+
+
+
+
+
+
+
 }
