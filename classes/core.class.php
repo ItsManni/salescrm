@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 class Core
 {
 	public function getURL()
 	{
-		if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) 
+		if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false)
 		{
 			$_URL = "http://localhost/Projects/praasjva-ias/";
 			return $_URL;
@@ -19,7 +19,7 @@ class Core
 
 	public function datecheck($input_date)
 	{
-		
+
 		// Check if the input date is in "yyyy-mm-dd" format
 		if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $input_date)) {
 		    // Date is already in the desired format
@@ -42,7 +42,7 @@ class Core
 		return $new_date;
 	}
 
-	public function ensureCorrectDateFormat($dateStr) 
+	public function ensureCorrectDateFormat($dateStr)
 	{
 	    // Check if the date is already in Y-m-d format
 	    $d = DateTime::createFromFormat('Y-m-d', $dateStr);
@@ -80,7 +80,7 @@ class Core
 		return $response;
 	}
 
-	function _InsertPreparedData($conn,$tableName, $columns, $values) 
+	function _InsertPreparedData($conn,$tableName, $columns, $values)
 	{
 		$response = array();
 		$response['error'] = false;
@@ -317,7 +317,6 @@ class Core
 		curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
 		curl_exec($ch);
 		curl_close($ch);
-		
 	}
 
 	public function formatIndianNumber($number) {
@@ -326,22 +325,22 @@ class Core
 	            $length = strlen($money);
 	            $delimiter = '';
 	            $money = strrev($money);
-	 
+
 	            for($i=0;$i<$length;$i++){
 	                if(( $i==3 || ($i>3 && ($i-1)%2==0) )&& $i!=$length){
 	                    $delimiter .=',';
 	                }
 	                $delimiter .=$money[$i];
 	            }
-	 
+
 	            $result = strrev($delimiter);
 	            $decimal = preg_replace("/0\./i", ".", $decimal);
 	            $decimal = substr($decimal, 0, 3);
-	 
+
 	            if( $decimal != '0'){
 	                $result = $result.$decimal;
 	            }
-	 
+
 	            return $result;
 	}
 	public function cleantext($str)
@@ -351,7 +350,7 @@ class Core
 		return $str;
 	}
 
-	public function formatAmountInINR($num) 
+	public function formatAmountInINR($num)
 	{
 	    $explrestunits = "" ;
 	    if(strlen($num)>3) {
@@ -391,6 +390,6 @@ class Core
 		$dateString = $date;
 		$dateObject = DateTime::createFromFormat('m/d/Y', $dateString);
 		$formattedDate = $dateObject->format('Y-m-d');
-		return $formattedDate; 
+		return $formattedDate;
 	}
 }

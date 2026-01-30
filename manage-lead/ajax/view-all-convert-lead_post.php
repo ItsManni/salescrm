@@ -107,7 +107,7 @@ $data = array();
 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " and (CompanyName like '%".$searchValue."%' or ContactPersonEmail like '%".$searchValue."%' or ContactPersonPhoneNumber LIKE '%".$searchValue."%' or ContactPersonAlternativeNo like '%".$searchValue."%' or Website like '%".$searchValue."%')";
+   $searchQuery = " and (CompanyName like '%".$searchValue."%' or ContactPersonEmail like '%".$searchValue."%' or ContactPersonPhoneNumber LIKE '%".$searchValue."%' or ContactPersonAlternativeNo like '%".$searchValue."%' or Website like '%".$searchValue."%'  or ContactPersonName like '%".$searchValue."%')";
 }
 
 $filter_assignto = "";

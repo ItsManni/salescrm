@@ -848,3 +848,31 @@ Noida',
 			LeadSource = 'youtube'
 			WHERE ID = 14
 		
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `PrimaryDialCode` ,`ContactPersonPhoneNumber`, `SecondaryDialCode`, `ContactPersonAlternativeNo`, `Website`, `Country`, `State`, `City`, `Address`, `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`, `LeadDate` , `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '59', '25', '3000',
+                    'Manish Sharma', '', '+91' ,'8433098391', '+91',
+                    '', 'tes', 'India', 'Delhi', '', '',
+                    '5', 'In Progress', '', 'Meta Ads', '-1', '2026-01-20',
+                    '17:23:27', '2026-01-30', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `PrimaryDialCode` ,`ContactPersonPhoneNumber`, `SecondaryDialCode`, `ContactPersonAlternativeNo`, `Website`, `Country`, `State`, `City`, `Address`, `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`, `LeadDate` , `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '56', '22', '3000',
+                    'Manish Sharma', '', '+91' ,'8433098391', '+91',
+                    '', 'tes', 'India', 'Delhi', '', '',
+                    '5', 'In Progress', '', 'Meta Ads', '-1', '',
+                    '17:28:13', '2026-01-30', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `PrimaryDialCode` ,`ContactPersonPhoneNumber`, `SecondaryDialCode`, `ContactPersonAlternativeNo`, `Website`, `Country`, `State`, `City`, `Address`, `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`, `LeadDate` , `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '56', '22', '3000',
+                    'Manish Sharma', '', '+91' ,'8433098391', '+91',
+                    '', '', 'India', 'Delhi', '', '',
+                    '2', 'Pending Decision', '', 'Direct WhatsApp', '-1', '',
+                    '17:37:14', '2026-01-30', 'admin@digidir.com', 1)
+ -------------- New Lead  ------------------
+INSERT INTO `all_lead`(`BranchID`, `CompanyName`, `TypeofBusiness`, `Services`, `ServiceCost`,`ContactPersonName`, `ContactPersonEmail`, `PrimaryDialCode` ,`ContactPersonPhoneNumber`, `SecondaryDialCode`, `ContactPersonAlternativeNo`, `Website`, `Country`, `State`, `City`, `Address`, `AssignedTo`, `Status`, `Remark`, `LeadSource`, `TelecallerLeadID`, `LeadDate` , `CreatedTime`, `CreatedDate`, `CreatedBy`, `IsActive`)
+            VALUES ('1', 'DigiDir', '58', '25', '3000',
+                    'Manish Sharma', '', '+91' ,'8433098391', '+91',
+                    '', '', 'India', 'Delhi', '', '',
+                    '5', 'Follow-up', '', 'Meta Ads', '-1', '',
+                    '18:02:07', '2026-01-30', 'admin@digidir.com', 1)

@@ -8,7 +8,7 @@ $dbh  = new Dbh();
 $conn = $dbh->_connectodb();
 
 /* ---------------- CONFIG ---------------- */
-$filename    = 'meta_lead_2.csv';
+$filename    = 'book_event.csv';
 $Branch      = 1;
 $AssignedTo  = 6;
 $CreatedBy   = 'ujala@digidir.com';
@@ -239,6 +239,7 @@ while (($row = fgetcsv($file)) !== false) {
     $Remark      = trim($row[12] ?? '');
     $SecondDialCode = trim($row[13] ?? '');
     $SecondPhone    = trim($row[14] ?? '');
+    $Budget         = trim($row[15] ?? '');
     $Budget         = trim($row[15] ?? '');
 
     if ($CompanyName === '' && $Phone === '') continue;  // Skip empty content rows

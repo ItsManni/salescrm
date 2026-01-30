@@ -664,6 +664,15 @@
 
                             <?php
                             }
+                            if($navigation->_Nav_Logs)
+                            {
+                            ?>
+                                <li class="slide">
+                                    <a target='_blank' class="side-menu__item" id="nav_login_history" data-bs-toggle="slide" href="../logs/lead_logs.txt"><i class="side-menu__icon fa fa-history"></i><span class="side-menu__label">All Logs</span></a>
+                                </li>
+
+                            <?php
+                            }
                             ?>
 
 

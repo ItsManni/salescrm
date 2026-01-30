@@ -107,7 +107,7 @@ $data = array();
 
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " and (CompanyName like '%".$searchValue."%' or ContactPersonEmail like '%".$searchValue."%' or ContactPersonPhoneNumber LIKE '%".$searchValue."%' or ContactPersonAlternativeNo like '%".$searchValue."%' or Website like '%".$searchValue."%')";
+   $searchQuery = " and (CompanyName like '%".$searchValue."%' or ContactPersonEmail like '%".$searchValue."%' or ContactPersonPhoneNumber LIKE '%".$searchValue."%' or ContactPersonAlternativeNo like '%".$searchValue."%' or Website like '%".$searchValue."%'  or ContactPersonName like '%".$searchValue."%')";
 }
 
 $filter_assignto = "";
@@ -126,7 +126,7 @@ if($UserType == "Center Manager" || $UserType == "Lead Counsellor")
   $filter_center_manager = " AND BranchID = $BranchID";
 }
 
-$filter = " where IsActive = 1 and Status = 'Not Action Taken'";
+$filter = " where IsActive = 1 and Status = 'No Action Taken'";
 
 $filter = $filter.$searchQuery.$fillter_center.$filter_start_date.$filter_end_date.$fillter_date.$fillter_status.$fillter_lead_source.$filter_assignto.$fillter_assign.$filter_center_manager;
 // echo $filter;

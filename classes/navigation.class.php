@@ -102,6 +102,7 @@ class Navigation extends Core
 		$_Nav_Telecaller_Leads = false;
 		$_Nav_Mentorships = false;
 		$_Nav_Login_History = false;
+		$_Nav_Logs =  false;
 	}
 	public function setNavigation($role)
 	{
@@ -211,6 +212,8 @@ class Navigation extends Core
 				$this->_Nav_Telecaller_Leads = true;
 			if(in_array("_Nav_Mentorships",$temp_nav_array))
 				$this->_Nav_Mentorships = true;
+			if(in_array("_Nav_Logs",$temp_nav_array))
+				$this->_Nav_Logs = true;
 
 		}
 	}

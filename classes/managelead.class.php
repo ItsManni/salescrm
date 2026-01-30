@@ -146,6 +146,32 @@ class ManageLead extends Core
 				$sql_history = "INSERT INTO lead_assignment_history (LeadID, AssignedTo, Status, Remark, CreatedDate, CreatedTime, CreatedBy)
 								VALUES ('$last_insert_id', '$AssignedTo', '$Status', 'Lead Created', '$CreatedDate', '$CreatedTime', '$CreatedBy')";
 				$response_history = $this->_InsertTableRecords($this->conn, $sql_history);
+
+
+				$where = " where 1";
+				$user_array_temp = $this->_getTableRecords($this->conn,'user_details',$where);
+				$user_array = array();
+				$user_array2 = array();
+				foreach($user_array_temp as $user)
+				{
+					$UserID = $user['ID'];
+					$User_email = $user['Email'];
+					$user_array[$UserID] = $user['Name'];
+					$user_array2[$UserID] = $user['Email'];
+				}
+
+
+				$mail_data['LeadID'] = $last_insert_id;
+				$mail_data['CompanyName']= $CompanyName;
+				$mail_data['AssignedTo']= $user_array[$AssignedTo];
+				$mail_data['AssignedEmail']= $user_array2[$AssignedTo];
+				$mail_data['LeadSource']= $LeadSource;
+				$mail_data['Status']= $Status;
+
+
+				$URL = "https://digidir.in/comdrdigi/mail-api/lead-notification-api.php";
+				$this->sendMailRequest($mail_data,$URL);
+
 			} else {
 				$this->WriteLog($response_insert_lead_details['message']);
 			}
@@ -408,6 +434,30 @@ class ManageLead extends Core
 
 			$sql = "INSERT INTO lead_assignment_history(LeadID,AssignedTo,Status,Remark,CreatedDate,CreatedTime,CreatedBy) VALUES ('$LeadID','$AssignedTo','$LeadStatus','$LeadRemark','$CreatedDate','$CreatedTime','$CreatedBy')";
 			$response_insert_remark_details = $this->_InsertTableRecords($this->conn,$sql);
+
+			// $where = " where 1";
+			// $user_array_temp = $core->_getTableRecords($conn,'user_details',$where);
+			// $user_array = array();
+			// $user_array2 = array();
+			// foreach($user_array_temp as $user)
+			// {
+			// 	$UserID = $user['ID'];
+			// 	$User_email = $user['Email'];
+			// 	$user_array[$UserID] = $user['Name'];
+			// 	$user_array2[$User_email] = $user['Name'];
+			// }
+
+
+			// $mail_data['LeadID'] = $last_insert_id;
+			// $mail_data['CompanyName']= $CompanyName;
+			// $mail_data['AssignedTo']= $user_array[$AssignedTo];
+			// $mail_data['AssignedEmail']= $user_array2[$AssignedEmail];
+			// $mail_data['LeadSource']= $LeadSource;
+			// $mail_data['Status']= $Status;
+
+
+			// $URL = "https://digidir.in/comdrdigi/mail-api/lead-notification-api.php";
+			// $this->sendMailRequest($mail_data,$URL);
         }
         return $response_lead_assignment;
 	}
