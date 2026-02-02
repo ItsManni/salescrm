@@ -1,4 +1,6 @@
 <?php
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 	@session_start();
 	require_once('../../include/autoloader.inc.php');
 	$dbh = new Dbh();
@@ -11,7 +13,7 @@
 		$ManageLead = new ManageLead($conn);
 		$data = $_POST;
 		$data['CreatedBy'] = $_SESSION['pp_email'];
-		
+
 	    $response = $ManageLead->UpdateLeadAssignment($data);
 	    $response['error'] = false;
 	    $response['message'] = "Lead Status Updated !";

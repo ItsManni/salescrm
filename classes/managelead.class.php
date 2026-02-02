@@ -415,7 +415,7 @@ class ManageLead extends Core
 		$AssignedTo = $data['UserName'];
 
 		$LeadStatus = $data['LeadStatus'];
-		$LeadRemark = $data['LeadRemark'];
+		$LeadRemark = $this->cleantext($data['LeadRemark']);
 		$LeadID = $data['LeadID'];
 
 		$CreatedDate = date('Y-m-d');
@@ -436,7 +436,7 @@ class ManageLead extends Core
 			$response_insert_remark_details = $this->_InsertTableRecords($this->conn,$sql);
 
 			// $where = " where 1";
-			// $user_array_temp = $core->_getTableRecords($conn,'user_details',$where);
+			// $user_array_temp = $this->_getTableRecords($this->conn,'user_details',$where);
 			// $user_array = array();
 			// $user_array2 = array();
 			// foreach($user_array_temp as $user)
@@ -444,20 +444,22 @@ class ManageLead extends Core
 			// 	$UserID = $user['ID'];
 			// 	$User_email = $user['Email'];
 			// 	$user_array[$UserID] = $user['Name'];
-			// 	$user_array2[$User_email] = $user['Name'];
+			// 	$user_array2[$UserID] = $user['Email'];
 			// }
 
+			// $lead_details = $this->GetLeadsDetailsByID($LeadID);
 
-			// $mail_data['LeadID'] = $last_insert_id;
-			// $mail_data['CompanyName']= $CompanyName;
+			// $mail_data['LeadID'] = $LeadID;
+			// $mail_data['CompanyName']= $lead_details['CompanyName'];
 			// $mail_data['AssignedTo']= $user_array[$AssignedTo];
-			// $mail_data['AssignedEmail']= $user_array2[$AssignedEmail];
-			// $mail_data['LeadSource']= $LeadSource;
-			// $mail_data['Status']= $Status;
+			// $mail_data['AssignedEmail']= $user_array2[$AssignedTo];
+			// $mail_data['LeadSource']= $LeadStatus;
+			// $mail_data['Status']= $LeadStatus;
 
 
 			// $URL = "https://digidir.in/comdrdigi/mail-api/lead-notification-api.php";
 			// $this->sendMailRequest($mail_data,$URL);
+
         }
         return $response_lead_assignment;
 	}
@@ -514,7 +516,7 @@ class ManageLead extends Core
 
 	public function AddLeadRemarkData($data){
 		$LeadID = $data['LeadID'];
-		$leadremark = $data['lead_remark'];
+		$leadremark = $this->cleantext($data['lead_remark']);
 
 		$CreatedDate = date('Y-m-d');
 		$CreatedTime = date('H:i:s');

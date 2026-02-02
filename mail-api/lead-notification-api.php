@@ -68,7 +68,7 @@ $Link= "";
 $Action =  "";*/
 
 
-$mail->Subject  = 'New Lead Assigned - Sales CRM';
+$mail->Subject  = "New Lead Assigned [ DD-$LeadID ]";
 
 $mail->Body = "<div style='background-color:#fbfbfc;margin:0'>
         <font color='#888888'>
@@ -149,18 +149,9 @@ $mail->Body = "<div style='background-color:#fbfbfc;margin:0'>
 
                             </tr>
 
-                            <br>
-
-
                             <tr>
 
-                            <td height='18' style='line-height:1px;font-size:1px'>&nbsp;</td>
-
-                            </tr>
-
-                            <tr>
-
-                            <td style='vertical-align:bottom'><span style='font-family:'open sans','arial','verdana',sans-serif;font-size:16px;color:#444e61'><b>Your ID Card :</b> <br> <br>LeadID  : $LeadID <br>Company Name  : $CompanyName <br>Status  : $Status
+                            <td style='vertical-align:bottom'><span style='font-family:'open sans','arial','verdana',sans-serif;font-size:16px;color:#444e61'><b>Your ID Card :</b> <br> <br>LeadID  : DD-$LeadID <br>Company Name  : $CompanyName <br>Status  : $Status
 
                             </span></td>
 
@@ -182,7 +173,7 @@ $mail->Body = "<div style='background-color:#fbfbfc;margin:0'>
 
                             <tr>
 
-                            <td><span style='font-family:'open sans','arial','verdana',sans-serif;font-size:18px;color:#20252e;font-weight:bold'>Team Sales CRM - DigiDir</span></td>
+                            <td><span style='font-family:'open sans','arial','verdana',sans-serif;font-size:18px;color:#20252e;font-weight:bold'>Sales CRM - DigiDir</span></td>
 
                             </tr>
 

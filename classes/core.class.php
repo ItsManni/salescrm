@@ -298,25 +298,33 @@ class Core
 		}
 		return $array_temp;
 	}
-	public function sendMailRequest($postdata,$url)
+	public function sendMailRequest($postdata, $url)
 	{
-		//$url = $this->getURL();
-		$postdata = json_encode($postdata);
-		$resource = $url;
-		$ch = curl_init($resource);
-		curl_setopt($ch, CURLOPT_URL, $resource);
-		curl_setopt($ch, CURLOPT_POST, TRUE);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-		curl_setopt($ch, CURLOPT_USERAGENT, 'api');
-		curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch,  CURLOPT_RETURNTRANSFER, false);
-		curl_setopt($ch, CURLOPT_FORBID_REUSE, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
-		curl_setopt($ch, CURLOPT_DNS_CACHE_TIMEOUT, 10);
-		curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
-		curl_exec($ch);
+		$payload = json_encode($postdata);
+
+		$ch = curl_init($url);
+		curl_setopt_array($ch, [
+			CURLOPT_POST            => true,
+			CURLOPT_POSTFIELDS      => $payload,
+			CURLOPT_HTTPHEADER      => [
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen($payload)
+			],
+			CURLOPT_RETURNTRANSFER  => true,   // IMPORTANT
+			CURLOPT_TIMEOUT         => 30,      // IMPORTANT
+			CURLOPT_CONNECTTIMEOUT  => 10,
+			CURLOPT_SSL_VERIFYPEER  => false,
+			CURLOPT_SSL_VERIFYHOST  => false
+		]);
+
+		$response = curl_exec($ch);
+
+		if ($response === false) {
+			error_log('CURL ERROR: ' . curl_error($ch));
+		}
+
 		curl_close($ch);
+		return $response;
 	}
 
 	public function formatIndianNumber($number) {
