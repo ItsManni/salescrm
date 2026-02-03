@@ -3,7 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 header('Access-Control-Allow-Origin: *');
-// header("Access-Control-Allow-Credentials: true");
 header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Content-Range, Content-Disposition,application/json, Content-Description,Origin, X-Requested-With, Accept');
 $data_raw = file_get_contents('php://input');
@@ -12,8 +11,7 @@ $data = json_decode($data_raw,true);
 require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
-// include('techxpert/techxpert-mail-config.php');
-// $mail->Subject  = 'TechXpert Store : Forgot Password';
+
 $myfile = fopen("newlog.txt", "a") or die("Unable to open file!");
 // $email_action = 0;
 function WriteLog($txt)
@@ -24,48 +22,25 @@ function WriteLog($txt)
 WriteLog($data_raw);
 
 $mail = new PHPMailer\PHPMailer\PHPMailer();
-$mail->isSMTP();                      // Set mailer to use SMTP
+$mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
-//$mail->Host = 'mail.novologic.co';  // Specify main and backup SMTP servers
-$mail->SMTPAuth = true;                               // Enable SMTP authentication
-//$mail->Username = 'contact@webomates.com';          // SMTP info@cyphertextsolutions.com username
-//$mail->Password = 'kecghqngbmqizlqj';                           // SMTP password
-$mail->Username = 'tech@digidir.com';          // SMTP info@cyphertextsolutions.com username
+$mail->SMTPAuth = true;
+$mail->Username = 'tech@digidir.com';
 $mail->Password = 'fucbiqlaqxhanxyw';
-//kecghqngbmqizlqj
-//$mail->Password = 'Info@123!';
-$mail->SMTPSecure = 'ssl';                           // Enable TLS encryption, `ssl` also accepted
+$mail->SMTPSecure = 'ssl';
 $mail->Port = 465;
 $mail->From = "tech@digidir.com";
-$mail->FromName = "Sales CRM - DigiDir";                              // TCP port to connect to
+$mail->FromName = "Sales CRM - DigiDir";
 $mail->setFrom('tech@digidir.com', "Sales CRM - DigiDir");
-//$mail->setFrom('info@novologic.co', "Novologic");
 $mail->isHTML(true);
 $mail->CharSet = "UTF-8";
 
-// $OTP= $data['name'];
-// $MobileNumber = $data['MobileNumber'];
 $LeadSource= $data['LeadSource'];
 $AssignedTo = $data['AssignedTo'];
 $Status= $data['Status'];
 $LeadID= $data['LeadID'];
 $CompanyName = $data['CompanyName'];
 $AssignedEmail = $data['AssignedEmail'];
-
-// $Email= '';
-// $Name = '';
-// $IDCard= '';
-
-// $Cordinator_Name= '';
-// $Cordinator_PhoneNumber = '';
-
-
-/*$name= "";
-$Link= "";
-// $MobileNumber = $data['MobileNumber'];
-// $Email= $data['Email'];
-// $DECS= $data['DECS'];
-$Action =  "";*/
 
 
 $mail->Subject  = "New Lead Assigned [ DD-$LeadID ]";
@@ -224,15 +199,15 @@ $mail->Body = "<div style='background-color:#fbfbfc;margin:0'>
         </font></div>";
          $mail->addAddress($AssignedEmail);
         $mail->addBCC("manish.sharma@digidir.com");
-
+        $mail->addBCC("saurabh@digidir.com");
 
 
 if(!$mail->send())
 {
-	echo "error";
+	// echo "error";
 }
 else
 {
-	echo "Mail Sent";
+	// echo "Mail Sent";
 }
 ?>
