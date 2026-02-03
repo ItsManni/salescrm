@@ -1,6 +1,6 @@
 <!-- start add modal  -->
 
-<div class="modal fade" id="add_lead_form_modal" tabindex="1">
+<div class="modal fade" id="add_lead_form_modal" tabindex="-1">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
@@ -242,7 +242,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Country </label>
                                                     <select class="select2 form-control select2-show-search"
-                                                        name="Country" id="Country" style='width:100%;'>
+                                                        name="Country" id="Country" style='width:100%;' onchange="loadStates(this.value)">
                                                         <option value="">Select Country</option>
 
                                                     </select>
@@ -499,49 +499,3 @@
 </div>
 
 <!-- End End modal  -->
-
-<script>
-const countrySelect = document.getElementById("Country");
-const stateSelect = document.getElementById("State");
-let countryData = [];
-
-// Load all countries
-fetch("https://countriesnow.space/api/v0.1/countries/states")
-  .then(res => res.json())
-  .then(data => {
-    countryData = data.data;
-
-    countryData.forEach(c => {
-      const opt = document.createElement("option");
-      opt.value = c.name;
-      opt.textContent = c.name;
-
-      if (c.name === "India") opt.selected = true;
-
-      countrySelect.appendChild(opt);
-    });
-
-    loadStates("India"); // default India
-  });
-
-// Load states
-function loadStates(countryName) {
-  stateSelect.innerHTML = "<option>Select State</option>";
-
-  const selectedCountry = countryData.find(c => c.name === countryName);
-
-  if (!selectedCountry) return;
-
-  selectedCountry.states.forEach(s => {
-    const opt = document.createElement("option");
-    opt.value = s.name;
-    opt.textContent = s.name;
-    stateSelect.appendChild(opt);
-  });
-}
-
-// On country change
-countrySelect.addEventListener("change", function () {
-  loadStates(this.value);
-});
-</script>

@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 @session_start();
 require_once('../include/autoloader.inc.php');
 $conf = new Conf();
@@ -35,14 +37,6 @@ $_LeadName = $conf->_LeadName;
     $Lead_remarks_arr = $ManageLead->GetAllLeadRemarks($conn,$LeadID);
     $Lead_histroy_arr = $ManageLead->GetAllLeadAssignmentHistory($conn,$LeadID);
 
-    $where = " where 1";
-    $courses_array_temp = $core->_getTableRecords($conn,'courses_for_display',$where);
-    $courses_array = array();
-    foreach($courses_array_temp as $course)
-    {
-        $CourseID = $course['ID'];
-        $courses_array[$CourseID] = $course['CourseName'];
-    }
 
     $where = " where 1";
     $user_array_temp = $core->_getTableRecords($conn,'user_details',$where);

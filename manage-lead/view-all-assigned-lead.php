@@ -366,6 +366,44 @@ $_ProductLogo = $conf->_ProductLogo;
             initPhone("#ContactPersonAlternativeNo", "#secondary_country_code");
 
         </script>
+        <script>
+        let countryData = [];
+
+        fetch("https://countriesnow.space/api/v0.1/countries/states")
+        .then(res => res.json())
+        .then(result => {
+            countryData = result.data;
+
+            const countrySelect = document.getElementById("Country");
+
+            countryData.forEach(c => {
+            const opt = document.createElement("option");
+            opt.value = c.name;
+            opt.textContent = c.name;
+            countrySelect.appendChild(opt);
+            });
+
+            // default India
+            countrySelect.value = "India";
+            loadStates("India");
+        });
+
+        function loadStates(countryName) {
+        const stateSelect = document.getElementById("State");
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+
+        const country = countryData.find(c => c.name === countryName);
+        if (!country || !country.states) return;
+
+        country.states.forEach(s => {
+            const opt = document.createElement("option");
+            opt.value = s.name;
+            opt.textContent = s.name;
+            stateSelect.appendChild(opt);
+        });
+        }
+
+        </script>
 </body>
 
 </html>

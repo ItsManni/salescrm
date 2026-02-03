@@ -284,6 +284,22 @@ function OpenModal_AddLead() {
     dropdownParent: $("#add_lead_form_modal")
   });
 
+  $("#Country").select2({
+    placeholder: "Select Country"
+  });
+  $("#Country").select2("val", "");
+  $("#Country").select2({
+    dropdownParent: $("#add_lead_form_modal")
+  });
+
+  $("#State").select2({
+    placeholder: "Select State"
+  });
+  $("#State").select2("val", "");
+  $("#State").select2({
+    dropdownParent: $("#add_lead_form_modal")
+  });
+
   $("#add_lead_form_modal").modal("show");
   $("#lead_form_btn").html("Add");
   $("#AddLeadHeading").html("Add Lead");
