@@ -134,6 +134,60 @@ class IMSSetting extends Core
 		$response = $this->_UpdateTableRecords($this->conn,'lead_source',$update_sql);
 		return $response;
 	}
+
+	public function GetLeadSourceVsConversion()
+	{
+		// 1. Get all final lead status NAMES
+		$status_where = " WHERE IsActive = 1 AND FinalStatus = 1";
+		$final_status_rows = $this->_getTableRecords($this->conn, 'lead_status', $status_where);
+
+		$finalStatusNames = [];
+		foreach ($final_status_rows as $row) {
+			$finalStatusNames[] = $row['Status']; // STATUS NAME
+		}
+
+		// 2. Get all active leads
+		$lead_where = " WHERE IsActive = 1";
+		$leads = $this->_getTableRecords($this->conn, 'all_lead', $lead_where);
+
+		$analytics = [];
+
+		// 3. Process leads
+		foreach ($leads as $lead) {
+
+			$source = trim($lead['LeadSource']);
+			$status = trim($lead['Status']);
+
+			if ($source == '') {
+				continue;
+			}
+
+			if (!isset($analytics[$source])) {
+				$analytics[$source] = [
+					'lead_source' => $source,
+					'total_leads' => 0,
+					'converted_leads' => 0,
+					'conversion_percentage' => 0
+				];
+			}
+
+			$analytics[$source]['total_leads']++;
+
+			if (in_array($status, $finalStatusNames)) {
+				$analytics[$source]['converted_leads']++;
+			}
+		}
+
+		// 4. Calculate conversion %
+		foreach ($analytics as &$row) {
+			$row['conversion_percentage'] = $row['total_leads'] > 0
+				? round(($row['converted_leads'] / $row['total_leads']) * 100, 2)
+				: 0;
+		}
+
+		return array_values($analytics);
+	}
+
 	public function GetFinalLeadStatus()
 	{
 		$FinalStatus = "";

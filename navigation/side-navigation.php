@@ -91,7 +91,7 @@
                             ?>
 
                                 <li class="slide">
-                                    <a class="side-menu__item" id="nav_manage_lead" data-bs-toggle="slide" href="../manage-lead/view_lead_analytics"><i class="side-menu__icon fa fa-money"></i><span class="side-menu__label">Lead Analytics</span></a>
+                                    <a class="side-menu__item" id="nav_lead_analytics" data-bs-toggle="slide" href="../manage-lead/view_lead_analytics"><i class="side-menu__icon fa fa-money"></i><span class="side-menu__label">Lead Analytics</span></a>
                                 </li>
 
                             <?php

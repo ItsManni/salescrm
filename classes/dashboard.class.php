@@ -28,17 +28,17 @@ class Dashboard extends Core
 		$stats['AllServices'] = $this->_getTotalRows($this->conn,'services', $filter);
 
 		// Get Telecaller Leads Count
-		$filter = " where FinalStatus = 1";
-		$response_final_status = $this->_getTableDetails($this->conn,'telecaller_lead_status',$filter);
-		$filter_telecaller_final_status = "";
-		if($response_final_status != NULL)
-		{
-			$FinalStatus = $response_final_status['Status'];
-			if($FinalStatus != "")
-			{
-				$filter_telecaller_final_status = " AND Status != '$FinalStatus'";
-			}
-		}
+		// $filter = " where FinalStatus = 1";
+		// $response_final_status = $this->_getTableDetails($this->conn,'telecaller_lead_status',$filter);
+		// $filter_telecaller_final_status = "";
+		// if($response_final_status != NULL)
+		// {
+		// 	$FinalStatus = $response_final_status['Status'];
+		// 	if($FinalStatus != "")
+		// 	{
+		// 		$filter_telecaller_final_status = " AND Status != '$FinalStatus'";
+		// 	}
+		// }
 		// $filter = " where IsActive = 1".$filter_branch.$filter_telecaller_final_status;
 		// $stats['TotalTelecallerLeads'] = $this->_getTotalRows($this->conn,'telecaller_leads', $filter);
 

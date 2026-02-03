@@ -77,6 +77,7 @@ $_ProductLogo = $conf->_ProductLogo;
     $conn = $dbh->_connectodb();
     $authentication = new Authentication($conn);
     $UserType = $authentication->SessionCheck();
+    $IMSSetting = new IMSSetting($conn);
     $BranchID = -1;
      if(isset($_SESSION['BranchID']))
     {
@@ -87,6 +88,17 @@ $_ProductLogo = $conf->_ProductLogo;
         $BranchID = $_GET['center'];
     }
 
+
+    $leadSourceAnalytics = $IMSSetting->GetLeadSourceVsConversion();
+    $analyticsObj = new LeadAnalytics($conn);
+
+
+    $bdePerformance = $analyticsObj->GetBDEPerformanceDetailed();
+    // Calculate total summary
+    $totalLeadsAll = array_sum(array_column($bdePerformance,'total_leads'));
+    $convertedAll = array_sum(array_column($bdePerformance,'converted_leads'));
+    $followupsAll = array_sum(array_column($bdePerformance,'followups'));
+    $reassignAll = array_sum(array_column($bdePerformance,'reassignments'));
     ?>
 
 </head>
@@ -117,35 +129,7 @@ $_ProductLogo = $conf->_ProductLogo;
                                     </ol>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-7 col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Leads (Last 7 days)</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="chart-container">
-                                                <canvas id="leadChart" class="h-275" width="722" height="275" style="display: block; box-sizing: border-box; height: 275px; width: 722px;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Lead Status</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="chart-container">
-                                                <canvas id="leadStatusChart" class="h-275" width="722" height="275" style="display: block; box-sizing: border-box; height: 275px; width: 722px;"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <?php
-                            $IMSSetting = new IMSSetting($conn);
                             $all_lead_status = $IMSSetting->GetAllLeadStatus();
                             $default_status = "";
                             $final_status = "";
@@ -205,7 +189,37 @@ $_ProductLogo = $conf->_ProductLogo;
 
 
                             ?>
-                            <div class="row">
+
+                            <div class='bg-white p-4' style="width:100%; margin:auto; text-align:center;">
+                                <h2>BDE Performance & Activity Dashboard</h2>
+
+                                <!-- KPI Cards -->
+                                <div style="display:flex; justify-content:space-around; margin:20px 0;">
+                                    <div style="background:#36A2EB; color:white; padding:20px; border-radius:10px; width:20%;">
+                                        <h4>Total Leads</h4>
+                                        <h2><?php echo $totalLeadsAll; ?></h2>
+                                    </div>
+                                    <div style="background:#4BC0C0; color:white; padding:20px; border-radius:10px; width:20%;">
+                                        <h4>Converted Leads</h4>
+                                        <h2><?php echo $convertedAll; ?></h2>
+                                    </div>
+                                    <div style="background:#FFCE56; color:white; padding:20px; border-radius:10px; width:20%;">
+                                        <h4>Follow-ups Done</h4>
+                                        <h2><?php echo $followupsAll; ?></h2>
+                                    </div>
+                                    <div style="background:#FF6384; color:white; padding:20px; border-radius:10px; width:20%;">
+                                        <h4>Reassignments</h4>
+                                        <h2><?php echo $reassignAll; ?></h2>
+                                    </div>
+                                </div>
+
+                                <!-- Stacked Bar Chart -->
+                                <div style="margin-top:40px;">
+                                    <canvas id="bdeChart" style="height:400px;"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- <div class="row">
                                 <div class="col-xl-12">
                                     <div class="card">
                                         <div class="card-header">
@@ -264,6 +278,180 @@ $_ProductLogo = $conf->_ProductLogo;
                                         </div>
                                     </div>
                                 </div>
+                            </div> -->
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover text-nowrap">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Total Leads</th>
+
+                                            <?php if ($default_status != "") { ?>
+                                                <th><?= $default_status ?></th>
+                                            <?php } ?>
+
+                                            <?php if ($not_interested_status != "") { ?>
+                                                <th><?= $not_interested_status ?></th>
+                                            <?php } ?>
+
+                                            <?php if ($final_status != "") { ?>
+                                                <th><?= $final_status ?></th>
+                                            <?php } ?>
+
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php foreach ($counsellor_display_status as $CounsellorID => $data) {
+
+                                            // Calculate total leads
+                                            $total_leads = 0;
+                                            foreach ($data as $key => $value) {
+                                                if ($key !== 'Name') {
+                                                    $total_leads += (int)$value;
+                                                }
+                                            }
+                                        ?>
+                                            <tr>
+                                                <td class="bg-white"><?= $data['Name'] ?></td>
+                                                <td class="bg-white"><strong><?= $total_leads ?></strong></td>
+
+                                                <?php if ($default_status != "") { ?>
+                                                    <td class="bg-white"><?= $data[$default_status] ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($not_interested_status != "") { ?>
+                                                    <td class="bg-white"><?= $data[$not_interested_status] ?></td>
+                                                <?php } ?>
+
+                                                <?php if ($final_status != "") { ?>
+                                                    <td class="bg-white"><?= $data[$final_status] ?></td>
+                                                <?php } ?>
+
+                                                <td class="bg-white">
+                                                    <button class="btn btn-sm btn-outline-primary"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#details<?= $CounsellorID ?>">
+                                                        View
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Collapsible row -->
+                                            <tr class="collapse bg-white" id="details<?= $CounsellorID ?>">
+                                                <td colspan="6">
+                                                    <strong>Other Status Breakdown:</strong>
+                                                    <div class="row mt-2">
+                                                        <?php foreach ($other_status_array as $status) { ?>
+                                                            <div class="col-md-3 mb-2">
+                                                                <?= $status ?> :
+                                                                <strong><?= $data[$status] ?></strong>
+                                                            </div>
+                                                        <?php } ?>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Lead Source vs Conversion</h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Lead Source</th>
+                                                    <th>Total Leads</th>
+                                                    <th>Converted</th>
+                                                    <th>Conversion %</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($leadSourceAnalytics as $row) { ?>
+                                                <tr>
+                                                    <td><?= htmlspecialchars($row['lead_source']) ?></td>
+                                                    <td><?= $row['total_leads'] ?></td>
+                                                    <td><?= $row['converted_leads'] ?></td>
+                                                    <td>
+                                                        <strong><?= $row['conversion_percentage'] ?>%</strong>
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-7 col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Leads (Last 7 days)</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="leadChart" class="h-275" width="722" height="275" style="display: block; box-sizing: border-box; height: 275px; width: 722px;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Lead Status</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="leadStatusChart" class="h-275" width="722" height="275" style="display: block; box-sizing: border-box; height: 275px; width: 722px;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row bg-white">
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">BDE Activity (Last 20)</h3>
+                                    </div>
+                                    <div class="card-body d-block">
+                                        <div class="row">
+                                            <form id="bde_filter_form" class='w-100 col-12'>
+                                                <input type="hidden" name="BranchID" value="1"> <!-- example branch -->
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label for="bdeSelect" class="form-label">Select BDE:</label>
+                                                        <select id="bdeSelect" name="BDEID" class="form-select">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="row">
+                                            <div id="bde_activity_table" class='bg-white col-12'></div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
                             </div>
 
 
@@ -282,11 +470,11 @@ $_ProductLogo = $conf->_ProductLogo;
         include("../include/common-script.php");
         ?>
         <script>
-        $("#dasboard").addClass("open");
-        $("#dasboard").addClass("active");
+        $("#nav_lead_analytics").addClass("active");
 
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="../project-assets/js/analytics.js"></script>
         <script>
           $.post("ajax/get-leads-data.php",
           {
@@ -353,7 +541,34 @@ $_ProductLogo = $conf->_ProductLogo;
                 }
               });
             });
-        </script>
+
+            const bdeLabels = <?php echo json_encode(array_column($bdePerformance,'bde_name')); ?>;
+            const bdeTotal = <?php echo json_encode(array_column($bdePerformance,'total_leads')); ?>;
+            const bdeConverted = <?php echo json_encode(array_column($bdePerformance,'converted_leads')); ?>;
+            const bdeFollowups = <?php echo json_encode(array_column($bdePerformance,'followups')); ?>;
+            const bdeReassign = <?php echo json_encode(array_column($bdePerformance,'reassignments')); ?>;
+
+            new Chart(document.getElementById('bdeChart'), {
+                type: 'bar',
+                data: {
+                    labels: bdeLabels,
+                    datasets: [
+                        { label: 'Converted', data: bdeConverted, backgroundColor: '#4BC0C0' },
+                        { label: 'Follow-ups', data: bdeFollowups, backgroundColor: '#FFCE56' },
+                        { label: 'Reassignments', data: bdeReassign, backgroundColor: '#FF6384' },
+                        { label: 'Remaining Leads',
+                        data: bdeTotal.map((t,i)=> t - bdeConverted[i] - bdeFollowups[i] - bdeReassign[i]),
+                        backgroundColor: '#36A2EB'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'top' } },
+                    scales: { x: { stacked: true }, y: { stacked: true, beginAtZero:true } }
+                }
+            });
+            </script>
 </body>
 
 </html>
