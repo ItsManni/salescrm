@@ -39,10 +39,10 @@
                             $i = 1;
                             foreach($lead_status as $Status_value)
                             {
-                                if($Status_value['Status'] == $FinalStatus)
-                                {
-                                    continue;
-                                }
+                                // if($Status_value['Status'] == $FinalStatus)
+                                // {
+                                //     continue;
+                                // }
                             ?>
                             <option value="<?php echo  $Status_value['Status']?>">
                                 <?php echo  $Status_value['Status']?></option>

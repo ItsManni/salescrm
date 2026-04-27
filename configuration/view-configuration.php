@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
  @session_start();
  require_once('../include/autoloader.inc.php');
  $conf = new Conf();
@@ -22,7 +25,7 @@ $_ProductLogo = $conf->_ProductLogo;
         $core = new Core();
         $all_lead_status = $IMSSetting->GetAllLeadStatus();
         $All_Lead_Sources = $IMSSetting->GetAllLeadSources();
-        $all_telecaller_lead_status = $IMSSetting->GetAllTelecallerLeadStatus();
+        // $all_telecaller_lead_status = $IMSSetting->GetAllTelecallerLeadStatus();
         $All_Services = $IMSSetting->GetAllServices();
         $All_Business_Types  = $IMSSetting->GetAllBusinessTypes();
         $authentication = new Authentication($conn);

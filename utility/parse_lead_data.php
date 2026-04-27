@@ -8,10 +8,10 @@ $dbh  = new Dbh();
 $conn = $dbh->_connectodb();
 
 /* ---------------- CONFIG ---------------- */
-$filename    = 'book_event.csv';
+$filename    = 'naina_meta.csv';
 $Branch      = 1;
-$AssignedTo  = 6;
-$CreatedBy   = 'ujala@digidir.com';
+$AssignedTo  = 5;
+$CreatedBy   = 'naina.gupta@digidir.com';
 $CreatedDate = date('Y-m-d');
 $CreatedTime = date('H:i:s');
 // $Status      = 'New';
@@ -240,7 +240,7 @@ while (($row = fgetcsv($file)) !== false) {
     $SecondDialCode = trim($row[13] ?? '');
     $SecondPhone    = trim($row[14] ?? '');
     $Budget         = trim($row[15] ?? '');
-    $Budget         = trim($row[15] ?? '');
+    // $Budget         = trim($row[15] ?? '');
 
     if ($CompanyName === '' && $Phone === '') continue;  // Skip empty content rows
 

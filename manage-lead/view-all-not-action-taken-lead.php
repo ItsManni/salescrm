@@ -253,6 +253,7 @@ $_ProductLogo = $conf->_ProductLogo;
                 'processing': true,
                 'serverSide': true,
                 'ordering': false,
+                'stateSave': true,
                 'serverMethod': 'post',
                 'ajax': {
                     'url': 'ajax/view-all-not-action-taken-lead_post.php'+param

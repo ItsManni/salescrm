@@ -170,10 +170,10 @@
                                             //         continue;
                                             // }
                                         }
-                                        if($Status_value['Status'] == $FinalStatus)
-                                            {
-                                                continue;
-                                            }
+                                        // if($Status_value['Status'] == $FinalStatus)
+                                        //     {
+                                        //         continue;
+                                        //     }
                                     ?>
                                 <option <?php echo $selected ?> value="<?php echo  $Status_value['Status']?>">
                                     <?php echo  $Status_value['Status']?></option>

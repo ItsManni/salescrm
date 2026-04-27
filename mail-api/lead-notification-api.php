@@ -126,7 +126,7 @@ $mail->Body = "<div style='background-color:#fbfbfc;margin:0'>
 
                             <tr>
 
-                            <td style='vertical-align:bottom'><span style='font-family:'open sans','arial','verdana',sans-serif;font-size:16px;color:#444e61'><b>Your ID Card :</b> <br> <br>LeadID  : DD-$LeadID <br>Company Name  : $CompanyName <br>Status  : $Status
+                            <td style='vertical-align:bottom'><span style='font-family:'open sans','arial','verdana',sans-serif;font-size:16px;color:#444e61'><br><b>Lead Details:</b> <br> <br>LeadID  : DD-$LeadID <br>Company Name  : $CompanyName <br>Status  : $Status
 
                             </span></td>
 
