@@ -7,6 +7,10 @@ function ClearLeadFillter() {
   }, 1500);
 }
 
+function refreshLeadTable() {
+    $("#table-container").load(location.href + " #table-container>*", "");
+}
+
 function initPhone(inputId, hiddenId, storedNumber = "", storedCountryCode = "") {
     var input = document.querySelector(inputId);
 
@@ -465,9 +469,11 @@ function AddLead() {
         $("#add_telecaller_lead_form_modal").modal("hide");
         $("#lead_form_btn").html("Submit");
         $('#lead_form')[0].reset();
-        // setInterval(function () {
-        //   location.reload();
-        // }, 500);
+        if ($.fn.DataTable.isDataTable('#lead_table')) {
+          $('#lead_table').DataTable().ajax.reload(null, false);
+        } else {
+          refreshLeadTable();
+        }
       }
       else {
         $("#lead_form_btn").html("Submit");
@@ -738,6 +744,32 @@ function AddUpdateTelecallerAssignment() {
 }
 
 
+// function AddLeadRemark() {
+
+//   var leadremark_input = $("#leadremark_input").val();
+
+//   if (leadremark_input == "") {
+//     ProductAlert("Please Enter Remark.");
+//     return false;
+//   }
+
+//   $.ajax({
+//     url: "action/add_lead_remark_action.php",
+//     type: "POST",
+//     data: $("#lead_remark_form").serialize(),
+//     success: function (data) {
+//       var response = JSON.parse(data);
+//       ProductAlert(response.message);
+//       if (response.error == false) {
+//         setInterval(function () {
+//           location.reload();
+//         }, 1500);
+//       }
+//     },
+//   });
+//   return false;
+// }
+
 function AddLeadRemark() {
 
   var leadremark_input = $("#leadremark_input").val();
@@ -754,15 +786,36 @@ function AddLeadRemark() {
     success: function (data) {
       var response = JSON.parse(data);
       ProductAlert(response.message);
+
       if (response.error == false) {
-        setInterval(function () {
-          location.reload();
-        }, 1500);
+        // clear the input
+        $("#leadremark_input").val("");
+
+        // reload only the remark section instead of full page reload
+        $("#leadremark_content").load("include/lead_remark.php");
       }
     },
+    error: function () {
+      ProductAlert("Something went wrong. Please try again.");
+    }
   });
+
   return false;
 }
+
+// --- Tab state code ---
+// Save the active tab in localStorage when clicked
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  localStorage.setItem('activeTab', $(e.target).attr('href'));
+});
+
+// Restore the active tab on page load
+$(document).ready(function () {
+  var activeTab = localStorage.getItem('activeTab');
+  if (activeTab) {
+    $('a[href="' + activeTab + '"]').tab('show');
+  }
+});
 
 function AddTelecallerLeadRemark() {
 
@@ -895,4 +948,53 @@ function OpenModal_LeadDetails(LeadID) {
             $("#quick_lead_details_modal").modal("show");
         }
     });
+}
+
+
+function OpenModal_QuickAddRemarks(Lead_ID) {
+  $('#lead_remark_form')[0].reset();
+  $("#Remark_lead_id").val(Lead_ID);
+  $("#quick_add_remark_modal").modal("show");
+  $("#QuickRemarkBtn").html("Update");
+  $("#QuickRemarkHeading").html("Add Remarks");
+}
+
+function AddUpdateQuickRemark() {
+
+  var lead_remark = $("#quick_lead_remark").val();
+
+  if (lead_remark == "") {
+    ProductAlert("Please Enter Remark");
+    return false;
+  }
+
+  $("#QuickRemarkBtn").html("Please Wait..");
+
+  $.ajax({
+    url: "action/quick_add_lead_remark_action.php",
+    type: "POST",
+    data: $("#lead_remark_form").serialize(),
+    success: function (data) {
+      var response = JSON.parse(data);
+      ProductAlert(response.message);
+
+      if (response.error == false) {
+        $("#quick_add_remark_modal").modal("hide");
+        $("#QuickRemarkBtn").html("Update");
+        $('#lead_remark_form')[0].reset();
+
+        if ($.fn.DataTable.isDataTable('#lead_table')) {
+          $('#lead_table').DataTable().ajax.reload(null, false);
+        } else {
+          // If not using DataTables, you can call a custom function to refresh your table
+          refreshLeadTable();
+        }
+
+      } else {
+        $("#QuickRemarkBtn").html("Update");
+      }
+    },
+  });
+
+  return false;
 }

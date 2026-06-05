@@ -17,42 +17,72 @@ class LeadAnalytics extends Core
     private $user_table = 'user_details';
 
     public function GetBDEPerformanceDetailed()
-    {
-        // Step 1: Get all BDEs
-        $bdes = $this->_getTableRecords($this->conn, 'user_details', "WHERE UserType='BDE' AND IsActive=1");
-        $result = [];
+{
+    // Step 1: Get all active BDEs
+    $bdes = $this->_getTableRecords($this->conn, 'user_details', "WHERE UserType='BDE' AND IsActive=1");
+    $result = [];
 
-        foreach($bdes as $bde) {
-            $bdeID = $bde['ID'];
-            $bdeName = $bde['Name'];
-
-            // Total leads assigned to this BDE
-            $totalLeads = $this->_getTableRecords($this->conn, 'all_lead', "WHERE AssignedTo='$bdeID' AND IsActive=1");
-            $totalCount = count($totalLeads);
-
-            // Converted leads
-            $convertedLeads = $this->_getTableRecords($this->conn, 'all_lead', "WHERE AssignedTo='$bdeID' AND Status='Converted' AND IsActive=1");
-            $convertedCount = count($convertedLeads);
-
-            // Follow-ups done (lead_remarks)
-            $followups = $this->_getTableRecords($this->conn, 'lead_remarks', "WHERE CreatedBy='$bdeID' AND IsActive=1");
-            $followupCount = count($followups);
-
-            // Reassignments / status changes (lead_assignment_history)
-            $reassignments = $this->_getTableRecords($this->conn, 'lead_assignment_history', "WHERE AssignedTo='$bdeID'");
-            $reassignCount = count($reassignments);
-
-            $result[] = [
-                'bde_name' => $bdeName,
-                'total_leads' => $totalCount,
-                'converted_leads' => $convertedCount,
-                'followups' => $followupCount,
-                'reassignments' => $reassignCount
-            ];
-        }
-
+    if (empty($bdes)) {
         return $result;
     }
+
+    foreach($bdes as $bde) {
+        $bdeID = $bde['ID'];
+        $bdeName = $bde['Name'];
+
+        // 1. Total leads currently assigned to this BDE
+        $totalLeads = $this->_getTableRecords($this->conn, 'all_lead', "WHERE AssignedTo='$bdeID' AND IsActive=1");
+        $totalCount = count($totalLeads);
+
+        // 2. Converted leads
+        $convertedLeads = $this->_getTableRecords($this->conn, 'all_lead', "WHERE AssignedTo='$bdeID' AND Status='Converted' AND IsActive=1");
+        $convertedCount = count($convertedLeads);
+
+        // 3. Follow-up leads
+        $followupLeads = $this->_getTableRecords($this->conn, 'all_lead', "WHERE AssignedTo='$bdeID' AND Status='Follow-up' AND IsActive=1");
+        $followupCount = count($followupLeads);
+
+        // 4. FIX: Reassignments (Ignoring the very first assignment of the lead)
+        $history = $this->_getTableRecords($this->conn, 'lead_assignment_history', "WHERE AssignedTo='$bdeID' ORDER BY ID ASC");
+
+        $reassignCount = 0;
+        $trackedTransfers = [];
+
+        foreach ($history as $entry) {
+            $leadID = $entry['LeadID'];
+
+            // Skip if we already processed this unique lead for this BDE
+            if (in_array($leadID, $trackedTransfers)) {
+                continue;
+            }
+
+            $trackedTransfers[] = $leadID;
+
+            // Check the global absolute first log entry for this specific Lead ID
+            $firstAssignment = $this->_getTableRecords($this->conn, 'lead_assignment_history', "WHERE LeadID='$leadID' ORDER BY ID ASC LIMIT 1");
+
+            if (!empty($firstAssignment)) {
+                // If this current BDE was the one who got it on entry #1, ignore it!
+                if ($firstAssignment[0]['AssignedTo'] == $bdeID) {
+                    continue;
+                }
+            }
+
+            // If it passes the check, it means someone else had it first. Count it!
+            $reassignCount++;
+        }
+
+        $result[] = [
+            'bde_name' => $bdeName,
+            'total_leads' => $totalCount,
+            'converted_leads' => $convertedCount,
+            'followups' => $followupCount,
+            'reassignments' => $reassignCount
+        ];
+    }
+
+    return $result;
+}
 
 
     public function GetLast10BDELeads()

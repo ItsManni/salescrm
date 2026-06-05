@@ -6,65 +6,77 @@ $dbh = new Dbh();
 $conn = $dbh->_connectodb();
 $analyticsObj = new LeadAnalytics($conn);
 
-$BDEID = $_POST['BDEID'] ?? '';
+// Sanitize inputs
+$BDEID      = isset($_POST['BDEID']) ? mysqli_real_escape_string($conn, $_POST['BDEID']) : '';
+$startDate  = isset($_POST['filter_start_date']) ? mysqli_real_escape_string($conn, $_POST['filter_start_date']) : '';
+$endDate    = isset($_POST['filter_end_date']) ? mysqli_real_escape_string($conn, $_POST['filter_end_date']) : '';
 
 if (empty($BDEID)) {
-    echo "<p class='text-center text-danger'>Please select a BDE</p>";
+    echo "<p class='text-center text-danger my-4 fw-bold'>Please select a BDE</p>";
     exit;
 }
 
-// Step 1: Get all leads assigned to this BDE
-$lead_where = " WHERE AssignedTo = '$BDEID' AND IsActive = 1 ORDER BY LeadDate DESC LIMIT 50"; // last 50 leads
-$lead_rows  = $analyticsObj->_getTableRecords($conn, 'all_lead', $lead_where);
-
-// Check if BDE has leads
-if (empty($lead_rows)) {
-    echo "<p class='text-center'>No leads assigned to this BDE</p>";
-    exit;
+// Build the date filter condition dynamically
+$date_condition = "";
+if (!empty($startDate) && !empty($endDate)) {
+    // Wrapping CreatedDate inside DATE() strips out hours/minutes/seconds if it's a DATETIME column
+    $date_condition = " AND DATE(CreatedDate) BETWEEN '$startDate' AND '$endDate'";
 }
 
-// Map LeadID => CompanyName
-$lead_map = [];
-$lead_ids = [];
-foreach ($lead_rows as $lead) {
-    $lead_map[$lead['ID']] = $lead['CompanyName'];
-    $lead_ids[] = $lead['ID'];
-}
+/**
+ * STEP 1: Get latest remarks for the designated BDE
+ */
+$remark_where = " WHERE LeadID IN (SELECT ID FROM all_lead WHERE AssignedTo = '$BDEID')
+                  AND IsActive = 1
+                  {$date_condition}
+                  ORDER BY CreatedDate DESC, CreatedTime DESC
+                  LIMIT 50";
 
-// Step 2: Get last 10 remarks for these leads
-$lead_ids_str = implode(',', $lead_ids);
-$remark_where = " WHERE LeadID IN ($lead_ids_str) AND IsActive = 1 ORDER BY CreatedDate DESC, CreatedTime DESC LIMIT 10";
-$remarks      = $analyticsObj->_getTableRecords($conn, 'lead_remarks', $remark_where);
+$remarks = $analyticsObj->_getTableRecords($conn, 'lead_remarks', $remark_where);
 
-// Step 3: Display table
 if (empty($remarks)) {
-    echo "<p class='text-center'>No remarks found for these leads yet</p>";
+    echo "<p class='text-center text-muted my-4'>No recent activity found for this BDE within the selected date range.</p>";
     exit;
+}
+
+/**
+ * STEP 2: Collect unique Lead IDs to map Company Names
+ */
+$found_lead_ids = array_unique(array_column($remarks, 'LeadID'));
+$ids_string = implode(',', array_map('intval', $found_lead_ids));
+
+$lead_where = " WHERE ID IN ($ids_string)";
+$lead_details = $analyticsObj->_getTableRecords($conn, 'all_lead', $lead_where);
+
+$lead_map = [];
+if (!empty($lead_details)) {
+    foreach ($lead_details as $ld) {
+        $lead_map[$ld['ID']] = $ld['CompanyName'];
+    }
 }
 ?>
 
+<!-- Render Table Layout Grid Back to UI View -->
 <div class="table-responsive">
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
+    <table class="table table-hover align-middle border mb-0">
+        <thead class="table-light">
             <tr>
-                <th class='text-white'>Lead ID</th>
-                <th class='text-white'>Company Name</th>
-                <th class='text-white'>Remark</th>
-                <th class='text-white'>Date</th>
-                <th class='text-white'>Time</th>
+                <th>Lead ID</th>
+                <th>Company Name</th>
+                <th>Remark</th>
+                <th>Date</th>
+                <th>Time</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($remarks as $row): ?>
-                <?php
-                    $companyName = $lead_map[$row['LeadID']] ?? '—';
-                ?>
+                <?php $companyName = $lead_map[$row['LeadID']] ?? 'Unknown'; ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($row['LeadID']); ?></td>
-                    <td><?php echo htmlspecialchars($companyName); ?></td>
-                    <td><?php echo htmlspecialchars($row['Remark']); ?></td>
-                    <td><?php echo htmlspecialchars($row['CreatedDate']); ?></td>
-                    <td><?php echo htmlspecialchars($row['CreatedTime']); ?></td>
+                    <td><span class="fw-bold">#<?php echo htmlspecialchars($row['LeadID']); ?></span></td>
+                    <td><span class="fw-semibold"><?php echo htmlspecialchars($companyName); ?></span></td>
+                    <td><div class="text-wrap" style="max-width: 450px;"><?php echo htmlspecialchars($row['Remark']); ?></div></td>
+                    <td><span class="text-dark"><?php echo htmlspecialchars($row['CreatedDate']); ?></span></td>
+                    <td><small class="text-muted"><?php echo htmlspecialchars($row['CreatedTime']); ?></small></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -164,9 +164,9 @@ $_LeadName = $conf->_LeadName;
                                                             <?php include("include/change-assignment.php"); ?>
                                                         </div>
 
-                                                        <div class="tab-pane" id="leadremark">
-                                                            <?php include("include/lead_remark.php"); ?>
-                                                        </div>
+                                                    <div class="tab-pane" id="leadremark">
+                                                        <?php include("include/lead_remark.php"); ?>
+                                                    </div>
 
                                                         <div class="tab-pane" id="leadhistory">
                                                             <?php include("include/lead_history.php"); ?>

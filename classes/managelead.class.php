@@ -544,6 +544,36 @@ class ManageLead extends Core
 		return $response_insert_remark_details;
 	}
 
+	public function AddQuickLeadRemarkData($data){
+		$LeadID = $data['LeadID'];
+		$leadremark = $this->cleantext($data['QuickLeadRemark']);
+
+		$CreatedDate = date('Y-m-d');
+		$CreatedTime = date('H:i:s');
+		$CreatedBy = $data['CreatedBy'];
+
+		if(isset($data['LeadID'])){
+
+			$sql = "INSERT INTO lead_remarks(LeadID,Remark,CreatedDate,CreatedTime,CreatedBy) VALUES ('$LeadID','$leadremark','$CreatedDate','$CreatedTime','$CreatedBy')";
+			$response_insert_remark_details = $this->_InsertTableRecords($this->conn,$sql);
+
+			$where = " where LeadID = $LeadID ORDER BY CONCAT(CreatedDate, ' ', CreatedTime) DESC LIMIT 1";
+            $lead_assignement_details = $this->_getTableDetails($this->conn, "lead_assignment_history", $where);
+            $AssignedTo = $lead_assignement_details['AssignedTo'];
+			$LeadStatus = $lead_assignement_details['Status'];
+			if($lead_assignement_details){
+
+				$sql = "INSERT INTO lead_assignment_history(LeadID,AssignedTo,Status,Remark,CreatedDate,CreatedTime,CreatedBy) VALUES ('$LeadID','$AssignedTo','$LeadStatus','$leadremark','$CreatedDate','$CreatedTime','$CreatedBy')";
+			    $response_insert_remark_details = $this->_InsertTableRecords($this->conn,$sql);
+			}
+
+
+
+		}
+
+		return $response_insert_remark_details;
+	}
+
 	public function AddTelecallerLeadRemarkData($data){
 		$LeadID = $data['LeadID'];
 		$leadremark = $data['lead_remark'];

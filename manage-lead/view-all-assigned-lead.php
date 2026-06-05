@@ -20,6 +20,7 @@ $_ProductLogo = $conf->_ProductLogo;
             min-width: 300px;
             transition: transform 0.3s, background-color 0.3s;
         }
+
         .lead-card:hover {
             transform: translateY(-10px);
         }
@@ -249,7 +250,7 @@ $_ProductLogo = $conf->_ProductLogo;
             <!--app-content close-->
 
 
-
+        <?php include("form/remark-form.php"); ?>
         <?php include("form/assignment-form.php"); ?>
         <?php include("form/lead-form.php"); ?>
 

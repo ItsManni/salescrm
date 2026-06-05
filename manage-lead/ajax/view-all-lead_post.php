@@ -250,7 +250,7 @@ foreach ($all_lead_details as $all_lead_details_value)
     "BranchID"=>$BranchID,
     "CompanyName_TypeofBusiness"=>$CompanyName."<br>" .$Business_category,
     "Services"=>$services_list,
-    "ViewDetails"=>"<a href='view-lead-details?LeadID=".$Lead_ID_encrypted."'><span class='badge bg-info badge-sm  me-1 mb-1 mt-1'>View Details</span></a><br><span style='cursor: pointer;' class='badge bg-primary' onclick='OpenModal_QuickChangeAssignment($ID)'>Change Assignment</span><br><span style='cursor: pointer;' class='badge bg-danger' onclick='OpenModal_LeadDetails($ID)'>Quick View</span>",
+    "ViewDetails"=>"<a href='view-lead-details?LeadID=".$Lead_ID_encrypted."'><span class='badge bg-info badge-sm  me-1 mb-1 mt-1'>View Details</span></a><br><span style='cursor: pointer;' class='badge bg-primary' onclick='OpenModal_QuickAddRemarks($ID)'>Add Remarks</span><br><span style='cursor: pointer;' class='badge bg-danger' onclick='OpenModal_LeadDetails($ID)'>Quick View</span>",
     "Status"=>"<span class='badge' style='background-color:$lead_status_array[$Status]'>$Status</span>",
     "AssignedTo"=>$AssignedTo,
     "Action"=>"<a class='btn text-danger btn-sm' data-bs-toggle='tooltip'  onclick='EditManageLead_modal($ID)' data-bs-original-title='Edit'><span class='fe fe-edit fs-14'></span></a>"
