@@ -121,11 +121,11 @@ $_LeadName = $conf->_LeadName;
                         <!-- PAGE-HEADER END -->
 
                         <!-- Row -->
-                        <div class="row pb-5 justify-content-end">
+                        <!-- <div class="row pb-5 justify-content-end">
                             <div class="col-md-4 text-end">
                                 <a href="#" class="btn btn-success">Onboard To Client</a>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="card">

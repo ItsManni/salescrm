@@ -744,32 +744,6 @@ function AddUpdateTelecallerAssignment() {
 }
 
 
-// function AddLeadRemark() {
-
-//   var leadremark_input = $("#leadremark_input").val();
-
-//   if (leadremark_input == "") {
-//     ProductAlert("Please Enter Remark.");
-//     return false;
-//   }
-
-//   $.ajax({
-//     url: "action/add_lead_remark_action.php",
-//     type: "POST",
-//     data: $("#lead_remark_form").serialize(),
-//     success: function (data) {
-//       var response = JSON.parse(data);
-//       ProductAlert(response.message);
-//       if (response.error == false) {
-//         setInterval(function () {
-//           location.reload();
-//         }, 1500);
-//       }
-//     },
-//   });
-//   return false;
-// }
-
 function AddLeadRemark() {
 
   var leadremark_input = $("#leadremark_input").val();
@@ -786,22 +760,48 @@ function AddLeadRemark() {
     success: function (data) {
       var response = JSON.parse(data);
       ProductAlert(response.message);
-
       if (response.error == false) {
-        // clear the input
-        $("#leadremark_input").val("");
-
-        // reload only the remark section instead of full page reload
-        $("#leadremark_content").load("include/lead_remark.php");
+        setInterval(function () {
+          location.reload();
+        }, 1500);
       }
     },
-    error: function () {
-      ProductAlert("Something went wrong. Please try again.");
-    }
   });
-
   return false;
 }
+
+// function AddLeadRemark() {
+
+//   var leadremark_input = $("#leadremark_input").val();
+
+//   if (leadremark_input == "") {
+//     ProductAlert("Please Enter Remark.");
+//     return false;
+//   }
+
+//   $.ajax({
+//     url: "action/add_lead_remark_action.php",
+//     type: "POST",
+//     data: $("#lead_remark_form").serialize(),
+//     success: function (data) {
+//       var response = JSON.parse(data);
+//       ProductAlert(response.message);
+
+//       if (response.error == false) {
+//         // clear the input
+//         $("#leadremark_input").val("");
+
+//         // reload only the remark section instead of full page reload
+//         $("#leadremark_content").load("include/lead_remark.php");
+//       }
+//     },
+//     error: function () {
+//       ProductAlert("Something went wrong. Please try again.");
+//     }
+//   });
+
+//   return false;
+// }
 
 // --- Tab state code ---
 // Save the active tab in localStorage when clicked

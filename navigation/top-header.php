@@ -17,7 +17,7 @@
 <!-- app-Header -->
 <div class="app-header header sticky">
     <div class="container-fluid main-container">
-        <div class="d-flex">
+        <div class="d-flex justify-content-center">
             <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar"
                 href="javascript:void(0)"></a>
             <!-- sidebar-toggle-->
@@ -30,7 +30,8 @@
                 <input type="text" class="form-control" id="typehead" placeholder="Search for results...">
                 <button class="btn px-0 pt-2"><i class="fe fe-search" aria-hidden="true"></i></button>
             </div> -->
-            <?php 
+
+            <?php
             $header_obj = new header();
             $center_filter_display = $header_obj->setHeaderCenterFilter($_SERVER['PHP_SELF'],$UserType);
             $center_filter = "-1";
@@ -66,6 +67,12 @@
             <?php
             }
             ?>
+
+            <div class="">
+                <button type="button" class="btn btn-danger text-white" onclick="history.back()">
+                    Back
+                </button>
+            </div>
 
             <div class="d-flex order-lg-2 ms-auto header-right-icons">
                 <!-- SEARCH -->
@@ -391,7 +398,7 @@
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <div class="drop-heading">
                                         <div class="text-left">
-                                            <?php 
+                                            <?php
                                             $email_top_header = "User";
                                             $top_header_UserType = "User Type";
                                             if(isset($_SESSION['pp_email']))

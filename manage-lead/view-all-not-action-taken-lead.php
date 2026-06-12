@@ -228,7 +228,7 @@ $_ProductLogo = $conf->_ProductLogo;
             </div>
             <!--app-content close-->
 
-
+            <?php include("form/remark-form.php"); ?>
             <?php include("form/assignment-form.php"); ?>
             <?php include("form/lead-form.php"); ?>
             <?php include("modal/modal_lead_info.php"); ?>
