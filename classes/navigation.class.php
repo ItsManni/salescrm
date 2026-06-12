@@ -11,6 +11,7 @@ class Navigation extends Core
 	public $_Nav_Lead_Analytics;
 	public $_Nav_Login_History;
 	public $_Nav_Logs;
+	public $_Nav_BDE_Remarks_Activity;
 
 	public function __construct()
 	{
@@ -24,6 +25,7 @@ class Navigation extends Core
 		$this->_Nav_Lead_Analytics = false;
 		$this->_Nav_Login_History = false;
 		$this->_Nav_Logs = false;
+		$this->_Nav_BDE_Remarks_Activity = false;
 	}
 
 	public function setNavigation($role)
@@ -66,6 +68,9 @@ class Navigation extends Core
 
 		if (in_array("_Nav_Logs", $temp_nav_array))
 			$this->_Nav_Logs = true;
+
+		if (in_array("_Nav_BDE_Remarks_Activity", $temp_nav_array))
+			$this->_Nav_BDE_Remarks_Activity = true;
 	}
 }
 ?>

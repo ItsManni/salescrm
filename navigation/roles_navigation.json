@@ -11,7 +11,8 @@
     "_Nav_Company",
     "_Nav_Lead_Analytics",
     "_Nav_Login_History",
-    "_Nav_Logs"
+    "_Nav_Logs",
+    "_Nav_BDE_Remarks_Activity"
   ],
   "Center Manager": [
     "_Nav_Dashboard_Lead",
@@ -33,6 +34,7 @@
     "_Nav_Company",
     "_Nav_Company_details",
     "_Nav_ManageLead",
-    "_Nav_Company"
+    "_Nav_Company",
+    "_Nav_BDE_Remarks_Activity"
   ]
 }

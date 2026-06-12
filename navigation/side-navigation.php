@@ -73,6 +73,14 @@
                                                             <li><a href="../manage-lead/view-all-assigned-lead" class="slide-item" id="nav_all_lead">All Leads</a></li>
                                                             <li><a href="../manage-lead/view-all-not-action-taken-lead.php" class="slide-item" id="nav_not_action_taken">All Not Action Taken</a></li>
                                                             <li><a href="../manage-lead/view-all-convert-lead" class="slide-item" id="nav_convert">All Converted</a></li>
+                                                             <?php
+                                                            if($navigation->_Nav_BDE_Remarks_Activity)
+                                                            {
+                                                            ?>
+                                                            <li><a href="../manage-lead/view_lead_remarks" class="slide-item" id="view_bde_remark_activity">Remarks Activity</a></li>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         </ul>
                                                 </div>
                                                 </div>

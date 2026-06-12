@@ -182,6 +182,29 @@ class Users extends Core
 		return $center_users;
 	}
 
+	public function getUsersBySession($UserID, $BranchID = -1)
+	{
+		if ($UserID == -1)
+		{
+			// Show all users
+			if ($BranchID != -1)
+			{
+				$filter = " WHERE IsActive = 1 AND BranchID = $BranchID ORDER BY ID DESC";
+			}
+			else
+			{
+				$filter = " WHERE IsActive = 1 ORDER BY ID DESC";
+			}
+		}
+		else
+		{
+			// Show only logged-in user
+			$filter = " WHERE IsActive = 1 AND ID = $UserID LIMIT 1";
+		}
+
+		return $this->_getTableRecords($this->conn, 'user_details', $filter);
+	}
+
 	public function getAllBDEByBranchID($BranchID)
 	{
 		if($BranchID == -1){
